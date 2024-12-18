@@ -1,0 +1,200 @@
+[
+    {
+        "gruppo": "Scarichi",
+        "name": "Confronti YAROT.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": true,
+            "database": true,
+            "file": false,
+            "subCollection": false,
+            "text": true
+        },
+        "templateFile": "",
+        "tooltip": "Esegue lo scarico dei dispositivi di 'YAROT' e li confronta con [SmartScada / DragonFly] dal DB selezionato [quality/produzione]",
+        "viewName": "Confronti YAROT"
+    },
+    {
+        "gruppo": "Card/Impianti",
+        "name": "Creazione card impianti (OLD).py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": true,
+            "file": true,
+            "subCollection": false,
+            "text": false
+        },
+        "templateFile": "Creazione Card & Impianti.xlsx",
+        "tooltip": "Dato in input il file 'Creazione card', crea a sistema:\n- Impianto\n- Gruppi\n- Sotto-Impianti",
+        "viewName": "Creazione CARD & Impianti"
+    },
+    {
+        "gruppo": "Elaborazione",
+        "name": "dragonflyElab.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": true,
+            "file": false,
+            "subCollection": false,
+            "text": true
+        },
+        "templateFile": "",
+        "tooltip": "Esegue lo scarico e l'elaborazine della galleria indicata dal DB selezionato [quality/produzione].\nE' un'operazione molto lenta!",
+        "viewName": "Scarico ed Elaborazione da DragonFly"
+    },
+    {
+        "gruppo": "Elaborazione",
+        "name": "Elaborazione file sorgente  - NON USARE.py",
+        "options": {
+            "disabled": true,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": false,
+            "file": true,
+            "subCollection": false,
+            "text": false
+        },
+        "templateFile": "",
+        "tooltip": "_placeholder_",
+        "viewName": "Elaborazione file sorgente"
+    },
+    {
+        "gruppo": "Elaborazione",
+        "name": "Elaborazione file Profili.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": false,
+            "file": true,
+            "subCollection": false,
+            "text": false
+        },
+        "templateFile": "Creazione profili - colonne essenziali.xlsx",
+        "tooltip": "Dato in input la pseudo-mappa (CONTROLLATA), genera il file dei profili sia nel vecchio formato che nel nuovo = (!rotto!)",
+        "viewName": "Elaborazione file Profili"
+    },
+    {
+        "gruppo": "Card/Impianti",
+        "name": "Posizionamento dispositivi negli impianti (OLD).py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": true,
+            "file": true,
+            "subCollection": false,
+            "text": false
+        },
+        "templateFile": "NOME_GALLERIA device list per posizionamento automatico.xlsx",
+        "tooltip": "Dato in input il file 'NomeGalleria posizionamento automatico': posiziona a sistema i dispositivi nei Sotto-Impianti indicati nel file.",
+        "viewName": "Posizionamento dispositivi negli impianti"
+    },
+    {
+        "gruppo": "Miscelanea",
+        "name": "Unisci file excel.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": false,
+            "file": true,
+            "subCollection": false,
+            "text": true
+        },
+        "templateFile": "",
+        "tooltip": "Esegue l'unione di tutti gli sheet in un unico. \nPuò accettare anche più file in contemporanea.",
+        "viewName": "Unisci file excel"
+    },
+    {
+        "gruppo": "Scarichi",
+        "name": "Scarico automatico da DragonFly.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": true,
+            "file": false,
+            "subCollection": false,
+            "text": true
+        },
+        "templateFile": "",
+        "tooltip": "Esegue lo scarico della galleria indicata dal DB selezionato [quality/produzione].",
+        "viewName": "Scarico galleria da DragonFly"
+    },
+    {
+        "gruppo": "Scarichi",
+        "name": "Scarico profili e device smartscada.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": true,
+            "file": false,
+            "subCollection": true,
+            "text": true
+        },
+        "templateFile": "",
+        "tooltip": "Esegue lo scarico dei [Profili/Dispositivi] di 'SmartScada'",
+        "viewName": "Scarico profili e device smartscada"
+    },
+    {
+        "gruppo": "Miscelanea",
+        "name": "Update Dragonfly.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": true,
+            "file": true,
+            "subCollection": false,
+            "text": false
+        },
+        "templateFile": "",
+        "tooltip": "Update classi allarme / tag_device / widget_device",
+        "viewName": "Update Dragonfly"
+    },
+    {
+        "gruppo": "Elaborazione",
+        "name": "Elaborazione file sorgente.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": false,
+            "file": true,
+            "subCollection": false,
+            "text": false
+        },
+        "templateFile": "",
+        "tooltip": "Elaborazione pseudo-mappa partento dal file sorgente",
+        "viewName": "Elaborazione file sorgente RMT"
+    }
+]

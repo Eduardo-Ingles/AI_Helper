@@ -1,0 +1,13 @@
+
+cd frontend
+
+
+ng serve --host 0.0.0.0 --port 4200
+
+
+ng new newProject
+
+ng generate component newComponent  
+
+
+ng generate component customNavBar --standalone --inline-template

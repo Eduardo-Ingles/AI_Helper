@@ -1,0 +1,62 @@
+<!--div class="search-container">
+	<input
+	  type="text"
+	  [(ngModel)]="searchText"
+	  placeholder="Filtra per gallerie..."
+	  class="search-input"
+	/>
+  
+	<select [(ngModel)]="stateFilter" class="state-select">
+	  <option value="">Filtra per Tipologia</option>
+	  <option *ngFor="let group of gallerie" [value]="group.name">{{ group.name }}</option>
+	</select>
+  </div>
+  
+  <div class="gallerie-list">
+	<div *ngFor="let group of filteredGallerie" class="gallerie-item">
+	  <h3>{{ group.name }}</h3>
+	  <ul>
+		<li *ngFor="let gal of group.gallerie">{{ gal }}</li>
+	  </ul>
+	</div>
+  </div-->
+  
+  <div class="search-container">
+	
+	<!-- Input for partial search in gallerie items -->
+	<input
+	  type="text"
+	  [(ngModel)]="searchText"
+	  (input)="updateSuggestions()"
+	  (blur)="hideSuggestions()"
+	  (focus)="showSuggestions()"
+	  placeholder="Filtra per gallerie o tipologia..."
+	  class="search-input"
+	/>
+  
+	<!-- Suggestions Dropdown -->
+	<ul *ngIf="showSuggestionBox" class="suggestion-box">
+	  <li 
+		*ngFor="let suggestion of filteredSuggestions" 
+		(click)="applySuggestion(suggestion)"
+		class="suggestion-item">
+		{{ suggestion }}
+	  </li>
+	</ul>
+  </div>
+
+
+  <div class="state-select-container" *ngIf="showCategoryBox">
+	<select [(ngModel)]="stateFilter" class="state-select" >
+		<option *ngFor="let group of gallerie" [value]="group.name" >{{ group.name }}</option>
+	  </select>
+  </div>
+  <!--div class="gallerie-list">
+	<div *ngFor="let group of filteredGallerie" class="gallerie-item">
+	  <h3>{{ group.name }}</h3>
+	  <ul>
+		<li *ngFor="let gal of group.gallerie">{{ gal }}</li>
+	  </ul>
+	</div>
+  </div-->
+  

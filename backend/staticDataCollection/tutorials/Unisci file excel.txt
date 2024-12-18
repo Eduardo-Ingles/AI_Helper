@@ -1,0 +1,12 @@
+1. Funzionalità:  
+   - Questo processo unisce tutti gli sheet dei file di input in un unico file di output.
+ 
+2. Specifiche per l’Input:  
+   - Indica nel campo “Nome Galleria” quali sheet devono essere scartati.  
+   - Assicurati che non siano presenti sheet vuoti nei file di input.
+ 
+3. Procedura:  
+   - Tutti gli sheet validi vengono uniti automaticamente in un unico file.  
+   - Gli sheet indicati nel campo “Nome Galleria” vengono esclusi dall’unione.
+ 
+⚠️ Nota: Controlla i file di input per eliminare eventuali sheet vuoti prima di eseguire l’unione.

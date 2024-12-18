@@ -1,0 +1,22 @@
+### Scaricamento Dati per la Galleria Indicata
+ 
+Scegli il DataBase selezionato (Quality o Produzione) e scarica i dati della galleria specificata:
+ 
+- Profili: scarica  
+  - [profili]  
+  - [segnali]  
+  - [classi allarmi]  
+ 
+  Oppure
+ 
+- Dispositivi: scarica  
+  - [device]  
+  - [segnali]  
+  - [registri]  
+ 
+ 
+Nota:  
+Puoi scaricare i dati di più gallerie con dispositivi o profili in comune.  
+Esempio: Angelo,Quirico
+ 
+Caratteri consentiti come divisori: virgola (,), punto e virgola (;), barra (/).

@@ -1,0 +1,94 @@
+
+[ForestManager] è utilizzato per gestire (aggiungere/modificare/eliminare) elementi dal dizionario.
+
+
+Sono visibili alcuni 'cluster'/'super_gruppi' es. Device_Collection, TAG_Collection, miscQuadri_Collection, MeasureTypes_Collection,
+durante la ricerca e normalizzazione dei dati per tipologia [normalizzatore.normalizeByType()] è possible restringere il raggio di ricerca per evitare falsi positivi:
+es. dalla mappa in formato RMT del programmatore, cercando e trovando elementi di 'MeasureTypes_Collection' è molto probabile che il segnale che verrà creato sia una MISURA
+
+Le parole attualmente censite/raggruppate hanno la maggior parte il senale in inglese per la versatilità di assegnare più valori alla stessa parola es. AP - (aperto, aperta, aperti, apertura)
+
+I nodi senza Segnale & Descrizione & Sinonimi sono utilizzati per raggruppare altri nodi con nomi simili o per tipologia simile.
+(generalmente chiamati nodo_COLLECTION siccome _COLLECTION viene rimossa durante la ricerca)
+
+
+
+[Add Node] 
+⠀⠀⠀-> Crea un nuovo nodo, il testo inserito verrà utilizzato sia come 'nome' che come 'id'
+
+[Delete Node] 
+⠀⠀⠀-> Elimina il nodo selezionato 
+
+[Save Connected Nodes] ! Da implementare ulteriormente!
+⠀⠀⠀-> Salva solo i nodi dal 'parent' selezionato
+⠀⠀⠀-> L'idea è di utilizzare/raggruppare segnali e dispositivi per tipologia: es Device: ['INT'], Tag: ['ST', 'ALR', 'CMD'], Signal: ['AP', 'CH', 'RESET', 'SCATT'] 
+⠀⠀⠀⠀⠀⠀così facendo, se nel segnale (sorgente) compare uno degli elementi 'mappati' inizia a ricercare anche gli altri (elimina falsi positivi)
+
+[Load JSON File] 
+⠀⠀⠀-> Forza il caricamento del file 
+
+[Reload]
+⠀⠀⠀-> Ricarica il file eliminando le ultime modifiche (! Edit Node ! salva automaticamente le modifiche eseguite) 
+
+[Save]
+⠀⠀⠀-> Salva le modifiche eseguite
+
+
+[Position Children] -> non funziona
+
+[Add Alias]
+⠀⠀⠀-> Dopo aver abilitato il pulsante cambia colore (verde = selezionato) è possibile trascinare un elemento sopra un altro per aggiungerlo alla 'lista degli alias'
+⠀⠀⠀-> [Sinonimi] contengono *tutti* tutti i riscontrati di parole utilizzate per indicare quel preciso elemento, anche errori otografici es. intterrruttttorrre -> interruttore 
+⠀⠀⠀-> per parole composte es. basta utilizzare lo spazio es. "gruppo elettrogeno"
+
+[Connect Nodes]
+⠀⠀⠀-> Salva le modifiche eseguite
+
+[Edit Node]
+⠀⠀⠀-> Salva le modifiche eseguite
+
+[Remove Connection]
+⠀⠀⠀-> 1) Selezionare il nodo 'padre' da cui si vuole rimuovere un altro nodo 'child', 
+⠀⠀⠀-> 2) Clickare sul pulsante per aprire una finestra di input
+⠀⠀⠀-> 3) Inserire il nome/id del 'nodo' di cui rimuovere il collegamento
+
+
+> "Otherfields" non sono attualmente utilizzati, Si consiglia di implementare logica per gestione per garantire una miglior auto esclusione e generazione di descrizione 'organica' migliore.  
+⠀⠀⠀[Otherfields.genere]
+⠀⠀⠀[Otherfields.grado]
+⠀⠀⠀[Otherfields.opposto]
+⠀⠀⠀[Otherfields.singolare]
+[Sig_descr]
+⠀⠀⠀-> testo che verrà utilizzato nella creazione della descrizione
+[Signal]
+⠀⠀⠀-> testo che verrà utilizzato nella creazione del segnale (importante per normalizzare i dati)
+[Sinonimi]
+⠀⠀⠀-> Lista di tutte le parole / alias rinscontrati per quel elemento
+[Id]
+⠀⠀⠀-> id univoco (uguale a Id)
+[_idname]
+⠀⠀⠀-> id univoco (uguale a _idname)
+
+[Search]: possibile ricercare un nodo/oggetto specifico
+⠀⠀⠀-> 'nome_completo': Cerca esattamente il testo inserito con distinzione tra upper e lower case
+⠀⠀⠀-> 'nome_parziale?': Cerca tutti gli elementi che iniziano con il testo inserito (case insensitive)
+⠀⠀⠀-> 'nome_parziale!': Cerca tutti gli elementi che contengono con il testo inserito (case insensitive)
+
+
+[Max Depth to Display]: quante connessioni / elementi da visualizzare (0 = solo elementi senza alcun collegamento)
+
+[Click destro + trascinamento] -> movimento sul canvas
+[Click sinistro]    
+⠀⠀⠀-> su elemento: seleziona oggetto (con zoom elevato il click seleziona un erroneamente elementi sopra all'elemento desiderato)
+⠀⠀⠀-> su canvas: deseleziona l'oggetto selezionato in precedenda
+
+[Rotellina su/giù] -> zoom dentro/fuori
+
+
+Note:
+⠀⠀⠀-> Esistono 2 collection di dati con gestione particolare:
+⠀⠀⠀ ⠀⠀> _mixedWords_Collection: contiene tutte le parole composte e attaccate tra di loro es. allarmemotopompa, modalitaincendio, minimopressioneolio 
+⠀⠀⠀ ⠀⠀> _junkNames_Collection: contiene tutti i nomi delle gallerie o delle direzioni es. piacenza, maria, trieste
+
+⠀⠀⠀E' consigliato implementare una logica migliore per la gestione dei nodi connessi -> attualmente se si assegnano più nodi 'children' a più di un 'parent', l'elemento 'child' si muove in maniera incontrollata.
+⠀⠀⠀Sono presenti centinaia di parole ancora non censite. 

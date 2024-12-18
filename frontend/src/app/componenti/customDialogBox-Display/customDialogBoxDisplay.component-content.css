@@ -1,0 +1,21 @@
+:host {
+    display: block;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    width: auto;
+    /*max-width: 90%;*/
+    /* animation: custom-dialog-enter 1s ease; */
+    white-space: pre-line;
+}
+  
+@keyframes custom-dialog-enter {
+    from {
+      transform: scale(0) rotate(360deg);
+    }
+    to {
+      transform: none;
+    }
+}
+  
+

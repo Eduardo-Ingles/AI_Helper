@@ -1,0 +1,28 @@
+1. Formato del File di Input:  
+   Il file deve essere `_nome_file_.xlsx` con un foglio chiamato `WIP` o `W.I.P.` o `Profiles`.
+    
+2. Regole per la Colonna `Escludi Profili`: 
+   - Basta aggiungere un carattere per disabilitare l'elaborazione di quella riga
+   
+3. Regole per la Colonna `NewLogica`:  
+   - Logica dei Separatori e dei Simboli:  
+      > Separatori consentiti: `,` `;` `/`  
+      > Simboli di uguaglianza consentiti: `=` `-` `:`  
+
+   - Non inserire parole inutili come “UOM” nella colonna `NewLogica` (esiste già una colonna dedicata: `NewUOM`).
+ 
+4. Gestione di `MIS-ALR` e `ALR-MIS`:  
+   - La creazione dei thresholds per queste combinazioni non è implementata.
+
+
+### Output Generati 
+
+Quando fornisci il file di input:
+ 
+1. Vengono generati i profili in due formati:  
+   - Formato Nuovo  
+   - Formato Vecchio  
+ 
+2. Il file di output chiamato `_Controlli_xxx` potrebbe restituire dei falsi positivi.  
+   - Valuta attentamente i risultati e fai le considerazioni necessarie per verificare l’accuratezza.
+ 

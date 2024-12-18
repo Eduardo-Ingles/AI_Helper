@@ -1,0 +1,82 @@
+<mat-drawer-container class="example-container" id = "example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        
+        
+        
+
+        <mat-grid-list cols="3" rowHeight="2:1">
+            <mat-grid-tile>
+                <div>
+                    <p>Temperatura </p>
+                        @if (showTemperatura) {
+                            <slider-formatting-example></slider-formatting-example>
+                        }
+                    <p>
+                        <button (click)="showTemperatura = !showTemperatura" mat-raised-button>Slider Temperatura</button>
+                    </p>
+                </div>
+            </mat-grid-tile>
+            
+            <mat-grid-tile>
+                <div>
+                    <p>TOP_P </p>
+                        @if (showTop_P) {
+                            <slider-formatting-example></slider-formatting-example>
+                        }
+                    <p>
+                        <button (click)="showTop_P = !showTop_P" mat-raised-button>Slider TOP_P</button>
+                    </p>
+                </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div>
+                    <p>TOP_K </p>
+                        @if (showTop_K) {
+                            <slider-formatting-example></slider-formatting-example>
+                        }
+                    <p>
+                        <button (click)="showTop_K = !showTop_K" mat-raised-button>Slider TOP_K</button>
+                    </p>
+                </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div>
+                    <p>Repeat Penality </p>
+                        @if (showRepeatPenalty) {
+                            <slider-formatting-example></slider-formatting-example>
+                        }
+                    <p>
+                        <button (click)="showRepeatPenalty = !showRepeatPenalty" mat-raised-button>Repeat Penality</button>
+                    </p>
+                </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>                
+                <div>
+                    <p>Auto-resizing sidenav</p>
+                    @if (showSideBar) {
+                        <p>Lorem, ipsum dolor sit amet consectetur.</p>
+                    }
+                    <p>
+                        <button (click)="showSideBar = !showSideBar" mat-raised-button>Toggle extra text</button>
+                    </p>
+                </div>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+          
+        
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()" (click) = "resizeNavArea($event)">Model Settings</button>
+    </div>
+  
+    </mat-drawer-container>
+  
+  
+  <!-- Copyright 2024 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at https://angular.io/license -->

@@ -1,0 +1,56 @@
+.mat-button-toggle{
+    background-color: #ffffff;
+    color: #306cee;
+}
+.mat-button-toggle:hover {
+    background-color: rgba(0, 255, 234, 0.514);
+    color:  #ec2c4c !important;    
+}
+
+.mat-button-toggle-checked {
+    background-color: #5afa6f;
+    color:  #ec2c4c !important;
+}
+
+#mat-button-toggle-container{
+}
+
+
+
+
+/* Style for Quality button */
+.quality-class {
+    background-color: #aa97ff2f; 
+    color: #9e0000; 
+}
+
+
+.quality-class.mat-button-toggle-checked {
+    background-color: #ff0000; /* Red for checked state */
+    color: #ffffff; /* White text */
+}
+
+/* Style for Produzione button */
+.produzione-class {
+    background-color: #aa97ff2f; 
+    color:  #9e0000; 
+}
+
+.produzione-class.mat-button-toggle-checked {
+    background-color: #00ff00; 
+    color: #ffffff; 
+}
+
+::ng-deep .quality-class.mat-button-toggle-checked {
+    background-color: #15ff006c !important; 
+}
+
+::ng-deep .produzione-class.mat-button-toggle-checked {
+    background-color: #15ff006c !important; 
+}
+
+
+.quality-class:hover, .produzione-class:hover {
+    background-color: rgba(255, 251, 0, 0.5);
+    color:  #00ff4c !important;    
+}

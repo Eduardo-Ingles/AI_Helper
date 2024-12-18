@@ -1,0 +1,20 @@
+.file-tree { 
+    list-style-type: none; 
+    padding-left: 15px; 
+}
+.directory-header { 
+    cursor: pointer; 
+    user-select: none; 
+}
+.file { 
+    cursor: pointer; 
+    color: blue; 
+}
+.file:hover { 
+    text-decoration: underline; 
+}
+
+.treeContainer{
+    max-width: auto;
+    min-width: 500px;
+}

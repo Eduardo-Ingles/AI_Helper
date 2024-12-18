@@ -1,0 +1,25 @@
+1. Input: Fornisci il file con il nome nel formato `NOME_GALLERIA device list per posizionamento automatico.xlsx`.  
+   ⚠️ Il nome del file deve iniziare con il nome della galleria su cui vuoi posizionare i dispositivi.
+ 
+2. Campi Utilizzati:  
+ 
+   - `newSubplant`:  
+     Nome del sottoimpianto (deve corrispondere al nome usato nella Creazione CARD & Impianti).  
+     Puoi aggiungere più sottoimpianti separandoli con `,` `;` o `/`.  
+ 
+   - `device`:  
+     Nome del dispositivo caricato nel sistema.
+ 
+   - `hidden`:  
+     Inserisci un carattere qualsiasi per nascondere il dispositivo durante il posizionamento (ad esempio, per interruttori o impianti di illuminazione nei sinottici).
+ 
+3. Colonne Non Utilizzate (Per Futuri Aggiornamenti):  
+ 
+   - `posX_old`: Vecchia posizione su Dragonfly con offset da calcolare per il nuovo sotto impianto.  
+   - `posY_old`: Vecchia posizione su Dragonfly con offset da calcolare per il nuovo sotto impianto.  
+   - `width`: Larghezza del dispositivo.  
+   - `height`: Altezza del dispositivo.  
+ 
+4. Indicazioni Finali:  
+   - Lascia vuote le celle non utilizzate.  
+   - Rimuovi eventuali testi come “ESSENZIALE”, “optional”, o “optional (vuoto = visibile)”.

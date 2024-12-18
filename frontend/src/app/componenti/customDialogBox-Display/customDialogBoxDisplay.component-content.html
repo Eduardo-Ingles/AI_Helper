@@ -1,0 +1,36 @@
+
+<div>
+    <!-- <a href="/backend/downloads/File di riferimento & Esempio/{{exampleFile}}" 
+        target="_blank"
+        download="{{exampleFile}}">
+        File di esempio
+    </a> -->
+
+    <!-- <a href="./backend/downloads/File di riferimento & Esempio/{{exampleFile}}" 
+        target="_blank"
+        download="{{exampleFile}}">
+        File di esempio
+    </a> -->
+    
+
+    <a *ngIf= showLink href="javascript:void(0)"  (click) = "downloadFile(exampleFile)">
+	    <mat-icon>file_copy</mat-icon>
+        {{exampleFile}}
+	</a>
+
+</div>
+
+
+<div>
+    {{tutorialText}}       
+</div>
+
+
+
+
+<div>
+    <button (click)="dialogRef.close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+

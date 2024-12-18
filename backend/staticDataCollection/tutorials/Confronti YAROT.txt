@@ -1,0 +1,7 @@
+Confronta i dispositivi di YAROT con quelli di SmartScada o DragonFly, a seconda del database scelto (Quality o Produzione).
+ 
+- SmartScada: controlla sia l'ID esterno che il nome del dispositivo.  
+- DragonFly: controlla sia il tag del dispositivo che il widget del dispositivo.  
+ 
+Se ci sono più dispositivi condivisi tra due o più gallerie, separa i due nomi con [virgola (,), punto e virgola (;), o barra (/)].  
+Esempio: DERUITATA,SCARGILELLE

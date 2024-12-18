@@ -1,0 +1,58 @@
+[   
+    {
+        "name": "! Creare funzione autocompletamento !"
+    },
+
+    {
+        "name": "default",
+        "utilizzo": "default.txt"
+    },
+    {
+        "name": "Gestione scripts",
+        "utilizzo": "gestioneScripts.txt"
+    },
+    {
+        "name": "Update Dragonfly",
+        "utilizzo": "updateDragonfly.txt"
+    },
+    {
+        "name": "Unisci file excel",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "Scarico profili e device smartscada",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "Scarico automatico da DragonFly",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "Scarico ed Elaborazione da DragonFly",
+        "utilizzo": "dragonflyElab.txt"
+    },
+    {
+        "name": "Posizionamento dispositivi negli impianti (OLD)",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "Elaborazione file sorgente",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "Elaborazione file Profili",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "Creazione card impianti (OLD)",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "Confronti YAROT",
+        "utilizzo": ".txt"
+    },
+    {
+        "name": "",
+        "utilizzo": ".txt"
+    }
+]

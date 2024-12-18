@@ -1,0 +1,728 @@
+{
+    "ALR_Collection": [
+"!--- AIR ---!",
+    "ALR GRADIENT : = ALR-GRADIENTE : Allarme gradiente",
+    "ALR [UNDER UNDRNG] : = ALR-UNDRNG : Allarme under-range",
+    "ALR RANGE [UNDER UNDRNG] : = ALR-UNDRNG : Allarme under-range",
+    "ALR [OVER OVERRANGE] : = ALR-OVERRANGE : Allarme over-range",
+    "ALR RANGE [OVER OVERRANGE] : = ALR-OVERRANGE : Allarme over-range",
+
+
+"!--- FAULT / ERROR ---!",
+    "[ALR ST ERROR] FAULT : = ALR-FAULT : Allarme guasto",
+    "[ALR ST ERROR] FAULT CNTRL : = ALR-FAULT-CNTRL : Allarme guasto centralina && CNTRL",    
+    "[ALR ST ERROR] FAULT [NORD SUD]: = ALR-FAULT-$VARA$ : Allarme guasto $VARA$",
+    "[ALR ST ERROR] FAULT MIS : = ALR-FAULT-MIS : Allarme guasto lettua misura",
+    "[ALR ST ERROR] FAULT MIS [NORD SUD] : = ALR-FAULT-MIS-$VARA$ : Allarme guasto lettua misura $VARA$",
+    "[ALR ERROR] SWITCH : = ALR-SWITCH : Allarme SWITCH in errore",
+    "[ALR ERROR] SWITCH [UDP TCP] : = ALR-ERROR-SWITCH-$VARA$ : Allarme SWITCH $VARA$ in errore",
+    "[ERROR FAULT] : CMD = ALR-FAULT : Allarme guasto",
+    "[ALR ST] ANOM : = ALR-ANOM : Allarme anomalia",
+    "[ALR ST] [FAULT ERROR] COMUNIC : = ALR-FAULT-COMUNIC : Allarme guasto comunicazione",
+    "[ST ALR CNTRL] [ERROR FAULT] CNTRL [CNTRL RIL INCEND FBL LOCAL CAB GALL] : = ALR-FAULT-CNTRL-RIL : Allarme guasto centralina rilevamento incendio && CNTRL RIL",
+    "[ST ALR] [FAULT ERROR KO ALR] COMUNIC : = ALR-COMUNIC : Allarme comunicazione",
+    "[ALR ST] [FAULT ERROR INCEND RIL] NOT REGOL : = ALR-FAULT : Allarme guasto",
+    
+    "CMD ERROR EXEC : = ALR-ERROR-EXEC-CMD : Allarme errore nell'esecuzione dei comandi",
+    "MEX NOT VISIBIL [ANOM ERROR FAULT] : MIS PAR = ALR-MEX-NOT-VISIBIL-FAULT-ANOM : Allarme messaggio non visualizzabile per guasto/anomalia",
+    
+    "[ALR AVARIA] AVARIA [ALIMENT LED TEMP] : INTERN EXTERN = ALR-AVARIA-$VARA$ : Allarme avaria $VARA$",
+    "[ALR AVARIA] AVARIA LINE [INTERN EXTERN] : ALIMENT LED TEMP = ALR-AVARIA-LINE-$VARA$ : Allarme avaria linea $VARA$",
+    "[ALR AVARIA] AVARIA SERIAL [NE NW SE SW] : = ALR-AVARIA-SERIAL-$VARA$ : Allarme avaria seriale $VARA$",
+
+    "[ALR AVARIA] AVARIA SERIAL : = ALR-AVARIA-SERIAL : Allarme avaria seriale && FC",
+    "[ALR AVARIA] AVARIA SERIAL [NORD SUD EST WEST NE NW SE SW] : = ALR-AVARIA-SERIAL-$VARA$ : Allarme avaria seriale $VARA$ && FC",
+
+    "[ALR PANNEL] PANNEL OFF TOUT : = ALR-PANNEL-OFF-TIMEOUT : Allarme pannello spento per timeout connessione && FC",
+
+
+"!--- BATTERIE / UPS /GE ---!",
+    "[ALR ST] [ALR ST IN] [ACTIV START RUN ON MOTO FUNC MARCIA] [UPS GE GROUP] : MIS = ALR-$VARA$-RUN : Allarme $VARA$ in funzione",
+    "[ALR ST] [ALR ST IN] [STOP OFF] [UPS GE] : = ALR-$VARA$-STOP : Allarme $VARA$ in arresto",
+    "[ALR ST] [ALR ST IN] [BATT GE UPS] [LOW MIN EMPTY] : PRESENT ABSENT = ALR-BATT-LOW : Allarme batteria in scarica",
+    "[ALR ST] [GE UPS IN BATT] [OFF STOP] [LOW MIN EMPTY] : PRESENT ABSENT = ALR-BATT-LOW-UPS-OFF : Allarme batteria scarica UPS in spegnimento",
+    "[ALR ST] BATT EMPTY : PRESENT ABSENT = ALR-BATT-EMPTY : Allarme batteria scarica && GE UPS BATT",
+    "[ALR ST] LOAD BATT UPS : = ALR-LOAD-UPS : Allarme carico su batteria && GE UPS BATT",
+    "[ALR ST] [OFF STOP] IMMINENT [IMMINENT GE UPS] : = ALR-OFF-IMMINENT : Allarme spegnimento imminente && GE UPS BATT",
+    "[ALR ST] [OFF STOP] ACTIV : = ALR-OFF-ACTIV : Allarme spegnimento in corso",
+    "[ST ALR] [PRESENT ABSENT MISS] TENS : = ALR-ABSENT-TENS : Allarme assenza tensione",
+    "[ST ALR] FUEL [LOW RESERV EMPTY] : = ALR-FUEL-$VARA$ : Allarme combustibile $VARA$",
+    "[ST ALR] FUEL LOSS [SERBAT CISTERN FUEL] : = ALR-FUEL-LOSS : Allarme perdita combustibile",
+    "[ST ALR] [ST ALR FUEL] [SERBAT CISTERN] [LOW RESERV EMPTY] : = ALR-SERBAT-$VARA$ : Allarme serbatoio $VARA$ && SERBAT CISTERN",
+    "ALR [UPS GE] BLOCK : = ALR-$VARA$-BLOCK : Allarme $VARA$ in blocco && UPS GE MOTOR PUMP",
+    "[ALR ST] UPS IN BYP : = ALR-UPS-IN-BYP : Allarme UPS in bypass",
+    "[ALR ST] UPS IN BATT : = ALR-UPS-IN-BATT : Allarme UPS su batteria && UPS BATT",
+    "[ALR ST] REPLACE BATT : = ALR-REPLACE-BATT : Allarme sostituire batterie && UPS BATT",
+    "ALR GENERAL [UPS GE SOS SOCC VENT#] : = ALR-GENERALE-$VARA$ : Allarme generale $VARA$",
+    "ALR OVERSPEED GE : = ALR-OVERSPEED-GE : Allarme sovravelocità && GE",
+          
+
+"!--- CENTRALINA ---!",
+    "ALR CUM CNTRL [CUM RIL INCEND CAB FBL] : = ALR-CUM-CNTRL : Allarme cumulativo centralina",
+    "ALR CNTRL [RIL INCEND CAB FBL] : CUM = ALR-CNTRL : Allarme centralina",
+    "ALR [CNTRL RIL INCEND CAB FBL CABLE] FURTO CABLE : CUM = ALR-FURTO-CABLE : Allarme furto cavi",
+
+
+"!--- INCENDIO  ---!",
+    "ALR [INCEND RIL FBL] : NOT REGOL CUM = ALR-INCEND : Allarme incendio",
+    "ALR [INCEND RIL FBL] CORS [SORP MARC FAST SLOW] : CUM = ALR-INCEND-$VARA$ : Allarme incendio corsia $VARA$",
+    "ALR [INCEND RIL FBL] [NORD SUD] : CUM = ALR-INCEND-$VARA$ : Allarme incendio $VARA$",
+    "ALR [INCEND RIL FBL] [CAB LOCAL] : CUM = ALR-INCEND-CAB : Allarme incendio cabina",
+    
+    "ALR FBL : = ALR-FBL : Allarme fibrolaser",
+    "ALR [INCEND RIL] [FBL TERMSENSIB] BROKE: = ALR-FBL-BROKE : Allarme rottura cavo termosensibile",
+    "[ST ALR H2O] MIN LEVEL [SERBAT CISTERN VASC] : = ALR-MIN-LEVEL-SERBAT-H2O : Allarme livello minimo serbatoio acqua",
+    "ALR INCEND ZON [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60] : = ALR-INCEND-ZON-$VARA$ : Allarme incendio zona $VARA$",
+    "[ALR ST] [INCEND RIL] [VASC SERBAT CISTERN] LEVEL [MIN LOW] : = ALR-VASCA-INC-LOW : Allarme livello minimo vasca",
+    "[ST ALR] H2O [LOW RESERV EMPTY] : = ALR-H2O-$VARA$ : Allarme serbatoio acqua $VARA$",
+    "[ST ALR] [ST ALR H2O] [SERBAT CISTERN] [LOW RESERV EMPTY] : = ALR-SERBAT-H2O-$VARA$ : Allarme serbatoio acqua $VARA$",
+
+
+"!--- INTERRUTTORE / SEZIONATORE ---!",
+    "ALR [INT GENERAL] INT : AP CH = ALR-INT-SCATT : Allarme interruttore scattato && INT",
+    "[ALR ST] [INT GENERAL] INT SCATT THERMAL : = ALR-INT-SCATT : Allarme interruttore scattato && INT",
+    "[ALR ST] [INT GENERAL] INT [SCATT] : AP CH = ALR-INT-SCATT : Allarme interruttore scattato && INT",
+    "ALR [INT GENERAL] INT [SCATT AP SGANG] : = ALR-INT-SCATT : Allarme interruttore scattato && INT",
+    "[ALR ST] [INT GENERAL] [INT SEZ] [SCATT AP SGANG] CUM : = ALR-INT-SCATT-CUM : Allarme cumulativo interruttore scattato && INT",
+    "[ALR ST] INT QMT : AP CH = ALR-INT-GENERAL-SCATT : Allarme interruttore generale scattato && INT",
+    "[ALR ST] INT QMT [SCATT SGANG] : AP CH = ALR-INT-GENERAL-SCATT : Allarme interruttore generale scattato && INT",
+    "ALR [ALR GENERAL] [INT SEZ] : = ALR-SEZ-SCATT-THERMAL : Allarme scatto termico && INT",
+
+
+"!--- PLC ---!",                  
+    "[ST ALR] PLC STOP [IN STOP] : = ALR-PLC-STOP : Allarme PLC in fermo && PLC ",
+
+
+"!--- POMPE ---!",                  
+    "[ALR ST] PUMP [START ON] : = ALR-PUMP-START : Allarme pompa avviata &&PUMP",
+    "[ALR ST] [EPUMP PUMP] [START ON] : = ALR-$VARA$-IN-MARCIA : Allarme $VARA$ in moto && EPUMP PUMP",
+
+
+"!--- PORTE ---!",   
+    "[ALR ST] [DOOR ANTA] AP : = ALR-$VARA$-AP : Allarme $VARA$ aperta",   
+    "[ALR ST] [DOOR ANTA] [HOSE IDRANT] AP : = ALR-HOSE-DOOR-AP : Allarme anta idrante aperta && SOS HOSE IDRANT",   
+    "[ALR ST] [DOOR ANTA] EXTING AP : CH = ALR-ANTA-EXTING-AP : Allarme anta estintore aperta && SOS EXTING",       
+ 
+    "[ST ALR] DOOR MISS PRESS : = ALR-MISS-DOOR-PRESS : Allarme mancata pressurizzazione",  
+    "[ST ALR] [VANO DOOR ANTA] ELETTRIC AP : = ALR-DOOR-ELETTRIC-AP : Allarme porta QE aperto",
+    "[ST ALR] [VANO DOOR ANTA] ELETTRIC AP [1 2] : = ALR-DOOR-$VARA$-ELETTRIC-AP : Allarme porta $VARA$ QE aperto",
+
+
+"!--- PRESSOSTATO ---!",  
+    "ALR PRESST LOW : = ALR-PRESST-LOW : Allarme pressione bassa",
+    "ALR PRESST HIGH : = ALR-PRESST-HIGH : Allarme pressione alta",
+
+
+"!--- REGOLATORE ---!",
+    "ALR REGOL GENERAL : = ALR-REGOL-GENERAL : Allarme generale regolatore",
+
+
+"!--- RADIO / RETE ---!",                  
+    "[ALR ST] ABSENT RADIO RETE : = ALR-ABSENT-RETE-$VARA$ : Allarme assenza rete $VARA$",
+    "[ALR ST] ABSENT RADIO RETE [MASTER SLAVE] : = ALR-ABSENT-RETE-$VARA$ : Allarme assenza rete $VARA$",
+    "[ALR ST] ABSENT RADIO RETE : = ALR-ABSENT-RETE : Allarme assenza rete",
+    "[ALR ST] ABSENT RETE : = ALR-ABSENT-RETE-$VARA$ : Allarme assenza rete $VARA$",
+    "[ALR ST] ABSENT RETE [MASTER SLAVE] : = ALR-ABSENT-RETE-$VARA$ : Allarme assenza rete $VARA$",
+    "[ALR ST] ABSENT RETE : = ALR-ABSENT-RETE : Allarme assenza rete",
+    "[ALR ST] MODULE : = ALR-MODULE : Allarme moduli",
+    "[ALR ST] MODULE [MASTER SLAVE] : = ALR-MODULE-$VARA$ : Allarme moduli $VARA$",
+    "ALR RADIO [SERVER SLAVE MASTER] : = ALR-RADIO-$VARA$ : Allarme radio $VARA$",
+    "ALR RADIO [SERVER SLAVE MASTER] CHANNEL [1 2 3 4 5] : = ALR-RADIO-$VARB$-CHANNEL-$VARA$ : Allarme radio $VARB$ canale $VARA$",
+
+
+"!--- SCENARI ---!",
+    "ALR SCENAR REQ SOCC : = ALR-SCENAR-REQ-SOCC : Allarme scenario richiesta soccorso",
+
+
+"!--- SEMAFORO ---!",
+    "[ST ALR] SEMAF MISS [ON ACTIV] [RED GREEN YELLOW] : = ALR-SEMAF-MISS-$VARA$ : Allarme mancata accensione luce $VARA$",
+
+
+"!--- SIRENA / GIROFARO  ---!",
+    "ALR SIREN : = ALR-SIREN : Allarme sirena",
+
+
+"!--- SOGLIE  ---!",
+    "[ST ALR] SOGL [1 2 3 4 5] ACTIV : PHASE = ALR-SOGL-$VARA$-ACTIV : Allarme soglia $VARA$ attiva",
+    "[ST ALR] SOGL [TENS CURRENT FREQ] [MIN MAX] : PHASE 1 2 3 4 5 = ALR-SOGL-$VARB$-$VARA$ : Allarme soglia $VARB$ $VARA$",
+    "[ST ALR] SOGL [1 2 3 4 5] [TENS CURRENT FREQ] [MIN MAX] : PHASE = ALR-SOGL-$VARC$-$VARB$-$VARA$ : Allarme soglia $VARC$ $VARB$ $VARA$",
+    "[ST ALR] SOGL PHASE [1 2 3] [TENS CURRENT FREQ] [MIN MAX] :  = ALR-SOGL-PHASE-$VARC$-$VARB$-$VARA$ : Allarme soglia fase $VARC$ $VARB$ $VARA$",
+      
+
+"!--- SOS  ---!",                  
+    "[ALR ST SOS] [CALL ACTIV PULS] [112 113 115 118 SOCC ANAS] : = ALR-CALL-$VARA$ : Allarme chiamata $VARA$", 
+    "[ALR ST SOS] [CALL PULS ACTIV] SOS : RESET = ALR-PULS-SOS : Allarme pulsante chiamata SOS",  
+    "[ALR ST SOS] CUM [112 113 115 118 SOCC ANAS] : = ALR-CUM-$VARA$ : Allarme cumulativo $VARA$",  
+    "[ALR ST SOS] CUM [CALL PULS ACTIV CUM] [112 113 115 118 SOCC ANAS] [NORD SUD] : = ALR-CUM-$VARB$-$VARA$ : Allarme cumulativo $VARB$ $VARA$",  
+    "[ST ALR] [CALL ACTIV PRESS] [112 113 115 118 ANAS] : MEM = ALR-$VARA$ : Allarme pulsante $VARA$",
+    "[ST ALR] [PRELIEV EXTRACT] [EXTING HOSE IDRANT] [1 2] : = ALR-$VARC$-$VARB$-$VARA$ : Allarme $VARC$ $VARB$ $VARA$",
+    "[ST ALR] [PRELIEV EXTRACT] [EXTING HOSE IDRANT] : = ALR-$VARB$-$VARA$ : Allarme $VARB$ $VARA$",
+    "ALR SGAN PHONE : = ALR-SGAN : Allarme sgancio telefono",
+    "DISINSERT [HOSE INT ANTINTRUS] : = ALR-$VARA$-DISINSERT : Allarme $VARA$ disinserito",
+    "[ALR ST] [VANO DOOR] [HOSE EXTING VOIP PULS] AP : = ALR-DOOR-$VARA$-AP : Allarme porta $VARA$ aperto",
+
+
+"!--- TIME-OUT  ---!",
+    "ALR TOUT : [START ON NORD SUD = ALR-TOUT : Allarme time-out",
+    "ALR TOUT [START ON] : NORD SUD = ALR-TOUT-START : Allarme time-out avviamento",
+    "ALR TOUT [STOP OFF] : NORD SUD = ALR-TOUT-STOP : Allarme time-out spegnimento",
+    "ALR TOUT [START ON] [NORD SUD] : = ALR-TOUT-START-$VARA$ : Allarme time-out avviamento $VARA$",
+    "ALR TOUT [STOP OFF] [NORD SUD] : = ALR-TOUT-STOP-$VARA$ : Allarme time-out spegnimento $VARA$",
+
+
+"!--- TEMPERATURA  ---!",
+    "ALR HIGH TEMP : = ALR-HIGH-TEMP : Allarme alta temperatura",
+    "ALR TEMP [UPS GE TEMP] : = ALR-TEMP : Allarme temperatura",
+
+
+"!--- TVCC  ---!",
+    "[ALR ST] [TVCC VID] [JAM PEDON SMOKE] : = ALR-$VARA$ : Allarme $VARA$ && TVCC",
+    "[ALR ST] [TVCC VID] [JAM PEDON SMOKE] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-$VARB$-CORS-$VARA$ : Allarme $VARA$ corsia $VARA$ && TVCC",
+    
+    "[ALR ST] [TVCC VID SMOKE] LOW VISIBIL : = ALR-LOW-VISIBIL : Allarme scarsa visibilità && TVCC",
+    "[ALR ST] LOSS VID : CMD = ALR-LOSS-VID : Allarme perdita video && TVCC",
+    "[ALR ST] VLOSS : CMD = ALR-LOSS-VID : Allarme perdita video && TVCC",
+    "[ALR ST] KO [ALR CUM] : CMD = ALR-KO : Allarme telecamera KO && TVCC",
+    "[ALR ST] LOSS [LOAD ITEM] : CMD = ALR-LOSS-LOAD : Allarme perdita carico && TVCC",
+    "[ALR ST] [VEHICL TVCC] [SLOW CNTRMAN STOP] : CMD = ALR-VEHICL-$VARA$ : Allarme veicolo $VARA$ && TVCC",
+    "[ALR ST] LOSS VID CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-LOSS-VID-CORS-$VARA$ : Allarme perdita video corsia $VARA$ && TVCC",
+    "[ALR ST] LOSS [LOAD ITEM] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-LOSS-LOAD-CORS-$VARA$ : Allarme perdita carico corsia $VARA$ && TVCC",
+    "[ALR ST] [VEHICL TVCC] [SLOW CNTRMAN STOP] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-VEHICL-$VARB$-CORS-$VARA$: Allarme veicolo $VARB$ corsia $VARA$ && TVCC",
+    "[ALR ST] [TVCC VID] GENERAL [JAM PEDON SMOKE] : = ALR-GENERAL-$VARA$ : Allarme generale $VARA$ && TVCC",
+    "[ALR ST] [TVCC VID] GENERAL [JAM PEDON SMOKE] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-GENERAL-$VARB$-CORS-$VARA$ : Allarme generale $VARB$ corsia $VARA$ && TVCC",
+    
+    "[ALR ST] MANOMISS [ALR CUM] : = ALR-MANOMISS : Allarme manomissione",
+    
+    "[ALR ST] SLOWDOWN : CORS SOS SORP FAST MARCIA = ALR-SLOWDOWN-CORSIA-SOS : Allarme rallentamenti corsia SOS && TVCC",
+    "[ALR ST] SLOWDOWN CORS SOS : = ALR-SLOWDOWN-CORSIA-SOS : Allarme rallentamenti corsia SOS && TVCC",
+    "[ALR ST] SLOWDOWN CORS [SORP FAST] : = ALR-SLOWDOWN-CORSIA-SORP : Allarme rallentamenti corsia sorpasso && TVCC",
+    "[ALR ST] SLOWDOWN CORS MARCIA : = ALR-SLOWDOWN-CORSIA-MARCIA : Allarme rallentamenti corsia marcia && TVCC",
+    
+    
+"!--- CUMULATIVI ---!",
+    "ALR CUM [TVCC VID] [JAM PEDON SMOKE] : = ALR-CUM-$VARA$ : Allarme cumulativo $VARA$ && TVCC",
+    "ALR CUM [TVCC VID] [JAM PEDON SMOKE] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-CUM-$VARB$-CORS-$VARA$ : Allarme cumulativo $VARB$ corsia $VARA$ && TVCC",
+    
+    "ALR CUM LOSS VID : = ALR-CUM-LOSS-VID : Allarme cumulativo perdita video && TVCC",
+    "ALR CUM LOSS [LOAD ITEM] : = ALR-CUM-LOSS-LOAD : Allarme cumulativo perdita carico && TVCC",
+    "ALR CUM [VEHICL TVCC] [SLOW CNTRMAN STOP] : = ALR-CUM-VEHICL-SLOW : Allarme cumulativo veicolo $VARA$ && TVCC",
+    "ALR CUM LOSS VID CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-CUM-LOSS-VID-CORS-$VARA$ : Allarme cumulativo perdita video corsia $VARA$ && TVCC",
+    "ALR CUM LOSS [LOAD ITEM] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-CUM-LOSS-LOAD-CORS-$VARA$ : Allarme cumulativo perdita carico corsia $VARA$ && TVCC",
+    "ALR CUM [VEHICL TVCC] [SLOW CNTRMAN STOP] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-CUM-VEHICL-$VARB$-CORS-$VARA$: Allarme cumulativo veicolo $VARB$ corsia $VARA$ && TVCC",
+    "ALR CUM [TVCC VID] GENERAL [JAM PEDON SMOKE] : = ALR-CUM-GENERAL-$VARB$-$VARA$ : Allarme cumulativo $VARB$ $VARA$ && TVCC",
+    "ALR CUM [TVCC VID] GENERAL [JAM PEDON SMOKE] CORS [NORD SUD EMERG MARCIA SORP FAST 1 2 3] : = ALR-CUM-GENERAL-$VARB$-CORS-$VARA$ : Allarme cumulativo generale $VARB$ corsia $VARA$ && TVCC",
+
+
+"!--- VENTILATORI / VENTILAZIONE / SERRANDE ---!",
+    "[ALR AVARIA] SOFTSTART : = ALR-SOFTSTART : Allarme softstart && VENT#",
+    "ALR AVARIA SERR : = ALR-AVARIA-SERR : Allarme avaria serranda && SERR",
+    "ALR OVER VIBRAZ : PREALR = ALR-OVER-VIBRAZ : Allarme sovra vibrazione && VENT#",
+    "[ALR PREALR] PREALR OVER VIBRAZ : = ALR-PREALR-OVER-VIBRAZ : Allarme pre-allarme sovra vibrazione && VENT#",
+    "[ST ALR] MISS START : STOP = ALR-MISS-START : Allarme mancato avvio && VENT#",
+    "[ST ALR] MISS STOP : START = ALR-MISS-STOP : Allarme mancato arresto && VENT#",
+    "[ST ALR] INTERV PROTEZ MOTOR [VENT# SERR] : = ALR-PROTEZ-MOTOR-$VARA$ : Allarme protezione motore $VARA$ && VENT# SERR",
+    "[ST ALR] CUM [VENT# SERR] : = ALR-CUM-$VARA$ : Allarme cumulativo $VARA$ && VENT# SERR",
+    "[ST ALR] [NO NOT] ORIZZ : = ALR-NO-ORIZZ : Allarme ventilatore non orizzontale && VENT#",
+    "[ST ALR] [SCOST DISALIGN] : = ALR-SCOST : Allarme scostamento && VENT#",
+    "[ST ALR] MISS ALIGN [ALIGN SCOST DISALIGN] : = ALR-MISS-ALIGN : Allarme mancato allineamento && VENT#",
+    "ALR SENSOR VIBRAZ [ALR DISCONNECT] : = ALR-SENSOR-VIBRAZ : Allarme sensore vibrazione && VENT#",
+    "ALR [VIBRAZ VIBMETR] [VIBRAZ VIBMETR SENSOR VENT#] : DISCONNECT = ALR-VIBRAZ : Allarme vibrazioni && VENT#",
+    "[ALR ST] VENT# NUMBER INSUFF : = ALR-VENT-NUMBER-INSUFF : Allarme numero ventilatori insufficienti && VENT#",
+    
+    "[ALR ST] [SERR PRESS] SERR MISS AP : = ALR-SERR-MISS-AP : Allarme mancata apertura && SERR",
+    "[ALR ST] [SERR PRESS] SERR MISS CH : = ALR-SERR-MISS-CH : Allarme mancata chiusura && SERR",
+    "[ALR ST] SERR PRESS MISS : = ALR-SERR-MISS-PRESS : Allarme mancata pressurizzazione && SERR",
+    "[ST ALR]  OVER[OVER OVERRANGE] VIBRAZ [VIBRAZ VENTILAZ VENT#] : UNDRNG UNDER = ALR-VIBRAZ-UNDRNG : Allarme vibrazioni underrange",
+    "[ST ALR] STACC : = ALR-STACC : Allarme stacco && VENT#",
+    "ST VENTILAZ GALL DIR NORD : = ST-VENTILAZIONE-SANITARIA : Stato ventilazione sanitaria",
+    "ST VENTILAZ WAIT GALL DIR NORD : = ST-VENTILAZIONE-ATTESA-STRATIFICAZIONE : Stato ventilazione attesa stratificazione",
+    "ST VENTILAZ GALL DIR NORD : = ST-VENTILAZIONE-STRATIFICAZIONE : Stato ventilazione stratificazione",
+    "ST VENTILAZ WAIT WASH GALL DIR NORD : = ST-VENTILAZIONE-ATTESA-LAVAGGIO : Stato ventilazione attesa lavaggio", 
+    "ST VENTILAZ WASH GALL DIR NORD : = ST-VENTILAZIONE-LAVAGGIO : Stato ventilazione lavaggio", 
+    "ST VENTILAZ CMD ACTIV GALL DIR NORD : = ST-VENTILAZIONE-COMANDI-VVF-ATTIVI : Stato ventilazione comandi VVF attivi",
+
+
+"!--- MISCELANEA ---!",
+    "ALR MAX TEMP : = ALR-MAX-TEMP : Allarme temperatura massima",
+    "ALR TIPO [A B C] : = ALR-TIPO-$VARA$ : Allarme tipo $VARA$",
+    "ALR SCAR SOVRATENS : = ALR-SCAR-SOVRATENS : Allarme scaricatore sovratensione",                  
+    "ALR GENERIC [GENERIC] : = ALR-$VARA$ : Allarme $VARA$",
+    "ALR SCAR [SCAR] : = ALR-$VARA$ : Allarme $VARA$",
+    "ALR SOVRACARIC [SOVRACARIC] : = ALR-$VARA$ : Allarme $VARA$",
+    "ALR OVERTEM [OVERTEM] : = ALR-$VARA$ : Allarme $VARA$",
+    "ALR ACTIV : MIS = ALR-ACTIV : Allarme attivo",
+    "ALR RELE [THERMAL INTERV] : = ALR-RELE-INTERV : Allarme rele intervenuto",
+
+    "ALR ANTINTRUS [CAB BYP] : = ALR-ANTINTRUS-$VARA$ : Allarme antintrusione $VARA$",
+    "ALR [MISS NO] [START ON] : = ALR-MISS-START : Allarme mancato avviamento",
+    "ALR REQ START : = ALR-REQ-START : Allarme richiesta avviamento",
+    "ALR PROTEZ THERMAL : = ALR-PROTEZ-THERMAL : Allarme protezione termica",
+    "[ST ALR] SENSOR DISCONNECT : = ALR-SENSOR-DISCONNECT : Allarme sensore disconnnesso",
+    "[ST ALR] CUM : CNTRL = ALR-CUM : Allarme cumulativo",
+    "[ALR ST] FUSIB : = ALR-FUSIB : Allarme fusibile",
+    "[ALR ST] FLOOD : = ALR-FLOOD : Allarme allagamento",
+    "[ST ALR] MISS START [MISS VENT# EPUMP PUMP] : = ALR-MISS-START : Allarme mancato avvio",
+    "ALR SGAN [SGAN PULS] [ACTION ACTIV PRESS] : = ALR-PULS-SGAN-PRESS : Allarme pulsante sgancio premuto",
+    "ALR MISS ALIMENT : = ALR-MISS-ALIMENT : Allarme mancanza alimentazione ",
+    "[ALR ST] BYP WRONG : = ALR-BYPASS-ERRATO : Allarme bypass errato"
+    ],
+
+
+    "CMD_Collection": [
+"!--- Aperto / Chiuso ---!",            
+    "ST CMD [AP CH] : = ST-CMD-$VARA$ : Stato/Comando $VARA$ && INT",
+    "CMD [AP CH] : = CMD-$VARA$ : Comando $VARA$ ",
+    "CMD [AP CH] [AUTO MAN] : = CMD-$VARA$-$VARB$ : Comando $VARA$ $VARB$",                  
+    "CMD MAN AP : = CMD-MAN-AP : Comando manuale apertura",
+    "CMD MAN CH : = CMD-MAN-CH : Comando manuale chiusura",
+
+
+"!--- Automatico / Manuale | Locale / Remoto ---!",  
+    "CMD [AUTO MAN LOCAL REMOT] : PICCH ILLUM = CMD-$VARA$ : Comando $VARA$ && SELETT VENT#",
+    "ST CMD [AUTO MAN LOCAL REMOT] : PICCH ILLUM = ST-CMD-$VARA$ : Stato/Comando $VARA$ && SELETT VENT#",
+    "CMD [CMD ST]  PICCH ILLUM [AUTO MAN LOCAL REMOT] : = CMD-PICCH-$VARA$ : Comando picchetti in $VARA$ && PICCH ILLUM",
+
+"!--- FrecciaCroce ---!",
+    "CMD FC [SX DX] : PAR WRITE = CMD-FC-$VARA$ : Comando freccia a $VARA$ && FC",
+
+
+"!--- ON / OFF ---!",
+    "CMD [OFF ON START STOP] : = CMD-$VARA$ : Comando $VARA$",
+
+
+"!--- POMPE ---!",                  
+    "CMP PUMP [START STOP] : = CMP-PUMP-$VARA$ : Cojmando pompa $VARA$",
+
+
+"!--- ROTOCARTELLO ---!", 
+    "CMD ROTOCART [AP CH] : = CMD-ROTOCART-$VARA$ : Comando rotocartello $VARA$",
+
+
+"!--- RESET ---!",
+    "CMD RESET : = CMD-RESET : Comando reset",
+    "CMD RESET [FORZ ESCL INCL MAN AUTO LOCAL REMOT] : = CMD-RESET-$VARA$ : Comando reset $VARA$",
+    "CMD RESET [FORZ ESCL INCL] CALL : = CMD-RESET-$VARA$-CALL : Comando reset $VARA$ chiamata",
+    "CMD RESET [RESET CALL] [FORZ ESCL INCL] [112 115 118 ANAS SOCC] : = CMD-RESET-$VARB$-CALL-$VARA$ : Comando reset $VARB$ chiamata $VARA$",
+    "CMD RESET [FORZ ESCL INCL  VALUE : = CMD-RESET-$VARA$-VALUE : Comando reset $VARA$ valore",
+    "CMD RESET [FORZ ESCL INCL MAN AUTO LOCAL REMOT] [VIBRAZ CONTAORE] : = CMD-RESET-$VARB$-$VARA$ : Comando reset $VARB$ $VARA$",
+    "CMD RESET VALUE [FORZ ESCL INCL MAN AUTO LOCAL REMOT] [VIBRAZ CONTAORE] : = CMD-RESET-$VARB$-VALUE-$VARA$ : Comando reset $VARB$ valore $VARA$",
+    "CMD RESET [FORZ ESCL INCL] [EXTING HOSE IDRANT] : = CMD-RESET-$VARB$-$VARA$ : Comando reset $VARB$ $VARA$",
+    "CMD RESET [FORZ ESCL INCL] [EXTING HOSE IDRANT] [1 2] : = CMD-RESET-$VARC$-$VARB$-$VARA$ : Comando reset $VARC$ $VARB$ $VARA$",
+    "CMD RESET SCENAR PREALR: = CMD-RESET-SCENAR-PREALR : Comando reset scenario preallarme",
+    "CMD RESET SCENAR PREALR INCEND [NORD SUD] : = CMD-RESET-SCENAR-PREALR-INCEND-$VARA$ : Comando reset scenario preallarme incendio $VARA$",
+    "CMD RESET SCENAR ALR INCEND [NORD SUD] : = CMD-RESET-SCENAR-ALR-INCEND-$VARA$ : Comando reset scenario allarme incendio $VARA$",
+    "CMD RESET SCENAR PEDON [NORD SUD] : = CMD-RESET-SCENAR-PEDON-$VARA$ : Comando reset scenario pedone in galleria $VARA$",
+    "CMD RESET SCENAR ACCIDENT [NORD SUD] : = CMD-SCENAR-ACCIDENT-$VARA$ : Comando reset scenario incidente $VARA$",
+    "CMD RESET SCENAR VEHICL STOP [NORD SUD] : = CMD-RESET-SCENAR-VEHICL-STOP-$VARA$ : Comando reset scenario veicolo fermo $VARA$",
+    "CMD RESET SCENAR STACC VENT# [NORD SUD] : = CMD-RESET-SCENAR-STACC-VENT-$VARA$ : Comando reset scenario distacco ventilatore $VARA$",
+    "CMD RESET SCENAR GALL DIRTY [NORD SUD] : = CMD-RESET-SCENAR-DIRTY-$VARA$ : Comando reset scenario galleria sporca $VARA$",
+    "CMD RESET SCENAR CNTRMAN [NORD SUD] : = CMD-RESET-SCENAR-CNTRMAN-$VARA$ : Comando reset scenario veicolo contromano $VARA$",
+    "CMD RESET SCENAR JAM [NORD SUD] : = CMD-RESET-SCENAR-CODA-$VARA$ : Comando reset scenario coda $VARA$",
+    "CMD RESET SCENAR GALL CH [NORD SUD] : = CMD-RESET-SCENAR-GALL-CH-$VARA$ : Comando reset scenario galleria chiusa $VARA$",
+    "CMD RESET SCENAR [CORSIA SORP] CH [NORD SUD] : = ST-RESET-SCENAR-CORS-$VARB$-CH-$VARA$ : Comando reset scenario corsia $VARB$ chiusa $VARA$",
+    "CMD RESET SCENAR ENBL [NORD SUD] : = CMD-RESET-SCENAR-ENBL-$VARA$ : Comando reset abilitazione scenari $VARA$",
+    "CMD RESET FORZ AP [AP DOOR VANO BYP INT SEZ] : CH = CMD-RESET-FORZ-AP : Comando reset forza apertura",
+    "CMD RESET FORZ CH [CH DOOR VANO BYP INT SEZ] : AP = CMD-RESET-FORZ-CH : Comando reset forza chiusura",
+
+
+"!--- SET / IMPOSTA ---!",
+    "CMD SET RESET : = CMD-SET-RESET : Comando set reset",
+    "CMD SET [FORZ ESCL INCL RESET MAN AUTO LOCAL REMOT] TVCC : = CMD-SET-$VARA$ : Comando set $VARA$",
+    "CMD SET [FORZ ESCL INCL RESET MAN AUTO LOCAL REMOT] : = CMD-SET-$VARA$ : Comando set $VARA$",
+    "CMD SET [FORZ ESCL INCL RESET] VALUE : = CMD-SET-$VARA$-VALUE : Comando set $VARA$ valore",
+    "CMD SET [FORZ ESCL INCL RESET MAN AUTO LOCAL REMOT] [VIBRAZ CONTAORE] : = CMD-SET-$VARB$-$VARA$ : Comando set $VARB$ $VARA$",
+    "CMD SET [FORZ ESCL INCL RESET MAN AUTO LOCAL REMOT] [VIBRAZ CONTAORE] VALUE : = CMD-SET-$VARB$-VALUE-$VARA$ : Comando set $VARB$ valore $VARA$",
+    "CMD SET SOGL [1 2 3] : = CMD-SET-SOGL-$VARA$ : Comando imposta soglia $VARA$",
+    "CMD SET NUMBER VENT# SOGL [1 2 3] : = CMD-SET-VENT-NUMBER-SOGL-$VARA$ : Comando imposta numero ventilatori soglia $VARA$",
+    "CMD CONFIRM PAR SOGL [AN# CO# NO# NO OP#] [1 2 3 4 5] : = CMD-CONFIRM-PAR-SOGL-$VARB$-$VARA$ : Comando conferma soglia $VARB$ $VARA$",
+    "CMD SET [SET SOS] [FORZ ESCL INCL RESET] EXTING O [IDRANT HOSE] : = CMD-SET-$VARB$-EXTING-O-IDRANT : Comando set $VARB$ estintore o idrante",
+    "CMD SET [FORZ ESCL INCL RESET] [EXTING HOSE IDRANT PULS] : SOCC ANAS 112 113 115 118 = CMD-SET-$VARB$-$VARA$ : Comando set $VARB$ $VARA$",
+    "CMD SET [FORZ ESCL INCL RESET] PULS [SOCC ANAS 112 113 115 118] : = CMD-SET-$VARB$-PULS-$VARA$ : Comando set $VARB$ pulsante $VARA$",
+    "CMD SET [FORZ ESCL INCL RESET] [EXTING HOSE IDRANT] [1 2] : = CMD-SET-$VARC$-$VARB$-$VARA$ : Comando set $VARC$ $VARB$ $VARA$",
+    "CMD SET FORZ [ESCL INCL RESET PRELIEV] [EXTING HOSE IDRANT PULS] : SOCC ANAS 112 113 115 118 = CMD-SET-FORZ-$VARB$-$VARA$ : Comando set forza $VARB$ $VARA$",
+    "CMD SET FORZ [ESCL INCL RESET PRELIEV] PULS [SOCC ANAS 112 113 115 118] : = CMD-SET-FORZ-$VARB$-PULS-$VARA$ : Comando set forza $VARB$ pulsante $VARA$",
+    "CMD SET FORZ [ESCL INCL RESET PRELIEV] [EXTING HOSE IDRANT] [1 2] : = CMD-SET-FORZ-$VARC$-$VARB$-$VARA$ : Comando set forza $VARC$ $VARB$ $VARA$",
+    "CMD SET SGAN [INT SEZ] : RESET = CMD-SET-SGAN : Comando set sgancio",
+    "CMD FORZ [SET FORZ] AP [AP DOOR VANO BYP INT SEZ] : RESET CH = CMD-FORZ-AP : Comando forza apertura",
+    "CMD FORZ [SET FORZ] CH [CH DOOR VANO BYP INT SEZ] : RESET AP = CMD-FORZ-CH : Comando forza chiusura",
+    "CMD SET RESET FORZ AP [AP DOOR VANO BYP INT SEZ] : CH = CMD-SET-RESET-FORZ-AP : Comando set reset forza apertura",
+    "CMD SET RESET FORZ CH [CH DOOR VANO BYP INT SEZ] : AP = CMD-SET-RESET-FORZ-CH : Comando set reset forza chiusura",
+    "CMD SET FORZ AP [AP DOOR VANO BYP INT SEZ] : CH = CMD-SET-FORZ-AP : Comando set forza apertura",
+    "CMD SET FORZ CH [CH DOOR VANO BYP INT SEZ] : AP = CMD-SET-FORZ-CH : Comando set forza chiusura",
+
+
+"!--- SCENARI ---!",
+    "CMD SCENAR PREALR INCEND [NORD SUD] : = CMD-SCENAR-PREALR-INCEND-$VARA$ : Comando scenario preallarme incendio $VARA$",
+    "CMD SCENAR ALR INCEND [NORD SUD] : = CMD-SCENAR-ALR-INCEND-$VARA$ : Comando scenario allarme incendio $VARA$",
+    "CMD SCENAR PEDON [NORD SUD] : = CMD-SCENAR-PEDON-$VARA$ : Comando scenario pedone in galleria $VARA$",
+    "CMD SCENAR ACCIDENT [NORD SUD] : = CMD-SCENAR-ACCIDENT-$VARA$ : Comando scenario incidente $VARA$",
+    "CMD SCENAR VEHICL STOP [NORD SUD] : = CMD-SCENAR-VEHICL-STOP-$VARA$ : Comando scenario veicolo fermo $VARA$",
+    "CMD SCENAR STACC VENT# [NORD SUD] : = CMD-SCENAR-STACC-VENT-$VARA$ : Comando scenario distacco ventilatore $VARA$",
+    "CMD SCENAR GALL DIRTY [NORD SUD] : = CMD-SCENAR-DIRTY-$VARA$ : Comando scenario galleria sporca $VARA$",
+    "CMD SCENAR CNTRMAN [NORD SUD] : = CMD-SCENAR-CNTRMAN-$VARA$ : Comando scenario veicolo contromano $VARA$",
+    "CMD SCENAR JAM [NORD SUD] : = CMD-SCENAR-CODA-$VARA$ : Comando scenario coda $VARA$",
+    "CMD SCENAR GALL CH [NORD SUD] : = CMD-SCENAR-GALL-CH-$VARA$ : Comando scenario galleria chiusa $VARA$",
+    "CMD SCENAR [CORSIA SORP] CH [NORD SUD] : = ST-SCENAR-CORS-$VARB$-CH-$VARA$ : Comando scenario corsia $VARB$ chiusa $VARA$",
+    "CMD SCENAR ENBL [NORD SUD] : = CMD-SCENAR-ENBL-$VARA$ : Comando abilitazione scenari $VARA$",
+    "CMD SCENAR : = CMD-SCENAR-XXX : Comando scenario XXX",
+
+
+"!--- SEMAFORO ---!",
+    "[CMD SEMAF] [CMD ON] [RED GREEN YELLOW] : = CMD-SEMAF-$VARA$ : Comando semaforo su $VARA$",
+    "CMD SEMAF [AUTO MAN] DIR : NORD SUD = CMD-SEMAF-$VARA$-DIR-XXX : Comando semaforo su $VARA$ direzione XXX",
+    "CMD SEMAF [AUTO MAN] : DIR NORD SUD = CMD-SEMAF-$VARA$ : Comando semaforo su $VARA$",
+    "CMD SEMAF [AUTO MAN] [NORD SUD] : = CMD-SEMAF-$VARB$-$VARA$ : Comando semaforo su $VARB$ dir. $VARA$",
+
+
+"!--- TVCC ---!",
+    "CMD TVCC : VEHICL ALR RESET = CMD-TVCC-XXX : Comandi telecamera XXX",
+    "CMD RESET ALR TVCC : VEHICL = CMD-TVCC-XXX : Comandi telecamera XXX",
+    "CMD TVCC [ESCL INCL ENBL DISBL] : = CMD-$VARA$-TVCC : Comandi $VARA$ telecamera",
+      
+
+"!--- VENTILATORE / SERRANDA---!",
+    "CMD VENT# [START RUN OFF STOP MARCIA MAN AUTO LOCAL REMOT] : = CMD-VENT-$VARA$ : Comando ventilatore $VARA$",
+    "CMD VENT# [START RUN OFF STOP MARCIA MAN AUTO LOCAL REMOT] DIR : = CMD-VENT-$VARA$-DIR-XXX : Comando ventilatore $VARA$ dir. XXX",
+    "CMD VENT# SET [START RUN OFF STOP  MARCIA MAN AUTO LOCAL REMOT] : = CMD-VENT-SET-$VARA$ : Comando set ventilatore $VARA$",
+    "CMD VENT# SET [START RUN OFF STOP  MARCIA MAN AUTO LOCAL REMOT] DIR : = CMD-VENT-SET-$VARA$-DIR-XXX : Comando set ventilatore $VARA$ dir. XXX",
+    "CMD SERR CH VENT# STOP : = CMD-SERR-CH : Comando chiusura serranda",
+    "CMD SERR [AUTO MAN] : = CMD-SERR-$VARA$ : Comando serranda in $VARA$ && SERR",
+
+
+"!--- MISCELANEA ---!",
+    "CMD [AP CH ESCL INCL FORZ] : ST MIS PAR = CMD-$VARA$ : Comando $VARA$",
+    "CMD ACK : ST MIS PAR = CMD-ACK : Comando riconosciuto"
+                
+    ],
+
+
+    "MIS_Collection": [
+"!--- ARIA ---!",
+    "MIS SOGL [CO# NO# NO OP# AN#] [1 2 3] : = MIS-SOGL-$VARB$-$VARA$ : Misura soglia $VARB$ $VARA$",
+    "MIS SOGL [CO# NO# NO OP# AN#] [1 2 3] [NORD SUD] : = MIS-SOGL-$VARC$-$VARB$-$VARA$ : Misura soglia $VARB$ $VARC$ $VARA$",
+    "MIS [MIS VALUE] [NO NO# CO# OP# AN] : = MIS-VALUE-$VARA$ : Misura valore $VARA$",
+    "[MIS ST] WIND : MEDIAN = MIS-WIND-SPEED : Misura velocità vento",
+    "[MIS ST] MEDIAN WIND : = MIS-MEDIAN-WIND-SPEED : Misura media velocità vento",
+    
+    "MIS RITARDO [RITARDO TIME] ACTIV TIME ACTIV SOGL : PAR CMD SET = MIS-RITARDO-ACTIV-SOGL-$VARA$ : Misura tempo ritardo attivazione soglia dir. $VARA$",
+    "MIS RITARDO [RITARDO TIME] ACTIV TIME ACTIV SOGL [SUD NORD] : PAR CMD SET = MIS-RITARDO-ACTIV-SOGL : Misura tempo ritardo attivazione soglia",
+    "MIS RITARDO [RITARDO TIME] RIENTRO TIME SOGL : PAR CMD SET = MIS-RITARDO-RIENTRO-SOGL-$VARA$ : Misura tempo ritardo rientro soglia dir. $VARA$",
+    "MIS RITARDO [RITARDO TIME] RIENTRO TIME SOGL [SUD NORD] : PAR CMD SET = MIS-RITARDO-RIENTRO-SOGL : Misura tempo ritardo rientro soglia",
+    
+    "MIS NUMBER VENT# REQ DIR : PAR CMD SET = MIS-NUMBER-VENT-REQ-DIR-$VARA$ : Misura numero ventilatori richiesti direzione $VARA$",
+    "MIS NUMBER VENT# REQ DIR [SUD NORD] : PAR CMD SET = MIS-NUMBER-VENT-REQ-DIR-$VARA$ : Misura numero ventilatori richiesti direzione $VARA$",
+
+
+"!--- FrecciaCroce ---!",
+    "MIS MEX FC : = MIS-MEX-FC : Misura messaggio freccia croce",
+
+
+"!--- G.E. ---!",
+    "MIS [GROUP GE] OIL PRESS : = MIS-PRESS-OIL : Misura pressione olio && GROUP GE PUMP",
+    "MIS [GROUP GE] LEVEL FUEL : = MIS-FUEL-LEVEL : Misura livello carburante && GROUP GE PUMP",
+    "MIS LEVEL FUEL : ALR = MIS-FUEL-LEVEL : Misura livello carburante",
+    "MIS [GROUP GE] ALTERN [°C TEMP] : = MIS-TEMP-ALTERN : Misura temperatura",
+
+
+"!--- ILLUMINAZIONE ---!",
+    "[PAR MIS]  [SET VALUE] DIMMER [RINFORZ PERMAN EMERG] : SET = MIS-DIMMER-$VARA$ : Misura valore dimmerazione $VARA$",
+
+
+"!--- INCENDIO ---!",
+    "MIS INCEND [INCEND POS] [CNTRL FBL RIL] : NORD SUD = MIS-POS-INCEND : Misura posizione incendio",   
+    "MIS INCEND [INCEND POS] [CNTRL FBL RIL] [NORD SUD] : = MIS-POS-INCEND-$VARA$ : Misura posizione incendio $VARA$",                 
+    "MIS LEVEL [H2O GALLEGGIANTE LEVEL] [VASC SERBAT CISTERN] : FUEL = MIS-LEVEL-SERBAT : Misura livello serbatoio",
+
+
+"!--- MULTIMETRI / UPS ---!",
+    "MIS [TENS CURRENT FREQ COSFI] [INGRES EXIT ARRIV] [V1 V2 V3 L1 L2 L3 L1N L2N L3N L12 L13 L23] [RETE BYP] : = MIS-$VARD$-$VARC$-$VARB$-$VARA$ : Misura $VARD$ $VARC$ fase $VARB$ $VARA$",
+    "MIS [TENS CURRENT FREQ COSFI] [INGRES EXIT ARRIV] [V1 V2 V3 L1 L2 L3 L1N L2N L3N L12 L13 L23] : = MIS-$VARC$-$VARB$-$VARA$ : Misura $VARC$ $VARB$ fase $VARA$",
+    "MIS [TENS CURRENT FREQ POWER COSFI] [INGRES EXIT ARRIV] : = MIS-$VARB$-$VARA$ : Misura $VARB$ $VARA$",
+    "MIS POWER [ACTIV REACT APPARENT] [INGRES EXIT ARRIV] : = MIS-POWER-$VARB$-$VARA$ : Misura potenza $VARB$ $VARA$",
+    "MIS [LOAD POWER TENS CURRENT FREQ COSFI] [V1 V2 V3 L1 L2 L3 L1N L2N L3N L12 L13 L23] : APOWER RPOWER = MIS-$VARB$-$VARA$ : Misura $VARB$ fase $VARA$",
+    "MIS POWER [POWER APOWER RPOWER] [ACTIV REACT APPARENT] [V1 V2 V3 L1 L2 L3 L1N L2N L3N L12 L13 L23] : = MIS-POWER-$VARB$-$VARA$ : Misura potenza $VARB$ fase $VARA$",
+    "MIS BATT LOAD LEVEL : = MIS-BATT-LEVEL : Misura livello carica batteria",
+    "MIS CAPAC BATT [BATT UPS] : = MIS-BATT-LEVEL : Misura livello carica batteria",
+    "MIS TEMP BATT : = MIS-TEMP-BATT : Misura temperatura batteria",
+    "MIS [TENS CURRENT] [POSIT NEGAT] : = MIS-$VARB$-$VARA$ : Misura $VARB$ $VARA$",                  
+    "MIS [TEMP TENS CURRENT FREQ TEMP RPM APOWER RPOWER COSFI] : = MIS-$VARA$ : Misura $VARA$",
+    
+    "MIS TENS THD : = MIS-TENS-THD : Misura tensione THD",
+    "MIS TENS THD [L1 L2 L3 L1N L2N L3N L12 L13 L23] : = MIS-TENS-THD-$VARA$ : Misura tensione THD $VARA$",
+    "MIS [MIS ST] POWER : = MIS-POWER : Misura potenza",
+    "MIS [MIS ST] POWER APPARENT : = MIS-POWER-APPARENT : Misura potenza apparente",
+    "MIS [MIS ST] POWER APPARENT [L1 L2 L3 L1N L2N L3N L12 L13 L23] : = MIS-POWER-APPARENT-$VARA$ : Misura potenza apparente $VARA$",
+    "MIS ENERG [ACTIV REACT APPARENT] : = MIS-ENERG-$VARA$ : Misura energia $VARA$",
+    "MIS POWER FACTOR : = MIS-POWER-FACTOR : Misura fattore di potenza",
+    "MIS POWER FACTOR [L1 L2 L3 L1N L2N L3N L12 L13 L23] : = MIS-POWER-FACTOR-$VARA$ : Misura fattore di potenza $VARA$",
+    "MIS POWER [APOWER RPOWER] : = MIS-$VARA$ : Misura $VARA$",
+    "MIS POWER [APOWER ACTIV] : = MIS-APOWER : Misura potenza attiva",
+    "MIS POWER [RPOWER REACT] : = MIS-RPOWER : Misura potenza reattiva",
+     "!---MIS POWER [APOWER ACTIV] TOT : = MIS-APOWER-TOT : Misura potenza attiva totale",
+     "!---MIS POWER [RPOWER REACT] TOT : = MIS-RPOWER-TOT : Misura potenza reattiva totale",
+    "MIS TEMP POWER [V1 V2 V3 L1 L2 L3 L1N L2N L3N L12 L13 L23] : = MIS-TEMP-POWER-$VARA$ : Misura temperatura potenza fase $VARA$",
+    "MIS TOT [TOT FACTOR] [TOT APOWER RPOWER] [ENERG POWER] [ACTIV REACT APPARENT] : = MIS-$VARB$-$VARA$-TOT : Misura $VARB$ $VARA$ totale",
+    "MIS VALUE [VALUE AN# CO# NO# NO OP#] [INSTANT MEDIAN] : = MIS-VALUE-$VARA$ : Misura valore $VARA$",
+    "MIS VALUE [VALUE AN# CO# NO# NO OP#] MEDIAN [INSTANT SMPLG] : = MIS-VALUE-MEDIAN-$VARA$ : Misura valore media $VARA$",
+    "MIS BATT TIME REMAIN : = MIS-BATT-TIME-REMAIN : Misura tempo rimanente della batteria",
+    "MIS TIME AUTONOM : = MIS-AUTONOM : Misura tempo di autonomia",
+    "MIS AUTONOM [BATT UPS] : = MIS-AUTONOM : Misura autonomia",
+    "MIS [TENS CURRENT FREQ COSFI] [V1 V2 V3 L1 L2 L3] : NEUTR = MIS-$VARB$-$VARA$ : Misura $VARB$ fase $VARA$ ",
+    "MIS [TENS CURRENT FREQ COSFI] [V1 V2 V3 L1 L2 L3] NEUTR : = MIS-$VARB$-$VARA$-NEUTR : Misura $VARB$ fase $VARA$ neutro",
+    "MIS ST UPS  : = MIS-ST-UPS : Misura stato UPS",
+    "ABSORB A MIS : = MIS-ABSORB-CURRENT : Misura corrente assorbita", 
+    
+    
+"!--- SCENARI ---!",                  
+    "MIS SCENAR [ACTIV ENABLE] : = MIS-SCENAR-ACTIV-$VARA$ : Misura scenario attivo",
+    "MIS SCENAR [ACTIV ENABLE] [NORD SUD] : = MIS-SCENAR-ACTIV-$VARA$ : Misura scenario attivo $VARA$",
+    "MIS SCENAR [ACTIV ENABLE] : = MIS-SCENAR-ACTIV-$VARA$ : Misura scenario attivo",
+      
+
+"!--- TEMPERATURA ---!",     
+    "MIS TEMP [INTERN SYS INVERTER RADRIZZ] : = MIS-TEMP-$VARA$ : Misura temperatura $VARA$",
+
+
+"!--- TVCC ---!",
+    "MIS CNTTRAFFIC : = MIS-CNTTRAFFIC : Misura contaveicoli",
+    "MIS [CNTVEIC AUTO] MEDIAN [MEDIAN TOT] AUTO : = MIS-CNTVEIC-AUTO-MEDIAN : Misura media auto",
+    "MIS [CNTVEIC AUTO] MEDIAN [MEDIAN TOT] AUTOCARR [AUTOCARR AUTO] : = MIS-CNTVEIC-AUTOCARR-MEDIAN : Misura media camion",
+    "MIS [CNTVEIC AUTO] MEDIAN [MEDIAN TOT] CORS [SORP MARCIA SOS FAST] : = MIS-CNTVEIC-MEDIAN-CORS-$VARA$ : Media auto in corsia $VARA$",
+    "MIS [CNTVEIC AUTO] AUTOCARR [AUTOCARR AUTO] MEDIAN [MEDIAN TOT] CORS [SORP MARCIA SOS FAST] : = MIS-CNTVEIC-MEDIAN-AUTOCARR-CORS-$VARA$ : Media camion in corsia $VARA$",
+
+
+"!--- VENTILATORI / VENTILAZIONE  ---!",
+    "MIS SOGL VENT# [1 2 3] [NORD SUD] : = MIS-VENT-SOGL-$VARB$-$VARA$ : Misura num. ventilatori per soglia $VARB$ $VARA$",
+    "MIS VIBRAZ : = MIS-VIBRAZ : Misura vibrazioni",
+    "MIS VIBRAZ  [CARCASSA BASE] : = MIS-VIBRAZ-$VARA$ : Misura vibrazioni $VARA$",
+
+
+"!--- MISCELANEA ---!",
+    "MIS HOUR [FUNC CONTA ACTIV] : = MIS-HOUR-FUNC : Misura ore di funzionamento",
+    "MIS HOUR [INACTIV] : = MIS-HOUR-INACTIV : Misura ore di inattività",
+    "MIS [CONTA NUMBER] AVVIAMENT : = MIS-NUMBER-AVVIAMENT : Misura conta avviamenti",
+    "MIS SOND LIGHT : = MIS-SOND-LIGHT : Misura sonda luminanza",
+    "MIS [SENSOR VALUE] : = MIS-VALUE : Misura valore",
+
+
+"!--- MIS TIME ---!",
+    "MIS WATCHDOG : = MIS-WATCHDOG : Misura watchdog",
+    "WATCHDOG : ST CMD PAR = MIS-WATCHDOG : Misura watchdog",
+    "[ST MIS] WATCHDOG PLC : CMD PAR = MIS-WATCHDOG : Misura watchdog"
+    ],
+
+
+    "PAR_Collection": [
+
+
+"!--- FrecciaCroce ---!",
+    "PAR CMD WRITE [WRITE FC] : PAR WRITE = PAR-CMD-WRITE : Comando scrittura freccia croce && FC",
+
+
+"!--- ILLUMINAZIONE ---!",
+    "PAR SET [SET VALUE] DIMMER [RINFORZ PERMAN EMERG] : = PAR-SET-DIMMER-$VARA$ : Parametro impostazione valore dimmerazione $VARA$",
+
+
+
+"!--- SOGLIE  ---!",
+    "PAR VALUE [FNDSCL FORZ INCL ESCL RESET] : = PAR-$VARA$-VALUE : Parametro $VARA$ valore",
+    
+    "[PAR CMD SET] RITARDO [RITARDO TIME] TIME ACTIV SOGL : = PAR-RITARDO-TIME-ACTIV-SOGL : Parametro tempo ritardo attivazione soglia",
+    "[PAR CMD SET] RITARDO [RITARDO TIME] TIME ACTIV SOGL [SUD NORD] : = PAR-RITARDO-TIME-ACTIV-SOGL-$VARA$ : Parametro tempo ritardo attivazione soglia dir. $VARA$",
+    "[PAR CMD SET] RITARDO [RITARDO TIME] RIENTRO TIME SOGL : = PAR-RITARDO-RIENTRO-ACTIV-SOGL : Parametro tempo ritardo rientro soglia",
+    "[PAR CMD SET] RITARDO [RITARDO TIME] RIENTRO TIME SOGL [SUD NORD] : = PAR-RITARDO-RIENTRO-ACTIV-SOGL-$VARA$ : Parametro tempo ritardo rientro soglia dir. $VARA$",
+    
+    "[PAR CMD SET] NUMBER VENT# REQ DIR : = PAR-NUMBER-VENT-REQ-DIR-$VARA$ : Parametro numero ventilatori richiesti direzione $VARA$",
+    "[PAR CMD SET] NUMBER VENT# REQ DIR [SUD NORD] : = PAR-NUMBER-VENT-REQ-DIR-$VARA$ : Parametro numero ventilatori richiesti direzione $VARA$",
+
+
+"!--- SOGLIE  ---!",
+    "PAR SOGL [AN# CO# NO# NO OP#] [1 2 3 4 5] : = PAR-SOGL-$VARB$-$VARA$ : Parametro soglia $VARB$ $VARA$",
+
+"!--- MISCELANEA ---!",
+    "PAR SCENAR [ACTIV ENABLE] : = PAR-SCENAR-ACTIV : Parametro scenario attivo",
+    "PAR SCENAR [ACTIV ENABLE] [NORD SUD] : = PAR-SCENAR-ACTIV-$VARA$ : Parametro scenario attivo $VARA$",
+    "PAR SCENAR TEST TEST : = PAR-SCENAR-ACTIV-$VARA$ : Parametro scenario attivo $VARA$"
+    ],
+
+    
+    "ST_Collection": [
+"!--- Aperto / Chiuso ---!",            
+    "ST CMD [ST GENERAL] [INT SEZ CONTATT SERR] [AP CH] : = ST-CMD-$VARB$-$VARA$ : Stato/Comando $VARB$ $VARA$",
+    "ST [ST GENERAL] [INT SEZ CONTATT] : = ST-$VARA$ : Stato $VARA$",
+    "ST [ST GENERAL] [INT SEZ CONTATT SERR CONGIUNTORE] [AP CH] : = ST-$VARB$-$VARA$ : Stato $VARB$ $VARA$",
+    "ST [ST GENERAL] [INT SEZ CONTATT SERR] IN AP : = ST-$VARA$-IN-AP : Stato $VARA$ in apertura",
+    "ST [ST GENERAL] [INT SEZ CONTATT SERR] IN CH : = ST-$VARA$-IN-CH : Stato $VARA$ in chiusura",
+    "ST [ST GENERAL] [INT SEZ CONTATT] AP CH : = ST-$VARB$-AP-CH : Stato $VARB$ aperto/chiuso",             
+    "ST [NO NOT] [ST GENERAL] [INT SEZ CONTATT SERR] [AP CH] : = ST-$VARB$-NO-$VARA$ : Stato $VARB$ no $VARA$",
+    "ST [NO NOT] [ST GENERAL] [INT SEZ CONTATT] AP CH : = ST-$VARB$-NO-AP-CH : Stato $VARB$ no aperto/chiuso",
+    "!---ST [INT SEZ CONTATT] [AP CH] GENERAL : = ST-$VARB$-GENERAL-$VARA$ : Stato $VARB$ generale $VARA$",
+    "!---ST [INT SEZ CONTATT] AP CH GENERAL : = ST-$VARB$-GENERAL-AP-CH : Stato $VARB$ generale aperto/chiuso",     
+    "!---ST [NO NOT] [INT SEZ CONTATT] [AP CH] GENERAL : = ST-$VARB$-GENERAL-NO-$VARA$ : Stato $VARB$ generale no $VARA$",
+    "!---ST [NO NOT] [INT SEZ CONTATT] AP CH GENERAL : = ST-$VARB$-GENERAL-NO-AP-CH : Stato $VARB$ generale no aperto/chiuso",
+    "ST SEZ [SEZ GENERAL] [TERRA LINE BYP] : = ST-SEZ-$VARA$ : Stato sezionatore $VARA$",
+    "ST SEZ [SEZ GENERAL] [TERRA LINE BYP] [AP CH] : = ST-SEZ-$VARB$-$VARA$ : Stato sezionatore $VARB$ $VARA$",
+    "ST SEZ [NO NOT] [SEZ GENERAL] [TERRA LINE BYP] [AP CH] : = ST-SEZ-$VARB$-NO-$VARA$ : Stato sezionatore $VARB$ no $VARA$",
+ 
+            
+"!--- ARIA ---!",
+    "ST WIND [WIND AN#] DIR : = ST-DIR-VENT : Stato direzione vento",
+    "ST AN# DIR : = ST-DIR-VENT : Stato direzione vento",
+    "ST SENSOR DIR : = ST-DIR-SENSOR : Stato sensore direzione",
+
+
+"!--- Automatico / Manuale | Locale / Remoto ---!",
+    "SELETT [AUTO MAN LOCAL REMOT] : DIR = ST-SELETT-$VARA$ : Stato funzionamento in $VARA$",
+    "ST [ST FUNC] [AUTO MAN LOCAL REMOT] : SELETT DIR = ST-SELETT-$VARA$ : Stato funzionamento in $VARA$",
+    "ST [ST FUNC] [AUTO MAN LOCAL REMOT] DIR : SELETT = ST-SELETT-$VARA$-DIR-XXX : Stato funzionamento in $VARA$ direzione. XXX",
+    "ST SELETT [ST FUNC] [AUTO MAN LOCAL REMOT] : DIR = ST-SELETT-$VARA$ : Stato funzionamento in $VARA$",
+    "ST SELETT [ST FUNC] [AUTO MAN LOCAL REMOT] DIR : = ST-SELETT-$VARA$-DIR-XXX : Stato funzionamento in $VARA$ direzione. XXX",
+    "ST SELETT [DIR SELETT] [NORD SUD] : DIR = ST-SELETT-DIR-$VARA$ : Stato selettore direzione. $VARA$",
+    "ST SELETT [DIR SELETT] [AUTO MAN LOCAL REMOT] [NORD SUD] : = ST-SELETT-$VARB$-DIR-$VARA$ : Stato selettore $VARB$ direzione. $VARA$",
+
+
+"!--- BATTERIE / UPS /GE ---!",
+    "BATT [LOAD FULL]: = ST-BATT-FULL : Stato batteria carica",
+    "BATT IN LOAD : = ST-BATT-IN-CHARGE : Stato batteria in carica",
+    "GE [STOP FERMO] : = ST-GE-STOP : Stato G.E. fermo && GE",
+    "ALIMENT FROM RETE : GE = ST-ALIM-DA-RETE : Stato alimentazione da rete",
+    "ALIMENT FROM GE : RETE = ST-ALIM-DA-GE : Stato alimentazione da GE",
+    "ST EXIT ALIMENT : INGRES = ST-USCITA-ALIMENTATA : Stato uscita alimentata",
+    "ST INGRES ALIMENT : EXIT = ST-INGRESSO-ALIMENTATO : Stato ingresso alimentato",
+
+         
+"!--- FRECCIA ---!",
+    "CMD FC [FC DIR] [SX DX] : = CMD-FC-$VARA$ : Comando freccia a $VARA$",
+    "CMD FC : = CMD-FC : Comando freccia",
+
+
+"!--- FEEDBACK ---!",
+    "[ST CMD] FEEDBACK [ACK RESET] : = ST-FEEDBACK-$VARA$ : Stato feedback $VARA$",
+    "[ST CMD] FEEDBACK RESET [MAN AUTO ESCL INCL CONTAORE ALR] : = ST-FEEDBACK-CMD-RESET-$VARA$ : Stato feedback comando reset $VARA$",
+    "[ST CMD] FEEDBACK RESET [MAN AUTO ESCL INCL CONTAORE ALR] [RMT SCADA] : = ST-FEEDBACK-CMD-RESET-$VARB$-$VARA$ : Stato feedback comando reset $VARB$ da $VARA$",
+    "[ST CMD] FEEDBACK [FORZ ESCL] : = ST-FEEDBACK-$VARA$ : Stato feedback $VARA$",
+    "[ST CMD] FEEDBACK [FORZ ESCL] [STACC VIBRAZ INCEND] : = ST-FEEDBACK-$VARB$-$VARA$ : Stato feedback $VARB$ $VARA$",
+    "[ST CMD] FEEDBACK [FORZ ESCL] PULS : 112 113 115 118 ANAS = ST-FEEDBACK-$VARA$-PULS : Stato feedback $VARA$ pulsante",
+    "[ST CMD] FEEDBACK [FORZ ESCL] PULS [112 113 115 118 ANAS] : = ST-FEEDBACK-$VARB$-PULS-$VARA$ : Stato feedback $VARB$ pulsante $VARA$",
+    "[ST CMD] FEEDBACK [FORZ ESCL] PRELIEV [EXTING HOSE] : 1 2 = ST-FEEDBACK-$VARB$-PRELIEV-$VARA$ : Stato feedback $VARB$ prelievo $VARA$",
+    "[ST CMD] FEEDBACK [FORZ ESCL] PRELIEV [EXTING HOSE] [1 2] : = ST-FEEDBACK-$VARC$-PRELIEV-$VARB$-$VARA$ : Stato feedback $VARC$ prelievo $VARB$ $VARA$",
+    "[ST CMD] FEEDBACK [FORZ ESCL] TELERUTT RINFORZ : = ST-FEEDBACK-$VARA$-TELERUTT-RINFORZ : Stato feedback $VARA$ teleruttore rinforzo",
+    "[ST CMD] FEEDBACK FORZ [100% 75% 50% 25% 0% OFF ON] : = ST-FEEDBACK-FORZ-$VARA$ : Stato feedback forzatura luci $VARA$",
+    "[ST CMD] FEEDBACK [FEEDBACK ACTIV CALL SOS] [FORZ ESCL INCL RESET] PULS [112 113 115 118 ANAS SOCC CALL] : = ST-FEEDBACK-$VARB$-PULS-$VARA$ : Stato feedback $VARB$ pulsante $VARA$",
+    
+    "[ALR ST CMD] ALR FEEDBACK RESET FROM RMT : = ST-FEEDBACK-RESET-ALR-RMT : Stato feedback reset allarmi da RMT",
+
+
+"!--- FrecciaCroce ---!",
+    "ST FC [SX DX] : = ST-FC-$VARA$ : Stato freccia a $VARA$",
+    "ST FC : SX DX = ST-FC : Stato freccia",
+
+    
+"!--- ILLUMINAZIONE  ---!",  
+    "ST [PERMAN EMERG RINFORZ] [ON OFF] : ALR = ST-$VARB$-$VARA$ : Stato illuminazione $VARB$ $VARA$",
+
+    "ST [LIGHT PICCH] [MEZZ TUTT] [ON OFF] : DIR NORD SUD = ST-$VARB$-LIGHT-$VARA$ : Stato $VARB$ luce $VARA$",
+    "ST [LIGHT PICCH] [MEZZ TUTT] [ON OFF] [NORD SUD] : = ST-$VARC$-LIGHT-$VARB$-$VARA$ : Stato $VARC$ luce $VARB$ direzione $VARA$",
+    "ST [LIGHT PICCH] [MEZZ TUTT] [ON OFF] DIR : NORD SUD = ST-$VARB$-LIGHT-$VARA$-DIR-XXX : Stato $VARB$ luce $VARA$ direzione XXX",
+    
+
+"!--- INCENDIO  ---!",                  
+    "[ST ALR] LEVEL [VASC SERBAT CISTERN] [MAX NORMAL] : = ST-LEVEL-SERBAT-$VARA$ : Stato livello $VARA$ serbatoio",
+    "[ST ALR] [INCEND RIL] LEVEL  [VASC SERBAT CISTERN] [MAX NORMAL] : = ST-LEVEL-SERBAT-$VARA$ : Stato livello $VARA$ serbatoio",
+
+                  
+"!--- INCLUSIONE / ESCLUSIONE / FORZATURA  ---!",
+    "ST [INCL ESCL FORZ] : NOT = ST-$VARA$ : Stato $VARA$",
+    "ST [INCL ESCL FORZ] NOT :  = ST-NOT-$VARA$ : Stato NOT $VARA$",
+    "ST [INCL ESCL FORZ] [EXTING HOSE IDRANT] : O = ST-$VARB$-$VARA$ : Stato $VARB$ $VARA$",
+    "ST [INCL ESCL FORZ] [EXTING HOSE IDRANT] [1 2] : O = ST-$VARC$-$VARB$-$VARA$ : Stato $VARC$ $VARB$ $VARA$",
+    "ST [INCL ESCL FORZ] DIR : EXTING IDRANT HOSE = ST-$VARA$-DIR-XXX : Stato $VARA$ direzione XXX",
+    "ST SENSOR [SENSOR DIR] [INCL ESCL FORZ] : = ST-$VARA$-SENSOR : Stato $VARA$ sensore",
+    "ST PULS [PULS SOS CALL] [INCL ESCL FORZ] : = ST-$VARA$-PULS : Stato $VARA$ pulsante",
+    "ST PULS [PULS SOS CALL] [INCL ESCL FORZ] [112 113 115 118 ANAS SOCC] : = ST-$VARB$-PULS-$VARA$ : Stato $VARB$ pulsante $VARA$",
+    "ST [SOS ST] [FORZ ESCL INCL] EXTING [IDRANT HOSE] : = ST-$VARB$-EXTING-O-IDRANT : Stato $VARB$ estintore o idrante",
+    "ST [SOS ST] [FORZ ESCL INCL RESET] EXTING [IDRANT HOSE] NOT : RESET = ST-NOT-$VARB$-EXTING-O-IDRANT : Stato non $VARB$ estintore o idrante",
+
+
+"!--- LAMPEGGIANTE  ---!",
+    "ST LAMPEG [ON OFF] : = ST-LAMPEG-$VARA$ : Stato lampeggiante $VARA$",
+
+
+"!--- PORTE ---!",   
+    "ST [DOOR ANTA] CH : = ST-$VARA$-CH : Stato $VARA$ chiusa",   
+    "ST [DOOR ANTA] [HOSE IDRANT] CH : = ST-HOSE-DOOR-CH : Stato anta idrante chiusa && SOS HOSE IDRANT",   
+    "ST [DOOR ANTA] [EXTING] CH : = ST-EXTING-DOOR-CH : Stato anta estintore chiusa && SOS EXTING",     
+    "ST [VANO DOOR ANTA] ELETTRIC CH : = ST-DOOR-ELETTRIC-CH : Stato porta QE chiusa",
+    "ST [VANO DOOR ANTA] ELETTRIC CH [1 2] : = ST-DOOR-$VARA$-ELETTRIC-CH : Stato porta $VARA$ QE chiusa",
+
+    
+"!--- PULSANTI ---!", 
+    "ST PULS PRESS : = ST-PULS-PRESS : Pulsante pulsante premuto",
+    "ST PULS ON : = ST-PULS-ON : Pulsante pulsante acceso",
+    "ST PULS ON [NORD SUD] : = ST-PULS-ON-$VARA$ : Pulsante pulsante acceso $VARA$",
+    "ST PULS OFF : = ST-PULS-OFF : Pulsante pulsante spento",
+    "ST PULS OFF [NORD SUD] : = ST-PULS-OFF-$VARA$ : Pulsante pulsante spento $VARA$",
+    "[ALR ST] RESET PULS : = ALR-RESET-PULS-$VARA$ : Stato reset pulsante $VARA$",  
+    "[ALR ST] RESET PULS [CALL PULS ACTIV SOS PULS] [112 113 115 118 ANAS SOCC] : RESET = ALR-RESET-PULS-$VARA$ : Stato reset pulsante $VARA$",  
+
+
+"!--- ROTOCARTELLO ---!", 
+    "ST ROTOCART [AP CH] : = ST-ROTOCART-$VARA$ : Stato rotocartello $VARA$",
+    "CMD ROTOCART [AP CH] : = CMD-ROTOCART-$VARA$ : Comando rotocartello $VARA$",
+
+    
+"!--- SCENARI ---!",
+    "ST SCENAR PREALR INCEND [NORD SUD] : = ST-SCENAR-PREALR-INCEND-$VARA$ : Stato scenario preallarme incendio $VARA$",
+    "ST SCENAR ALR INCEND [NORD SUD] : = ST-SCENAR-ALR-INCEND-$VARA$ : Stato scenario allarme incendio $VARA$",
+    "ST SCENAR PEDON [NORD SUD] : = ST-SCENAR-PEDON-$VARA$ : Stato scenario pedone in galleria $VARA$",
+    "ST SCENAR ACCIDENT [NORD SUD] : = ST-SCENAR-ACCIDENT-$VARA$ : Stato scenario incidente $VARA$",
+    "ST SCENAR VEHICL STOP [NORD SUD] : = ST-SCENAR-VEHICL-STOP-$VARA$ : Stato scenario veicolo fermo $VARA$",
+    "ST SCENAR STACC VENT# [NORD SUD] : = ST-SCENAR-STACC-VENT-$VARA$ : Stato scenario distacco ventilatore $VARA$",
+    "ST SCENAR GALL DIRTY [NORD SUD] : = ST-SCENAR-DIRTY-$VARA$ : Stato scenario galleria sporca $VARA$",
+    "ST SCENAR CNTRMAN [NORD SUD] : = ST-SCENAR-CNTRMAN-$VARA$ : Stato scenario veicolo contromano $VARA$",
+    "ST SCENAR JAM [NORD SUD] : = ST-SCENAR-CODA-$VARA$ : Stato scenario coda $VARA$",
+    "ST SCENAR GALL CH [NORD SUD] : = ST-SCENAR-GALL-CH-$VARA$ : Stato scenario galleria chiusa $VARA$",
+    "ST SCENAR [CORSIA SORP 1 2 3 FAST SLOW EMERG] CH : DIR NORD SUD = ST-SCENAR-CORS-$VARB$-CH-$VARA$ : Stato scenario corsia $VARB$ chiusa $VARA$",
+    "ST SCENAR [CORSIA SORP 1 2 3 FAST SLOW EMERG] CH DIR : NORD SUD = ST-SCENAR-CORS-$VARB$-CH-$VARA$ : Stato scenario corsia $VARB$ chiusa $VARA$",
+    "ST SCENAR [CORSIA SORP 1 2 3 FAST SLOW EMERG] CH [NORD SUD] : = ST-SCENAR-CORS-$VARB$-CH-$VARA$ : Stato scenario corsia $VARB$ chiusa $VARA$",
+    "ST SCENAR ENBL [NORD SUD] : = ST-SCENAR-ENBL-$VARA$ : Stato abilitazione scenari $VARA$",
+    "ST VIABILI REGOL SCENAR DIR : = ST-SCENAR-VIABIL-REGOL-DIR-XXX : Stato scenario viabilità regolatore dir. XXX",
+
+
+"!--- SEMAFORO ---!",
+    "ST SEMAF [RED GREEN YELLOW ORANGE AUTO MAN INCL ESCL] : = ST-SEMAF-$VARA$ : Stato semaforo $VARA$",
+    "ST SEMAF [ON OFF] : = ST-SEMAF--$VARA$ : Stato semaforo $VARA$",
+    "ST SEMAF [ON ACTIV] [RED GREEN YELLOW ORANGE] : = ST-SEMAF-$VARB$-$VARA$ : Stato luce $VARA$ accesa",
+    "ST SEMAF OFF [RED GREEN YELLOW ORANGE] : = ST-SEMAF-OFF-$VARA$ : Stato luce $VARA$ spenta",
+    "ST SEMAF [SCADA RMT] [ON OFF] : = ST-SEMAF-$VARA$-$VARB$ : Stato semaforo $VARA$ da $VARB$",
+
+
+"!--- SOS ---!",
+    "ST ANTA CH : = ST-ANTA-CH : Stato anta chiusa",
+    "MEM [CALL PULS PRESS] [112 113 115 118 SOCC ANAS] : = ST-MEM-PULS-$VARA$ : Stato memoria pulsante $VARA$",  
+
+"!--- TVCC ---!",
+    "ST ALR MANUTENZ [TVCC TLC] : = ST-MANUTENZ-ALR : Stato manutenzione allarmi",
+
+
+"!--- VENTILATORE / VENTILAZIONE---!",
+    "ST VENT# [VENT# SELETT FUNC] [RUN STOP MARCIA MAN AUTO LOCAL REMOT] : = ST-VENT-$VARA$ : Stato ventilatore $VARA$",
+    "ST VENT# [VENT# SELETT FUNC] [RUN STOP MARCIA MAN AUTO LOCAL REMOT] DIR : = ST-VENT-$VARA$-DIR-XXX : Stato ventilatore $VARA$ dir. XXX",
+    "ST [RUN STOP MARCIA MAN AUTO LOCAL REMOT] DIR [NORD SUD] : = ST-VENT-$VARB$-DIR-$VARA$ : Stato ventilatore $VARB$ dir. $VARA$",
+    "ST IN [RUN START AVVIAMENT ON] : = ST-IN-AVVIAMENT : Stato in avviamento",
+    "ST IN [STOP OFF] : = ST-IN-STOP : Stato in arresto",
+    "[ST ALR] STACC [STACC VENT# VENTILAZ] MEM : = ST-MEM-STACC : Stato memoria stacco ventilatore",
+    "[ST ALR] UNDER [UNDER UNDRNG] VIBRAZ [VIBRAZ VENTILAZ VENT#] : OVERRANGE OVER = ST-VIBRAZ-UNDRNG : Stato vibrazioni underrange",
+    "ST VENTILAZ SANITARIA : = ST-VENTILAZIONE-SANITARIA : Stato ventilazione sanitaria",
+    "ST VENTILAZ WAIT STRATIFICAZIONE : = ST-VENTILAZIONE-ATTESA-STRATIFICAZIONE : Stato ventilazione attesa stratificazione",
+    "ST VENTILAZ STRATIFICAZIONE : = ST-VENTILAZIONE-STRATIFICAZIONE : Stato ventilazione stratificazione",
+    "ST VENTILAZ WAIT WASH : = ST-VENTILAZIONE-ATTESA-LAVAGGIO : Stato ventilazione attesa lavaggio", 
+    "ST VENTILAZ WASH : = ST-VENTILAZIONE-LAVAGGIO : Stato ventilazione lavaggio", 
+    "ST VENTILAZ CMD ACTIV QVVF : = ST-VENTILAZIONE-COMANDI-VVF-ATTIVI : Stato ventilazione comandi VVF attivi",
+                  
+      
+"!--- MISCELANEA ---!",
+        "SYS ITEM VERSION : = ST-DISPOSITIVO : Stato dispositivo"
+
+    ]
+}

@@ -1,0 +1,13 @@
+1. Funzionalità Principali:  
+   Questo script, a differenza di altri, esegue anche l’elaborazione dei dati contenuti negli script utilizzando `llama-cpp-python`.
+ 
+2. Passaggi Operativi:
+ 
+   - Download dei dati da DragonFly (SCADA) per la galleria indicata.  
+   - Scarica i dati dal Database selezionato (Quality o Produzione).  
+   - Cerca la galleria all’interno del Database.  
+   - Estrae tutti i dati con valore (scarta quelli senza valore).  
+ 
+3. Elaborazione e Salvataggio:  
+   - Dopo aver elaborato ogni script con la LLM, viene salvata una copia in locale.  
+   - Se l’elaborazione viene interrotta, al prossimo avvio lo script carica automaticamente gli script già elaborati per riprendere il lavoro da dove era stato interrotto.

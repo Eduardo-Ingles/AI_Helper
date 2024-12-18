@@ -1,0 +1,13 @@
+
+    <mat-card class="custom-mat-card" *ngIf="!hidden">
+        <mat-card-content class="custom-mat-card-content" *ngIf="!hidden">
+            <div class="progress-container" *ngIf="!hidden">
+                <mat-progress-bar
+                    [mode]="mode"
+                    [value]="value"
+                    class="custom-progress">
+                </mat-progress-bar>                
+            </div>
+            <div class="progress-label" *ngIf="!hidden">{{value}}%</div>
+        </mat-card-content>
+    </mat-card>

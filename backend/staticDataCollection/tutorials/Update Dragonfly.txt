@@ -1,0 +1,30 @@
+1. Funzionalità:  
+   - Aggiorna il database selezionato utilizzando le modifiche presenti nelle colonne con il suffisso `_NEW` nel file di input.
+ 
+2. Collection Target:  
+   L’update viene eseguito sulle seguenti collection con i campi indicati:
+ 
+   - `scada_tag`:  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `tagName`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `tagDescription`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `tagDevice`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `tagUniverse`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `tagGalaxy`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `alarmClass`  
+ 
+   - `scada_widget`:  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `WidgetName`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `WidgetDescription`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `widgetDevice`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `widgetUniverse`  
+⠀⠀⠀⠀⠀⠀⠀⠀⠀- `widgetArchetype`  
+ 
+3. Storico degli Update:  
+   - I log degli aggiornamenti sono disponibili nel menu [Downloads/DB Update Logs].
+ 
+4. ⚠️ ATTENZIONE:  
+   - Dati Errati possono causare danni irreparabili al database.  
+   - Evita di usare nomi di colonne concatenate che terminano con `_NEW` per evitare conflitti.
+ 
+💡 Consiglio:  
+Verifica sempre i dati nel file di input prima di procedere con l’update!

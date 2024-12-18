@@ -1,0 +1,37 @@
+<form [formGroup]="stateForm">
+	<mat-form-field class = "matFormField">
+	  <mat-label>Selezionare script</mat-label>
+	  <input type="text"
+			 matInput
+			 formControlName="stateGroup"
+			 required
+			 [matAutocomplete]="autoGroup"
+			 (click)="showSuggestions()"
+			 (input)="updateSuggestions()"
+			 (blur)="hideSuggestions()"
+			 (focus)="showSuggestions()"
+			 placeholder="Inserire nome script..."
+			 class = "textField">
+  <!-- #docregion mat-autocomplete -->
+		<mat-autocomplete #autoGroup="matAutocomplete">
+		  @for (group of stateGroupOptions | async; track group.name) {
+			<mat-optgroup class = "groupStart">
+			<!--mat-optgroup [label]="group.name"-->
+			<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Cz1a7NtxqQHresPatzgmq9jFiuTiznr0DQ&s" class="example-option-img" height="25">
+			<span>{{group.name}}</span>
+			  @for (name of group.includedScripts; track name) {
+				<!--mat-option [value]="name">{{name}}</mat-option-->
+				<mat-option [value]="name" (click)="applySuggestion(name)">
+				<img src="https://thumbs.dreamstime.com/b/arrow-icon-white-background-black-flat-style-your-web-site-design-logo-app-ui-indicated-direction-symbol-curved-sign-309950462.jpg" class="example-option-img" height="25">
+					<span>{{name}}</span>
+				</mat-option>
+
+			  }
+			</mat-optgroup>
+		  }
+	  </mat-autocomplete>
+  <!-- #enddocregion mat-autocomplete -->
+	</mat-form-field>
+  </form>
+
+  

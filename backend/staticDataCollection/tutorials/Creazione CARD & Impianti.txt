@@ -1,0 +1,12 @@
+1. Input: Fornisci file `creazione card galleria.xlsx`.
+ 
+2. Operazioni:  
+   Crea l’impianto e i sottoimpianti con i rispettivi gruppi sul DataBase selezionato (Quality o Produzione).
+ 
+3. Attenzione:  
+   - Verifica che non ci siano impianti duplicati.  
+   - Ricordati di inserire la direzione e le cabine.  
+ 
+4. Nota:  
+   - Non serve inserire il nome della galleria nel Nome Sottoimpianto, viene aggiunto automaticamente dal Nome Galleria.  
+   - Compila la posizione dei sottoimpianti in ordine sequenziale.

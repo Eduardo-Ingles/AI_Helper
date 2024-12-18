@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+nav a {
+  padding: 1rem;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #e8e8e8;
+  color: #3d3d3d;
+  border-radius: 4px;
+}
+
+nav a:hover {
+  color: white;
+  background-color: #42545C;
+}
+nav a:active {
+  background-color: black;
+}
+  
+
+.searchField{
+  text-align: center;
+  /*position: relative;
+  float: none;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);*/
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

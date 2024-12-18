@@ -1,0 +1,4 @@
+
+utilizzare gli step indicati: 
+https://github.com/abetlen/llama-cpp-python
+

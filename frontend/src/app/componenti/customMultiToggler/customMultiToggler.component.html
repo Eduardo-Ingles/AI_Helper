@@ -1,0 +1,18 @@
+
+<div [hidden] = "globalHide" id = "mat-button-toggle-container"> 
+    <section >
+        <mat-button-toggle-group
+            name="opzioniElaborazione"
+            aria-label="opzioniElaborazione"
+            multiple
+            >   
+            <mat-button-toggle *ngFor="let group of groups" [checked] = "group.checked"  [value]="group.name" [hidden] = "!group.visible" 
+            (click) = "handleToggle(group)" [disabled] = "!group.enable" 
+			[matTooltip]="group.tooltip" matTooltipPosition = "above" matTooltipShowDelay = "1000" matTooltipHideDelay = "1000" 
+            [ngClass]="{'quality-class': group.name === 'Quality', 'produzione-class': group.name === 'Produzione'}"
+			>{{group.name}}</mat-button-toggle>
+
+        </mat-button-toggle-group>
+    </section>
+</div>
+

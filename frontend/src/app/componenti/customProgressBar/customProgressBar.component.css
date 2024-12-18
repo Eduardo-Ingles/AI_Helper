@@ -1,0 +1,42 @@
+
+.custom-mat-card {
+    margin-bottom: 10px;
+    width: 33%;
+	position: fixed;
+	top: 92%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.ustom-mat-card-content{
+	position: absolute;
+}
+
+.progress-container{	/* div */
+	/*position: relative;*/
+	margin: 0px 0;
+	/**/
+}
+
+.custom-progress-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 50px;
+}
+  
+
+.custom-progress {
+	height: 20px;
+    margin: 0 10px;
+}
+
+
+.progress-label {
+	position: absolute;
+	top: 56%;
+	left: 50%;
+	/*transform: translate(-30%, -50%);*/
+	color: #000;
+	font-weight: bold;
+}

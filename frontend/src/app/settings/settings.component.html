@@ -1,0 +1,25 @@
+
+
+<ul>	
+	<li>
+		<p>Tutorials</p>
+		<div class = "dnldContainer">
+			<app-file-tree  [dataSource] = tutorialsTree (fileDownload)="downloadFile($event)"></app-file-tree>
+		</div>
+	</li>
+	
+	<li>
+		Settings
+		<div class = "dnldContainer">
+			<app-file-tree  [dataSource] = settingsTree (fileDownload)="downloadFile($event)"></app-file-tree>
+		</div>
+	</li>
+
+	<li>
+		Root
+		<div class = "dnldContainer">
+			<app-file-tree  [dataSource] = rootTree (fileDownload)="downloadFile($event)"></app-file-tree>
+		</div>
+	</li>
+
+</ul>

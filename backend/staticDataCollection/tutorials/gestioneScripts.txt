@@ -1,0 +1,45 @@
+
+In "mainServer.py" ci sono 2 funzioni per la gestione degli script lato backend prima di essere utilizzati dal frontend.
+
+> generateRawScriptsList():
+    - genera una lista con tutti gli script presenti nella cartella /backend/scripts.
+    - se il file esiste, viene caricato e solo i nuovi script vengono inseriti, altrimenti genera un file da zero.
+    - di default tutti i campi tranne il 'name' sono vuoti.
+    - è necessario modificare manualmente inserendo gruppo, descrizione ('viewName'), 'tooltip', ecc
+     ed abilitare gli script desiderati per il passo successivo ('options': {'disabled' = false})
+    - templateFile: se indicato il nome del file (dalla cartella downloads/File di riferimento & Esempio), sarà possibile scaricarlo dal menu info
+    
+    - requirements: abilita o disabilita i selettori lato frontend.
+    
+> generateScriptsList():
+    - genera il file 'finale' della lista script utilizzata dal fronend.
+    - raggruppa in base al 'gruppo' di appartenenza tutti gli script definiti nel passo precedente.
+
+
+Esempio:
+[
+    {
+        "includedScripts": [ < lista script del gruppo >],
+        "name": "< Nome del gruppo >",
+        "scripts": [ < lista degli script con lo stesso gruppo >
+            {
+                "gruppo": "Scarichi",
+                "name": "Confronti YAROT.py",
+                "templateFile: "",
+                "options": {
+                    "disabled": false, // lo script è abilitao 
+                    "img": ""   // immagine da assegnare allo script (non utilizzato attualmente)
+                },
+                "requirements": {
+                    "database": true,       // abilita/disabilita il selettore del db quality/prod lato frontend
+                    "collection": false,    // abilita/disabilita il selettore dragonfly/smartscada lato frontend 
+                    "subCollection": false, // abilita/disabilita il selettore della sub collezione dispositivi/profili lato frontend
+                    "file": false,          // abilita/disabilita il campo upload file lato frontend
+                    "text": false           // abilita/disabilita il campo inserimento nome galleria lato frontend
+                },
+                "viewName": "Confronti YAROT"   // Nome visualizzato nel menu selezione script
+                "tooltip": "",  // messaggio da visualizzare quando ci si sofferma sullo script nel menu selezione  (non funziona)
+            }
+        ]
+    }
+]

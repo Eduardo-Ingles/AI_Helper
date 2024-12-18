@@ -1,0 +1,63 @@
+{
+    "CkaxpFyFb7IBGGViAAAD": {
+        "clientName": "Alex",
+        "data": {
+            "clientName": "Alex",
+            "collection": "",
+            "database": "",
+            "files": [
+                "PlcComunicazioneCe5CampodiegoliRmt20241105 (1).xlsx",
+                "PlcComunicazioneCe5CampodiegoliRmt20241105 (2).xlsx"
+            ],
+            "galleria": "",
+            "script": "Unisci file excel",
+            "subCollection": "",
+            "userId": "CkaxpFyFb7IBGGViAAAD"
+        },
+        "id": "CkaxpFyFb7IBGGViAAAD",
+        "links": [
+            {
+                "link": "C:\\Users\\Utente\\Documents\\AI_Helper\\backend\\downloads\\Unisci file excel\\17-12-2024\\11.46.36V1VHOH-46.xlsx",
+                "linkName": "11.46.36V1VHOH-46.xlsx"
+            }
+        ],
+        "message": [
+            {
+                "message": [
+                    {
+                        "clientName": "Alex",
+                        "collection": "",
+                        "database": "",
+                        "files": [
+                            "PlcComunicazioneCe5CampodiegoliRmt20241105 (1).xlsx",
+                            "PlcComunicazioneCe5CampodiegoliRmt20241105 (2).xlsx"
+                        ],
+                        "galleria": "",
+                        "script": "Unisci file excel",
+                        "subCollection": "",
+                        "userId": "CkaxpFyFb7IBGGViAAAD"
+                    },
+                    31.6
+                ]
+            },
+            {
+                "message": "excludeSheets: \n\nfile_names: ['PlcComunicazioneCe5CampodiegoliRmt20241105 (1).xlsx', 'PlcComunicazioneCe5CampodiegoliRmt20241105 (2).xlsx']\n"
+            },
+            {
+                "message": "\nAttendere...elaborazione di 2 file..."
+            },
+            {
+                "message": "\nSalvataggio in corso...\n"
+            },
+            {
+                "message": ""
+            },
+            {
+                "message": "Tempo elaborazione: 2.55 secondi - 0.02 minuti"
+            }
+        ],
+        "progress": 0,
+        "task": "Unisci file excel.py",
+        "timestamp": "2024-12-17_11.46.36"
+    }
+}

@@ -1,0 +1,17 @@
+
+<div id="mat-form-field-container">
+    <mat-form-field>
+        <mat-label>{{label}}</mat-label>
+        <mat-select [formControl]="selectControl" panelClass="custom-select-panel">
+            <mat-option> <-- Nessun Script --> </mat-option>
+
+            <mat-optgroup *ngFor="let group of groups" [label]="group.name" [disabled]="group.disabled"
+            [matTooltip]="group.tooltip" matTooltipPosition = "above" matTooltipShowDelay = "3000" matTooltipHideDelay = "100" matTooltipClass="tooltip-multiline">
+                <mat-option *ngFor="let option of group.options" [value]="option.value" [disabled]="option.disabled"
+                [matTooltip]="option.tooltip" matTooltipPosition = "above" matTooltipShowDelay = "1000" matTooltipHideDelay = "500" matTooltipClass="tooltip-multiline">
+                    {{option.viewValue}}
+                </mat-option>
+            </mat-optgroup>
+        </mat-select>
+    </mat-form-field>
+</div>

@@ -1,0 +1,20 @@
+
+<!--mat-slider min="0" max="1" step="0.1" showTickMarks discrete [displayWith]="formatLabel" id = "slider_temperatura"-->
+
+    <!-- Optional: Display current value -->
+    <p>Current value: {{ currentValue }}</p>
+    <mat-slider  [min]="minValue"  [max]="maxValue"  [step]="stepValue"  showTickMarks  discrete  [displayWith]="formatLabel"  id="slider_temperatura">
+        <input matSliderThumb [value]="currentValue" (valueChange)="currentValue = $event" >
+    </mat-slider>
+
+    <!--section class="example-section" [formGroup]="fineTunners">
+        <p><mat-checkbox formControlName="fineTemp" id = "fineTemp" >Fine-Tune Temperatura</mat-checkbox></p>
+        <p><mat-checkbox formControlName="fine_P" id = "fine_P" >Fine-Tune top_P</mat-checkbox></p>
+        <p><mat-checkbox formControlName="fine_K" id = "fine_K" >Fine-Tune top_K</mat-checkbox></p>
+      </section>
+
+    <section class="example-section" [formGroup]="fineTunners">
+        <h4>You chose:</h4>
+        {{fineTunners.value | json}}
+    </section-->
+

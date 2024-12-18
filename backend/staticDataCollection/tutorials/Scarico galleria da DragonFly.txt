@@ -1,0 +1,15 @@
+1. Scaricamento della Galleria:  
+   Inserisci il nome della galleria e scegli se scaricare con o senza elaborazione usando il selettore [Scarico ↔ Elaborazione].
+ 
+2. Selezione del Database:  
+   Imposta il selettore 'DB attualmente selezionato' su Quality o Produzione a seconda delle tue necessità.
+ 
+3. Salvataggio degli Script:  
+   Nel menu in alto [Scripts Dragonfly], viene salvata una copia degli script.
+ 
+4. Cercare e Scaricare i File:  
+   Vai nella cartella Scripts Dragonfly, trova la galleria desiderata e scarica i file:  
+   - missingWidgets_XXX  
+   - missingTags_XXX  
+ 
+   Questi file contengono i tag e i widget che hanno valori null nel database e quindi vengono scartati.

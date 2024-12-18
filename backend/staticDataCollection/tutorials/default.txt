@@ -1,0 +1,20 @@
+
+La schermata attuale è [HOME]
+
+> Selezionare uno script, è possibile ricercare anche per "nome parziale" (ossia ricercare all'interno del nome)
+⠀⠀⠀⠀! Alcuni campi sono <opzionali> di conseguenza sono visibili solo per alcuni <script> !
+
+> Selezionare un [DataBase] su cui eseguire le operazioni (opzionale)
+
+> Selezionare la [Collection] del [DataBase] <SmartScada> oppure <Dragonfly> (opzionale)
+
+> Selezionare la [subCollection] del [DataBase] <Profili> oppure <Dispositivi> (opzionale)
+
+> Inserire Il [Nome Galleria] oppure caricare uno / più file [Scegli file]
+
+> Eseguire lo script con i campi selezionai
+
+
+Note:
+- Nel caricare i file, è possibile eseguire la selezione multipla ma solo dalla stessa cartella. 
+    Non è possibile caricare file da più percorsi, una volta selezionati i file, se si prova a selezionarne altri, i vecchi file verranno rimossi.

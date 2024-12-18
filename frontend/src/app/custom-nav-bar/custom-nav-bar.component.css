@@ -1,0 +1,13 @@
+nav{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align:center;
+    padding: 8px 16px;
+}
+
+
+#settings{
+    position: absolute;
+    right: 0%;
+}

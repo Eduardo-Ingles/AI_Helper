@@ -1,0 +1,51 @@
+
+descriptions_rules_raw.json
+
+
+All'interno del file 'descriptions_rules_raw.json' sono presenti le regole, raggruppate per TAG (ALR, CMD, MIS, PAR, ST).
+
+Ogni regola è composta da 5 parti:
+⠀⠀⠀> logica SI (oppure): Parole chiave da identificare univocamente un segnale, i valori tra parentesi quadre significano o un valore o l'altro (necessario almeno 1)
+⠀⠀⠀⠀⠀⠀- [VAL1 VAL2] la funzione cerca alemno uno dei due valori specificati, è utilizzato anche per la descrizione con sostituzione del valore di $VAR#$ 
+⠀⠀⠀> logica NO: Parole chiave da non includere nel filtro
+⠀⠀⠀> Segnale: segnale che si desidera in output 
+⠀⠀⠀⠀⠀⠀- $VAR#$: sostituisce con il contenuto delle parentesi, per valori multipli ($VARA$, $VARB$, ecc). 
+⠀⠀⠀⠀⠀⠀⠀la regola di sostituzione è da destra verso sinistra in base al numero di quadre e del nome della variabile $VAR#$
+⠀⠀⠀> Descrizione: descrizione che si desidera in output
+⠀⠀⠀> Dispositivo: && parola chiave del dispositivo per restringere il filtro
+
+
+Nota: per tutte le parole chiave fare riferimento a Dictionator_OLD -> ForestManager.py
+
+(necessario valutare con il resto delle regole censite prima di apportare una modifica o aggiunta)
+
+
+Esempi:
+⠀⠀⠀> "PAR CMD WRITE [FC WRITE] : PAR WRITE = PAR-CMD-WRITE : Comando scrittura freccia croce && FC"
+⠀⠀⠀⠀⠀⠀- è stato riportato 2 volte WRITE per garantire che se nella condizione oppure nella quadra FC viene considerato, altrimenti ricade su WRITE -> TRUE.
+⠀⠀⠀⠀⠀⠀⠀⠀&& FC -> indica il dispositivo del segnale, permette di restringere la ricerca nei FrecciaCroce
+
+⠀⠀⠀> "CMD [CMD ST] PICCH ILLUM [AUTO MAN LOCAL REMOT] : = CMD-PICCH-$VARA$ : Comando picchetti in $VARA$ && PICCH ILLUM"
+⠀⠀⠀⠀⠀⠀- Predilige uno comando (CMD), ma si accetta in input anche la possibilità di stato (ST) del picchetto (PICCH) illuminazione (ILLUM), per qualunque dei stati:
+⠀⠀⠀⠀⠀⠀⠀⠀automatico (AUTO), manuale (MAN), locale (LOCAL), remoto (REMOT) 
+⠀⠀⠀⠀⠀⠀- essendo solo $VARA$, la sostituzione avviene con il valore trovato solo dalla prima parentesi nella condizione SI partendo da destra verso sinistra
+⠀⠀⠀⠀⠀⠀⠀⠀In questo caso il 'segnale' e la 'descrizione' cambieranno in:
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀> CMD-PICCH-AUTO : Comando picchetti in automatico
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀> CMD-PICCH-MAN : Comando picchetti in manuale
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀> CMD-PICCH-LOCAL : Comando picchetti in locale
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀> CMD-PICCH-REMOT : Comando picchetti in remot
+
+⠀⠀⠀> "CMD RESET [FORZ ESCL INCL] [EXTING HOSE IDRANT] [1 2] : = CMD-RESET-$VARC$-$VARB$-$VARA$ : Comando reset $VARC$ $VARB$ $VARA$",
+⠀⠀⠀⠀⠀⠀- In questo caso ci sono 3 variabili A-B-C
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀> $VARA$: prende un valore dalla prima parentesi partendo da destra a sinistra
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀> $VARB$: prende un valore dalla seconda parentesi partendo da destra a sinistra
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀> $VARC$: prende un valore dalla terza parentesi partendo da destra a sinistra
+
+⠀⠀⠀> "MIS [TENS CURRENT FREQ COSFI] [INGRES EXIT ARRIV] [V1 V2 V3 L1 L2 L3 L1N L2N L3N L12 L13 L23] [RETE BYP] : = MIS-$VARD$-$VARC$-$VARB$-$VARA$ : Misura $VARD$ $VARC$ fase $VARB$ $VARA$",
+⠀⠀⠀⠀⠀⠀- In questo caso ci sono 4 variabili A-B-C-D, non c'è un vero limite di variabili che si possono utilizzare, ma un numero maggiore significa più possibilità di falsi positivi.
+
+
+
+E' possibile commentare aggiungendo: ' "!--- Commento ---!" '
+
+E' consigliato eseguire sharedCode -> rulesDefiner.py (creaNuovoFormato) per garantire la corretta creazione del 'nuovo formato'

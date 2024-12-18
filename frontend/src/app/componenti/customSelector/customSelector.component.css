@@ -1,0 +1,59 @@
+
+#mat-form-field-container {
+}
+
+.mat-select {
+    width: 100%;
+    max-width: 400px; /* Adjust this value as needed */
+}
+
+::ng-deep .custom-select-panel {
+    max-height: 600px !important; /* Allows showing more items */
+    min-width: 400px !important; /* Adjust width as needed */
+    border-radius: 16px !important; /* Makes the dropdown more rounded */
+    background-color: #f5f5f5; /* Light gray background */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15) !important; /* Adds depth */
+    overflow-y: auto !important; /* Enables scrolling */
+    scrollbar-width: thin; /* Firefox-specific scrolling style */
+}
+
+::ng-deep .custom-select-panel::-webkit-scrollbar {
+    width: 6px; /* Width of scrollbar */
+}
+
+::ng-deep .custom-select-panel::-webkit-scrollbar-thumb {
+    background-color: #cccccc; /* Scrollbar thumb color */
+    border-radius: 15px; /* Makes the scrollbar thumb round */
+}
+
+::ng-deep .mat-mdc-optgroup-label {
+    font-size: 16px !important;
+    color: #8e7aff !important; /* Blue color for group labels */
+    font-weight: bold !important;
+    padding: 12px 16px !important;
+}
+
+::ng-deep .mat-mdc-option {
+    min-height: 48px !important; /* Makes each option taller */
+    padding: 8px 16px !important;
+    border-radius: 8px !important; /* Adds rounding to options */
+    margin: 2px 0; /* Adds space between options */
+}
+
+::ng-deep .mat-mdc-option:hover {
+    background-color: #e3f2fd !important; /* Light blue on hover */
+    border-radius: 8px !important; /* Ensure hover keeps the rounding */
+}
+
+::ng-deep .mat-mdc-option.mat-mdc-option-active {
+    background-color: #bbdefb !important; /* Slightly darker blue when active */
+}
+
+::ng-deep .mat-mdc-select-panel {
+    border-radius: 16px !important; /* Rounds the dropdown panel */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important; /* Adds subtle shadow */
+}
+
+::ng-deep .tooltip-multiline {
+    white-space: pre-line;
+}

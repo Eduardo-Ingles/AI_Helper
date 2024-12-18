@@ -1,0 +1,29 @@
+
+<div class="file-uploader">  
+    <!-- File input -->
+    <input
+		type="file"
+		(change)="onFileSelected($event)"
+		[multiple]="allowMultipleFiles"
+		class="file-input"
+    />
+  
+    <!-- File List -->
+    <div class="file-list" *ngIf="selectedFiles.length > 0">
+      	<p>File selezionati:</p>
+		<ul>
+			<li *ngFor="let file of selectedFiles">
+			{{ file.name }} ({{ file.size | number }} bytes)
+			</li>
+		</ul>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="button-container">
+		<div *ngIf = "selectedFiles.length" disabled = "true">
+			<button  *ngIf = "selectedFiles.length > 0" (click)="uploadFiles()">Conferma</button>
+			<button *ngIf = "selectedFiles.length > 0" (click) = "clearFiles()">Annulla</button>
+		</div>  
+    </div>
+</div>
+  

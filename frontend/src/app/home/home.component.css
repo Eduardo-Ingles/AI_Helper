@@ -1,0 +1,88 @@
+
+
+/*mainOutputArea*/
+
+#mainOutputArea.ng-invalid {
+    background-color:pink;
+}
+#mainOutputArea.ng-valid {
+    background-color:lightgreen;
+}
+
+#mainOutputArea{    
+    position: relative;
+    transform:  translate(-50%, 0%);
+    left: 50%;
+    height: 60vh; 
+    width:  60%;
+    overflow-x: hidden;
+    resize: none;
+}
+
+.mainOutputDiv {
+    flex-grow: 1;
+    flex: 1;       
+    position: relative;  
+    transform:  translate(-50%, -5%);
+    left: 50%;
+    white-space: pre-line;
+    background-color: #f0f0f0;
+    border: 10px solid #ccc;
+    /*height: 100%; */
+    height: 50vh; 
+    width: 80%;
+    overflow-y: scroll; /* Changed from scroll to auto */
+    padding: 10px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    resize: none;
+    font-size: 16px;
+    /*width: 500px;           /* Set the desired width */
+    /*height: 890px;          /* Set the desired height */
+    /*padding: 10px;          /* Optional padding */
+    /*border: 1px solid #ccc; /* Border for visual clarity */
+    /*overflow-y: auto;       /* Enable vertical scrolling */
+    overflow-x: hidden;     /* Hide horizontal scrollbar */
+    /*white-space: pre-wrap;  /* Preserve whitespace and line breaks */
+    /*white-space: pre-line;*/
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    /*background-color: #f9f9f9;*/
+}
+
+.mainContainer{
+    height: 80vh;
+}
+
+.loadType{
+    flex: 1;
+    margin-top: 30px;
+}
+
+.selectors{
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+}
+.run{
+    flex: 1;
+    
+}
+.result{
+    flex: 6;
+    
+}
+
+.profileDevice{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.scriptSelector{
+    min-width: 450px;
+}
+
+.galleriaSelector{
+    min-width: 450px;
+}

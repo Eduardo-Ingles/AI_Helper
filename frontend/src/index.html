@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Automazione</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+
+  <!--script type="application/json" src="scripts.js"></script-->
+
+</body>
+
+</html>
+
+
+
+<!--script>
+/*
+  	function userPromptResize(textboxId) {
+		var minRows=3; 
+		var maxRows=8; 
+		var txt=textboxId.value;
+		var cols=textboxId.cols;
+
+		var arraytxt=txt.split('\n');
+		var rows=arraytxt.length; 
+
+		if(rows < minRows){
+			rows = minRows;
+		}
+		for (i=minRows;i<arraytxt.length;i++) 
+		rows+=parseInt(arraytxt[i].length/cols);
+		if (rows>maxRows) textboxId.rows=maxRows;
+		else textboxId.rows=rows;
+	}*/
+	
+
+	var lastRows = 0;
+	function aiOutResize(textboxId) {
+		
+		var minRows=10; 
+		var maxRows=50; 
+		var txt=textboxId.value;
+		var cols=textboxId.cols;
+
+		var arraytxt=txt.split('\n');
+		var rows=arraytxt.length; 
+
+		if(rows < minRows){
+			rows = minRows;
+		}
+		for (i=minRows;i<arraytxt.length;i++) 
+		rows+=parseInt(arraytxt[i].length/cols);
+		if (rows>maxRows) textboxId.rows=maxRows;
+		else textboxId.rows=rows;
+
+
+		//var elementStyle = document.getElementById("mainOutputAreaAi").style;
+		//elementStyle.position = "absolute";
+		//var startPos = elementStyle.top;
+		//if(isNaN(parseFloat(startPos))){
+		//	elementStyle.top = "67%";
+		//	vary_offset = 67;
+		//}
+		////elementStyle.top = startPos;
+//
+//
+		//let topValue = parseFloat(elementStyle.top);
+		//var minOutRows=10; 
+		//var maxOutRows=50; 
+		//var txt=textboxId.value;
+		//var colsOut=textboxId.cols;
+//
+		//var arraytxt=txt.split('\n');
+		//var rowCount=arraytxt.length; 
+//
+		//if(rowCount < minOutRows){
+		//	rowCount = minOutRows;
+		//}
+//
+		//for (i=minOutRows;i<arraytxt.length;i++){
+		//	rowCount+=parseInt(arraytxt[i].length/colsOut);
+		//}
+//
+		//
+		////			(67 -10) /50
+		//formula = (vary_offset)/(rowCount);
+//
+		//
+		//if (rowCount>maxOutRows){ 
+		//	textboxId.rows=maxOutRows;
+		//	elementStyle.top = "10%";
+		//}else{
+		//	textboxId.rows=rowCount;	
+		//	if(lastRows < rowCount && rowCount > 10){
+		//		lastRows += formula;//(vary_offset)/maxOutRows;
+		//	}else if(lastRows > rowCount && rowCount > 10 && lastRows < (vary_offset - minOutRows)){
+		//			lastRows += (vary_offset)/maxOutRows;
+		//	}else if(lastRows >= (vary_offset - minOutRows)){
+		//		elementStyle.top = "10%";
+		//	}
+		//	//console.log(parseFloat(startPos), "|", (rowCount),"->", String(parseFloat(startPos) - parseFloat(rowCount))+"%");
+		//	console.log(rowCount, lastRows, parseFloat(vary_offset), formula);
+		//	elementStyle.top = String(parseFloat(vary_offset) - parseFloat(lastRows))+"%";//(parseFloat(startPos) - parseFloat(rowCount))+"%";	
+		//	
+		//}
+		
+		
+		/*else{
+			if (rowCount > 10) {
+                // Decrease top value until it reaches 10%
+                if (topValue > 10) {
+					console.log((10+rowCount)/49, `${topValue - ((10+rowCount)/49)}%`)
+                    elementStyle.top = `${topValue - ((10+rowCount)/49)}%`;
+                }
+			}
+
+		}*/
+	}
+//d.style.top = y_pos+'px';
+
+	
+
+</script-->

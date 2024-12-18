@@ -1,0 +1,491 @@
+{      
+
+    "paths":
+    [
+        {            
+            "_id": "scripts",
+            "data" : "\\backend\\scripts\\"
+        },
+        {            
+            "_id": "templates",
+            "data" : "\\backend\\templates\\"
+        },
+        {            
+            "_id": "uploadsFolder",
+            "data" : "\\backend\\uploads\\"
+        },
+        {            
+            "_id": "downloadsFolder",
+            "data" : "\\backend\\downloads\\"
+        },
+        {            
+            "_id": "fileExampleFolder",
+            "data" : "\\backend\\Files_Template\\"
+        },
+        {            
+            "_id": "dictFolder",
+            "data" : "\\backend\\scripts\\FileEssenziali\\Dizionari\\"
+        },
+        {            
+            "_id": "rulesFolder",
+            "data" : "\\backend\\scripts\\FileEssenziali\\Regole\\"
+        },
+        {            
+            "_id": "settingsFolder",
+            "data" : "\\backend\\scripts\\FileEssenziali\\Settings\\"
+        },
+        {            
+            "_id": "logs",
+            "data" : "\\backend\\scripts\\logs\\"
+        },
+        {            
+            "_id": "dbLogs",
+            "data" : "\\backend\\downloads\\db_update_logs\\"
+        },
+        {            
+            "_id": "dbDump",
+            "data" : "\\backend\\staticDataCollection\\dbDump\\"
+        },
+        {            
+            "_id": "tutorials",
+            "data" : "\\backend\\staticDataCollection\\tutorials\\"
+        },
+        {
+            "_id": "staticData",
+            "data": "\\backend\\staticDataCollection\\"
+        }
+        
+        
+    ],
+    "files":
+    [        
+        {            
+            "_id": "dizionarioMain",
+            "data" : "mainDictionary.json"
+        },
+        {            
+            "_id": "sigRulesRaw",
+            "data" : "descriptions_rules_raw.json"
+        },
+        {            
+            "_id": "sigRules",
+            "data" : "descriptions_rules.json"
+        },
+        {            
+            "_id": "alrClassRulesRaw",
+            "data" : ""
+        },
+        {            
+            "_id": "alrClassRules",
+            "data" : ""
+        },
+        {            
+            "_id": "globalSettings",
+            "data" : "settings.json"
+        },
+        {            
+            "_id": "tutorials",
+            "data" : "tutorials.json"
+        },
+        {            
+            "_id": "raw_scriptsList",
+            "data" : "raw_scriptsList.json"
+        },
+        {            
+            "_id": "scriptsList",
+            "data" : "scriptsList.json"
+        }
+    ],
+
+    "dbSettings":
+    [
+        {
+            "_id": "MongoQualityClient",
+            "data": "mongodb://rmtqual:H2Fnv3QAP4%3FB@rmt-q-nosql1-1.anasnet.it,rmt-q-nosql1-2.anasnet.it,rmt-q-nosql1-3.anasnet.it/?replicaSet=rmtqualRS&readPreference=secondaryPreferred&ssl=false"
+        },
+        {
+            "_id": "MongoProductionClient",
+            "data": "mongodb://root:abc123!@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?replicaSet=rs1&authSource=admin"
+        }
+    ],
+
+    "cardinatorSettings": 
+    [
+        {            
+            "_id": "wip",
+            "data" : []
+        }
+    ],
+    "dragonFlySettings": 
+    [
+        {            
+            "_id": "wip",
+            "data" : []
+        },
+        {
+            "_id": "prefix_scarico",
+            "data" : "Scarico_DragonFly"
+        },
+        {
+            "_id": "prefix_elaborazione",
+            "data" : "Elebaorato_DragonFly"
+        }
+    ],
+    "globalSettings": 
+    [   
+        {
+            "_id": "uploadsFolderPath",
+            "data" : "\\backend\\uploads\\"
+        },
+        {
+            "_id": "auxFolderPath",
+            "data" : "\\backend\\scripts\\fileAusiliari\\"
+        },
+        {
+            "_id": "dictionaryFolderPath",
+            "data" : "\\backend\\scripts\\FileEssenziali\\Dizionari\\"
+        },
+        {
+            "_id": "rulesFolderPath",
+            "data" : "\\backend\\scripts\\FileEssenziali\\Regole\\"
+        },
+        {
+            "_id": "settingsFolderPath",
+            "data" : "\\backend\\scripts\\FileEssenziali\\Settings\\"
+        },
+        {
+            "_id": "mainDictionary",
+            "data" : "mainDictionary.json"
+        },
+        {
+            "_id": "alrClassRules",
+            "data" : "newAlrClassRules.json"
+        },
+        {
+            "_id": "alrClass_Rules",
+            "data" : "alrClassRules.json"
+        },
+        {
+            "_id": "raw_descrRules",
+            "data" : "descriptions_rules_raw.json"
+        },
+        {
+            "_id": "descrRules",
+            "data" : "descriptions_rules.json"
+        },
+        {
+            "_id": "descrRules_new",
+            "data" : "newDescrRules.json"
+        },
+        {
+            "_id": "deviceDescrRules_new",
+            "data" : "newDescrRules__.json"
+        },
+        {
+            "_id": "uomRules",
+            "data" : "newUOMRules.json"
+        },
+
+        {
+            "_id": "splitRule",
+            "data" : "[-_:;,.\"\\s()/=#+]"
+        },
+        {
+            "_id": "dividers",
+            "data": [",",";","/"]
+        },
+        {
+            "_id": "equalators",
+            "data": [":", "-", "="]
+        },
+        {
+            "_id": "forestFolder",
+            "data" : "\\backend\\scripts\\fileAusiliari\\dizionari\\TreeForest\\"
+        },
+        {
+            "_id": "MongoQualityClient",
+            "data": "mongodb://rmtqual:H2Fnv3QAP4%3FB@rmt-q-nosql1-1.anasnet.it,rmt-q-nosql1-2.anasnet.it,rmt-q-nosql1-3.anasnet.it/?replicaSet=rmtqualRS&readPreference=secondaryPreferred&ssl=false"
+        },
+        {
+            "_id": "MongoProductionClient",
+            "data_": "mongodb://root:abc123!@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?replicaSet=rs1&authSource=admin",
+            "data": "mongodb://root:abc123!@rmt-p-nosql1.anasnet.it,rmt-p-nosql2.anasnet.it,rmt-p-nosql3.anasnet.it/?replicaSet=rs1&authSource=admin",
+            "_old_": "mongodb://root:abc123%21@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?authSource=admin&replicaSet=rs1&readPreference=primary&ssl=false"
+        },
+        {
+            "_id": "dataType",
+            "data" : 
+                [
+                    {
+                    "bool_KW" : ["BOOLEAN", "BINARY", "BIT", "DIGITAL", "BOOL", "BYTE", "WORD_BINARY", "COIL"],
+                    "int_KW"  : ["INTEGER", "TWO_BYTE_INT_SIGNED", "INT", "HEX", "TIME","TWO-BYTE-INT-SIGNED"],
+                    "uint_KW" : ["INTEGER", "TWO_BYTE_INT_UNSIGNED", "UINT", "U_INT", "TWO-BYTE-INT-UNSIGNED"],
+                    "dint_KW" : ["INTEGER", "FOUR_BYTE_INT_SIGNED", "LONG", "DINT", "D_INT", "FOUR_BYTE_INT_UNSIGNED"],
+                    "dintSwap_KW" : ["INTEGER", "FOUR_BYTE_INT_SIGNED_SWAPPED", "DINT_SWAPP", "D_INT_SWAPP", "FOUR_BYTE_INT_UNSIGNED_SWAPPED"],
+                    "real_KW" : ["FLOAT", "FOUR_BYTE_FLOAT", "REAL"],
+                    "realSwap_KW" : ["FLOAT", "FOUR_BYTE_FLOAT_SWAPPED", "REAL_SWAP", "REALSWAP", "FOUR-BYTE-FLOAT-SWAPPED"],
+                    "char_KW" : ["STRING", "STRING", "CHAR", "TWO-BYTE-CHAR-SWAPPED", "VARCHCHAR" , "DOUBLE"],
+                    "coil_KW" : ["_UNUSED_COIL", "_UNUSED_COIL"],                    
+                    "oneByteInt_S_KW": ["ONE_BYTE_INT_SIGNED", "ONE_BYTE_INT_SIGNED"],
+                    "oneByteInt_U_KW": ["ONE_BYTE_INT_UNSIGNED", "ONE_BYTE_INT_UNSIGNED"]
+                    }
+                ]
+        },
+        {
+            "_id": "registerTypes",
+            "data":
+                [
+                    {
+                        "coil_KW": ["COIL", "COIL"],
+                        "holding_KW": ["HOLDING_REGISTER", "HOLDING_REGISTER", "HOLDING REGISTER", "HOLDING", "HOLDING_REGISTERS", "HOLDING REGISTERS"],
+                        "input_KW": ["INPUT_REGISTER", "INPUT_REGISTER", "INPUT REGISTER", "INPUT", "INPUT_REGISTERS", "INPUT REGISTERS"],
+                        "discrete_KW": ["DISCRETE_REGISTER", "DISCRETE_REGISTER", "DISCRETE REGISTER", "DISCRETE", "DISCRETE_REGISTERS", "DISCRETE REGISTERS"]
+                    }
+                ]
+        },
+        {            
+            "_id": "colonneImport",
+            "data" : ["deviceId", "deviceName", "signalName", "profileName", "datasourceName", "driverId", "driverInstance", "disabled", "signalDescription", "register", "registerType", "dataType", "offset", "slaveId", "bitIndex", "registerCount", "bitMask"]
+        },
+        {            
+            "_id": "colonneImportSegnali",
+            "data" : ["deviceId", "deviceName", "signalName", "profileName", "datasourceName", "driverId", "driverInstance", "disabled", "signalDescription", "register", "registerType", "dataType", "offset", "slaveId", "bitIndex", "registerCount", "bitMask"]
+        }
+    ],
+    "analisiSorgenteSettings":
+    [
+        {
+            "_id": "colonneIN",
+            "data": ["rawRegister", "rawBitIndex", "rawAddress", "rawRegisterType", "rawDataType", "rawDispositivo", "rawSegnale", "rawDescrizione",  "rawDescr&Signal", "rawLogica", "rawTags", "rawQuadro", "rawCabina", "rawDirezione", "rawReference", "rawIpPlc"]
+        },
+        {
+            "_id": "colonneElaborazione",
+            "data" : ["newSubplant","NewAddress", "NewRegisterType", "NewDataValueType", "NewTag", "Escludi Profili", "NewDescrizioneImpianto", "NewDescrizioneDispositivo", "NewProfileName", "NewDevice", "NewSignalName", "NewSignalDescription", "NewAlarmClass", "NewAlarmDescription", "NewUOM", "NewLogica", "NewCabina", "NewDirezione", "NormalizedData" ,"LeftOvers", "LogicLeftOvers", "<Used Functions>", "Notice", "newRegister", "newBitIndex", "extractedIds"]
+        },
+        {
+            "_id": "filePrefix",
+            "data" : "Elaborato_Sorgente_"
+        },
+        {
+            "_id": "fileSuffix",
+            "data" : "_elaborazione_"
+        }
+    ],
+    "plantSettings": 
+    [
+        {            
+            "_id": "wip",
+            "data" : []
+        }
+    ],
+    "profilatorSettings":
+    [   
+        {
+            "_id": "colonneIN",
+            "data" : ["Escludi Profili", "NewProfileName", "NewSignalName", "NewSignalDescription", "NewDataValueType", "NewUOM", "NewAlarmClass", "NewAlarmDescription", "NewLogica", "NewDescrizioneImpianto", "NewDescrizioneDispositivo"]
+        },
+        {
+            "_id": "outputColumns",
+            "data" : ["profileName", "signalName", "signalDescription", "valueBound", "valueType", "hidden", "virtual", "uom", "scale", "valueObjects", 
+                        "parameter", "defaultValue", "valueMin", "valueMax", "decimalPlaces", "readingExpireTime", "emitReadings", "tags", 
+                        "commandDescription", "commandRoleLevel", "commandBody", "commandExpression", "operationBody", 
+                        "alarmClass", "alarmDescription", "thresholds", 
+                        "Logica (0/1)","LogicLeftOvers", "LeftOvers", "NormalizedData", "Profili Dupplicati", "alrClass Dupplicati", "normalizedAlr", "Notice"]
+        },
+        {
+            "_id": "filePrefix",
+            "data" : "profili"
+        },
+        {
+            "_id": "prefix",
+            "data" : "Profili"
+        },
+        {
+            "_id": "suffixOld",
+            "data" : "Vecchio formato"
+        },
+        {
+            "_id": "suffixNew",
+            "data" : "Nuovo formato"
+        },
+        {
+            "_id": "fileSuffix",
+            "data" : "_elaborazione_"
+        },
+        {            
+            "_id": "colonneImport",
+            "data" : []
+        },       
+        {
+            "_id": "valueObjects",
+            "data" : 
+            [
+                {
+                    "_id": "valueObjects_0_NO_1_SI",
+                    "data" : "[{\"value\": 0, \"description\": \"NO\"}, {\"value\": 1, \"description\": \"SI\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_NO_0_SI",
+                    "data" : "[{\"value\": 0, \"description\": \"SI\"}, {\"value\": 1, \"description\": \"NO\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_CH_1_AP",
+                    "data" : "[{\"value\": 0, \"description\": \"CHIUSO\"}, {\"value\": 1, \"description\": \"APERTO\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_CH_0_AP",
+                    "data" : "[{\"value\": 0, \"description\": \"APERTO\"}, {\"value\": 1, \"description\": \"CHIUSO\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_LOCAL_1_REMOT",
+                    "data" : "[{\"value\": 0, \"description\": \"LOCALE\"}, {\"value\": 1, \"description\": \"REMOTO\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_LOCAL_0_REMOT",
+                    "data" : "[{\"value\": 0, \"description\": \"REMOTO\"}, {\"value\": 1, \"description\": \"LOCALE\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_MAN_0_AUTO",
+                    "data" : "[{\"value\": 0, \"description\": \"AUTOMATICO\"}, {\"value\": 1, \"description\": \"MANUALE\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_MAN_1_AUTO",
+                    "data" : "[{\"value\": 0, \"description\": \"MANUALE\"}, {\"value\": 1, \"description\": \"AUTOMATICO\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_ESCL_1_INCL",
+                    "data" : "[{\"value\": 0, \"description\": \"ESCLUSO\"}, {\"value\": 1, \"description\": \"INCLUSO\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_ESCL_0_INCL",
+                    "data" : "[{\"value\": 0, \"description\": \"INCLUSO\"}, {\"value\": 1, \"description\": \"ESCLUSO\"}]"
+                }, 
+                {
+                    "_id": "valueObjects_0_DISINSERT_1_INSERT",
+                    "data" : "[{\"value\": 0, \"description\": \"ESCLUSO\"}, {\"value\": 1, \"description\": \"INCLUSO\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_DISINSERT_0_INSERT",
+                    "data" : "[{\"value\": 0, \"description\": \"INCLUSO\"}, {\"value\": 1, \"description\": \"ESCLUSO\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_NON_1_FORZ",
+                    "data" : "[{\"value\": 0, \"description\": \"NON FORZATO\"}, {\"value\": 1, \"description\": \"FORZATO\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_NON_0_FORZ",
+                    "data" : "[{\"value\": 0, \"description\": \"FORZATO\"}, {\"value\": 1, \"description\": \"NON FORZATO\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_NORD_1_SUD",
+                    "data" : "[{\"value\": 0, \"description\": \"NORD\"}, {\"value\": 1, \"description\": \"SUD\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_NORD_0_SUD",
+                    "data" : "[{\"value\": 0, \"description\": \"SUD\"}, {\"value\": 1, \"description\": \"NORD\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_ON_1_OFF",
+                    "data" : "[{\"value\": 0, \"description\": \"ON\"}, {\"value\": 1, \"description\": \"OFF\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_ON_0_OFF",
+                    "data" : "[{\"value\": 0, \"description\": \"OFF\"}, {\"value\": 1, \"description\": \"ON\"}]"
+                },
+                {
+                    "_id": "valueObjects_0_START_1_STOP",
+                    "data" : "[{\"value\": 0, \"description\": \"START\"}, {\"value\": 1, \"description\": \"STOP\"}]"
+                },
+                {
+                    "_id": "valueObjects_1_START_0_STOP",
+                    "data" : "[{\"value\": 0, \"description\": \"STOP\"}, {\"value\": 1, \"description\": \"START\"}]"
+                }
+            ]
+        },        
+        {
+            "_id": "OperationBodies",
+            "data" : 
+            [
+                {
+                    "_id": "operationBody",
+                    "data" : "{\"name\": \"#signalName#\", \"set\": [{\"operationType\": \"set\", \"parameterMode\": \"setParameter\", \"signal\": \"#signalName#\", \"property\": \"value\", \"parameter\": \"#parameter#\"}]}"
+                },
+                {
+                    "_id": "operationBody_PAR",
+                    "data" : "{\"name\": \"#signalName#\", \"set\": [{\"operationType\": \"set\", \"parameterMode\": \"setSignal\", \"signal\": \"#signalName#\", \"property\": \"value\"}]}"
+                } 
+            ]
+        },
+        {
+            "_id": "CommandBody",
+            "data" : "{\"name\": \"#signalName#\", \"roleLevel\": #commandRoleLevel#, \"expression\": \"\", \"put\": {\"parameterNames\": [], \"path\": \"/api/v1/device/{deviceId}/#signalName#\", \"responses\": [{\"code\": \"200\", \"description\": \"#commandDescription#\", \"expectedValues\": []}, {\"code\": \"503\", \"description\": \"Service unavailable.\", \"expectedValues\": []}]}}"
+        },
+        {
+            "_id": "CommandBody_PAR",
+            "data" : "{\"name\": \"#signalName#\", \"roleLevel\": #commandRoleLevel#, \"expression\": \"\", \"put\": {\"parameterNames\": [\"#signalName#\"], \"path\": \"/api/v1/device/{deviceId}/#signalName#\", \"responses\": [{\"code\": \"200\", \"description\": \"#commandDescription#\", \"expectedValues\": []}, {\"code\": \"503\", \"description\": \"Service unavailable.\", \"expectedValues\": []}]}}"
+        },
+        {
+            "_id": "thresholdsValues",
+            "data" : 
+            [
+                {
+                    "_id": "THRESHOLD_AT0",
+                    "data" : "[{\"emitInThresholdReadingsType\":\"VALUE_CHANGE\", \"emitAlarm\":true, \"alarmLevel\":\"CRITICAL\", \"lower\":\"0\", \"upper\":\"0\", \"label\":\"ATTIVO\", \"labelColor\":\"#9A3324\", \"alarmDestination\":\"ALL\"}, {\"emitInThresholdReadingsType\":\"VALUE_CHANGE\", \"emitAlarm\":true, \"alarmLevel\":\"NORMAL\", \"lower\":\"1\", \"upper\":\"1\", \"label\":\"NON ATTIVO\", \"labelColor\":\"#008C95\", \"alarmDestination\":\"ALL\"}]"
+                },
+                {
+                    "_id": "THRESHOLD_AT1",
+                    "data" : "[{\"emitInThresholdReadingsType\":\"VALUE_CHANGE\", \"emitAlarm\":true, \"alarmLevel\":\"NORMAL\", \"lower\":\"0\", \"upper\":\"0\", \"label\":\"NON ATTIVO\", \"labelColor\":\"#008C95\", \"alarmDestination\":\"ALL\"}, {\"emitInThresholdReadingsType\":\"VALUE_CHANGE\", \"emitAlarm\":true, \"alarmLevel\":\"CRITICAL\", \"lower\":\"1\", \"upper\":\"1\", \"label\":\"ATTIVO\", \"labelColor\":\"#9A3324\", \"alarmDestination\":\"ALL\"}]"
+                },
+                {
+                    "_id": "AlrKWords",
+                    "data" : "ALR ERROR AVARIA GUASTO FAULT"
+                }  
+            ]
+        },
+        {
+            "_id": "defaultValues",
+            "data" : 
+            [
+                {
+                    "_id": "defaultReadingExpireTime",
+                    "data" : "180"
+                },
+                {
+                    "_id": "defaultEmitReadings",
+                    "data" : "VALUE_CHANGE"
+                },
+                {
+                    "_id": "defaultScale",
+                    "data" : 1
+                },
+                {
+                    "_id": "defaultVirtual",
+                    "data" : "false"
+                }   
+            ]
+        }
+    ],
+    "fileMerger":
+    [   
+        {
+            "_id": "filePrefix",
+            "data" : "_merged_"
+        }  
+    ],
+    "yarotSettings":
+    [
+        {
+            "_id": "prefix",
+            "data": "Confronto_Yarot"
+        }
+    ],
+    "profilesDeviceSettings":
+    [
+        {
+            "_id": "prefix",
+            "data": "Scarico"
+        }
+    ]
+}
+
+

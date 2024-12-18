@@ -1,0 +1,39 @@
+.example-container { /* Container */
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    width: auto;
+    height: auto;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+  
+.example-sidenav {
+    padding: 20px;
+    
+    width: 90%;
+}
+.example-sidenav-content {  /* button */
+    display: flex;
+    height: 100%;
+    width: 100%;
+    
+    overflow-x: hidden;
+    overflow-y: hidden;
+    /*align-items: center;*/
+    justify-content: right;
+}
+  
+  
+.example-card {
+    height: 200px;
+    width: 300px;
+    max-width: 400px;
+    max-height: 400px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+  

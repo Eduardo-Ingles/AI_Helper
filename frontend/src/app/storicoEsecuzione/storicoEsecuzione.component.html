@@ -1,0 +1,17 @@
+
+<mat-accordion>
+	@for (gruppo of scriptsList; track gruppo.name){
+		@for (script of gruppo.scripts; track script.name){				
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title></mat-panel-title>
+					<mat-panel-description>{{script.viewName}}</mat-panel-description>
+				</mat-expansion-panel-header>
+					<div>
+						<table-dynamic-array-data-example taskname = {{script.name}}></table-dynamic-array-data-example>
+					</div>		
+			</mat-expansion-panel>
+		}
+	}
+</mat-accordion>
+
