@@ -1,7 +1,6 @@
 
 descriptions_rules_raw.json
 
-
 All'interno del file 'descriptions_rules_raw.json' sono presenti le regole, raggruppate per TAG (ALR, CMD, MIS, PAR, ST).
 
 Ogni regola è composta da 5 parti:
@@ -45,7 +44,10 @@ Esempi:
 ⠀⠀⠀⠀⠀⠀- In questo caso ci sono 4 variabili A-B-C-D, non c'è un vero limite di variabili che si possono utilizzare, ma un numero maggiore significa più possibilità di falsi positivi.
 
 
-
 E' possibile commentare aggiungendo: ' "!--- Commento ---!" '
 
 E' consigliato eseguire sharedCode -> rulesDefiner.py (creaNuovoFormato) per garantire la corretta creazione del 'nuovo formato'
+
+
+Per testare (DAL SERVER / RDP) è sufficiente aprire lo script 'applyRules.py' -> aggiungere i dati normalizzati (colonna 'NormalizedData') nell'array di stringhe 'inputTest'.
+-> Eseguire per verificare se c'è o no output

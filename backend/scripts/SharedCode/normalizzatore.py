@@ -83,7 +83,7 @@ def normalizzaDati(currentWords, usedDictionary, **kwargs):
     - splitRule -> se non indicata viene caricata automaticamente
    
    """
-    dataType = kwargs.get("dataType") if kwargs and "dataType" in kwargs.keys() else "STRING"
+    dataType = kwargs.get("dataType", None)# if kwargs and "dataType" in kwargs.keys() else "STRING"
     returnType = "signal"
     splitRule = kwargs.get("splitRule") if kwargs and "splitRule" in kwargs.keys() else sharedCode.loadSettings("globalSettings", "splitRule")
     if "returnType" in kwargs.keys():
@@ -132,10 +132,14 @@ def normalizzaDati(currentWords, usedDictionary, **kwargs):
                             elif subString.strip() == alias.lower():
                                 if node_data["values"][returnType] not in normalizedData:
                                     normalizedData.append(node_data["values"][returnType].strip())
-    if(("LIST" in dataType.upper() or "ARRAY" in dataType.upper()) and dataType != ""):
+      
+    #print(normalizedData)   
+    if(dataType and ("LIST" in dataType.upper() or "ARRAY" in dataType.upper() and dataType != "")):
+        #print(normalizedData)   
         return normalizedData    
     
-    elif(dataType == "" or (dataType != "" and ("STR" in dataType.upper() or "STRING" in dataType.upper()))):
+    else:
+        #print(normalizedData)   
         return " ".join(normalizedData).strip()
     
     
@@ -144,8 +148,10 @@ def paroleNonCensite(currentWords, indexedDictionary, **kwargs):
     Ricerca le parole non censite, ritorna sempre una stringa.
     (utilizza il dizionario indicizzato per la ricerca)
     - kwargs: splitRule
+    - dataType: LIST / STRING
     """
     splitRule = kwargs.get("splitRule") if kwargs and "splitRule" in kwargs.keys() else sharedCode.loadSettings("globalSettings", "splitRule")  
+    dataType = kwargs.get("dataType", None)
     if(not currentWords):
             return None
     stringa = None
@@ -167,9 +173,11 @@ def paroleNonCensite(currentWords, indexedDictionary, **kwargs):
                 for tempAlias in currAlias.split():
                     if(stringa[i].strip().lower() == tempAlias):
                         stringaRif[i] = ""
-
     unique_words = list(set(word.upper() for word in stringaRif))
-    return " ".join(((" ".join(unique_words)).strip()).split())
+    if(dataType and dataType == "LIST" ):
+        return unique_words
+    else:
+        return " ".join(((" ".join(unique_words)).strip()).split())
 
 
 def normalizeByType(startNodes, currentWords, usedDictionary, **kwargs):  
@@ -221,3 +229,16 @@ def normalizeByType(startNodes, currentWords, usedDictionary, **kwargs):
     for nodo in startNodes:              
         traversaNodo(nodo.strip())
     return  " ".join((" ".join(foundElements).strip()).split())
+
+
+
+if __name__ == "__main__":
+    
+    dictFolder = sharedCode.loadSettings("paths", "dictFolder") 
+    dictFileName = sharedCode.loadSettings("files", "dizionarioMain")
+    dictionary = (sharedCode.rw_file(path = dictFolder, file = dictFileName))
+    indexedAliasArray = aliasIndexArray(dictionary)
+    
+    test = "interruttore"
+    print("\n")
+    print(normalizzaDati(test, dictionary, aliasArray = indexedAliasArray))

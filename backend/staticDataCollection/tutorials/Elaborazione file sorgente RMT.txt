@@ -3,9 +3,9 @@
    - Se disponibile, fornisci anche un file con l’anagrafica (il nome del file deve contenere la parola “anagrafica”).
  
 2. Colonne Utilizzate:  
-   - `rawRegister`  
-   - `rawBitIndex`  
-   - `rawAddress`  
+   - `rawRegister`: compilare solo se presente INDIRIZZO (NON SPLITTARE INDIRIZZO . BITINDEX)
+   - `rawBitIndex`: compilare solo se presente BITINDEX  (NON SPLITTARE INDIRIZZO . BITINDEX)  
+   - `rawAddress`: compilare solo se presente INDIRIZZO . BITINDEX già nella colonna  
    - `rawRegisterType`  
    - `rawDataType`  
    - `rawDispositivo`  
@@ -19,7 +19,10 @@
    - `rawDirezione`  
    - `rawReference`  
    - `rawIpPlc`  
- 
+   
+   Colonne pronte per copia + incolla + testo in colonna:
+      rawRegister,rawBitIndex,rawAddress,rawRegisterType,rawDataType,rawDispositivo,rawSegnale,rawDescrizione,rawDescr&Signal,rawLogica,rawTags,rawQuadro,rawCabina,rawDirezione,rawReference,rawIpPlc
+
 3. Creazione della Pseudo Mappa:  
    - Per ogni colonna `raw`, utilizza una formula semplice:  
      ```excel

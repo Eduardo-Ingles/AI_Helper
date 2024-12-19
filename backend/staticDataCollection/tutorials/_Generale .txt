@@ -1,8 +1,14 @@
 
+> In caso di riavvio del server, è sufficiente eseguire solo il login (da RDP o locale) e il server angular & python vengono avviati automaticamente
+> Sul desktop sono presenti 2 collegamenti per avvio diretto:
+    > start_angular.bat
+    > start_server.bat
 
-> Può capitare che dopo l'esecuzione errata di uno script il server si blocchi -> necessario premere 'ctrl' + 'c' dalla console del server (connettersi a RDP)
 
-Struttura degli scripts (principali):
+> Può capitare che dopo l'esecuzione errata di uno script il server si blocchi -> necessario premere 'ctrl' + 'c' dalla console del server (connettersi a RDP) o riavviare completamente
+
+
+Struttura delle cartelle & scripts (principali):
 
 # scripts:
     > Analisi_Elaborazione:
@@ -24,7 +30,7 @@ Struttura degli scripts (principali):
         -> Regole:
             - descriptions_rules_raw.json: genera poi 'descriptions_rules.json'
         -> Settings:
-            - settings.json: collezione di impostazioni /nomi file / percorsi / indirizzi database / definizioni statiche / ecc
+            - settings.json*: collezione di impostazioni /nomi file / percorsi / indirizzi database / definizioni statiche / ecc
             - tutorials.json: per ogni (viewName) viene indicato se e quale file di esempio utilizzare
 
     > Miscelanea:
@@ -51,14 +57,27 @@ Struttura degli scripts (principali):
 # uploads: cartella dei file caricati per l'esecuzione degli scripts, sono raggruppati per data
 
 # staticDataCollection
+    > dbDump: lista delle gallerie per collection & db, viene rigenerato in caso di eliminazione -> si consiglia di migliorare la creazione dinamica (1 volta al giorno o al riavvio del server ecc...)
+        - scada - MongoProductionClient.json
+        - scada - MongoQualityClient.json
+        - smartscada - MongoProductionClient.json
+        - smartscada - MongoQualityClient.json
     > tutorials: [contiene tutti i 'tutorials' in formato txt]
     - activeTasks-timestamp.json: file che raccoglie tutti i task (viene salvato dopo ogni esecuzione, viene sovrascritto e ricaricato all'avvio del server)
     - ipsbindings.json: metodo crudo con inserimento ed abbinamento per tenere traccia degli utenti in base all'ip (non c'è nessun log-in o autentificazione) 
     - raw_scriptsList.json: viene generato automaticamente in base ai nomi di tutti gli scripts presenti nella cartella 'scripts', però tutti i dati devono essere abilitati e/o modificati. da questa viene generato 'scriptsList.json'
-
+    
 # templates: 
     - listaGallerie.json: contiene tutte le gallerie (nomi statici) raggruppate per (tutte, smartScada_Prod, smartScada_Quality, dragonFly_Prod, dragonFly_Quality)
-    - <file_vari_di_esemio>
+    - <file_vari_di_esemio> già utilizzati, prendere come riferimento per la popolazione dei dati
 # tmp: cartella di logging
 
 
+
+
+*settings.json* # aggiungere elementi = OK, modificare elementi = a tuo rischio e pericolo, eliminare elementi = Non chiamatemi!
+> per la gestione dei dataType / registerType:
+    globalSettings -> dataType / registerTypes: aggiungere o modificare eventuali kwords
+    - 'sharedCode -> fill_DataType(dataToCheck:str, dataDict:list, **kwargs)' data una parola in input, cerca all'interno il match, se trovato ritorna:
+        -> elemento [0] di default, utilizzato per la mappa
+        -> elemento [1] se indicato, utilizzato per i profili

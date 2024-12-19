@@ -423,67 +423,81 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
                 TempDictDevices = {}  
 
                 for index, row in df.iterrows():
-                    counter += 1                    
-                    tempDfDevice = str(row["NewDevice"]).strip().replace("nan", "")
-                    tempDfProfile = str(row["NewProfileName"]).strip().replace("nan", "")
-                    
-                    TempDictProfiles[tempDfProfile] = {"signals": [], "devices": []}
-                    TempDictDevices[tempDfDevice] = {"signals": [], "profiles": []}
-
-                    #msg = sharedCode.progressYield(counter, len(df.index))
-                    #if(msg):
-                    #    yield msg 
+                    if(str(row["Escludi Profili"]) == "" or str(row["Escludi Profili"]) == "nan"):
+                        counter += 1                    
+                        tempDfDevice = str(row["NewDevice"]).strip().replace("nan", "")
+                        tempDfProfile = str(row["NewProfileName"]).strip().replace("nan", "")
+                        
+                        TempDictProfiles[tempDfProfile] = {"signals": [], "devices": [], "dups": []}
+                        TempDictDevices[tempDfDevice] = {"signals": [], "profiles": []}
 
                 for index, row in df.iterrows():
-                    counter += 1
-                    tempDfSignal = str(row["NewSignalName"]).strip() if str(row["NewSignalName"]).strip() != "nan" else None
-                    tempDfDevice = str(row["NewDevice"]).strip() if str(row["NewDevice"]).strip() != "nan" else None
-                    tempDfProfile = str(row["NewProfileName"]).strip() if str(row["NewProfileName"]).strip() != "nan" else None
+                    if(str(row["Escludi Profili"]) == "" or str(row["Escludi Profili"]) == "nan"):
+                        counter += 1
+                        tempDfSignal = str(row["NewSignalName"]).strip() if str(row["NewSignalName"]).strip() != "nan" else None
+                        tempDescr = str(row["NewSignalDescription"]).strip() if str(row["NewSignalDescription"]).strip() != "nan" else None
+                        tempDfDevice = str(row["NewDevice"]).strip() if str(row["NewDevice"]).strip() != "nan" else None
+                        tempDfProfile = str(row["NewProfileName"]).strip() if str(row["NewProfileName"]).strip() != "nan" else None
+                        
+                        dups = {"signal": tempDfSignal, "description": tempDescr}
+                        TempDictProfiles[tempDfProfile]["dups"].append(dups) if dups not in TempDictProfiles[tempDfProfile]["dups"] else next
+                        
+                        if(tempDfProfile in TempDictProfiles.keys() and tempDfSignal):
+                            TempDictProfiles[tempDfProfile]["signals"].append(tempDfSignal) if tempDfSignal not in TempDictProfiles[tempDfProfile]["signals"] else next
+                            TempDictProfiles[tempDfProfile]["devices"].append(tempDfDevice) if tempDfDevice not in TempDictProfiles[tempDfProfile]["devices"] else next
 
-                    if(tempDfProfile in TempDictProfiles.keys() and tempDfSignal):
-                        TempDictProfiles[tempDfProfile]["signals"].append(tempDfSignal) if tempDfSignal not in TempDictProfiles[tempDfProfile]["signals"] else next
-                        TempDictProfiles[tempDfProfile]["devices"].append(tempDfDevice) if tempDfDevice not in TempDictProfiles[tempDfProfile]["devices"] else next
-
-                    if(tempDfDevice in TempDictDevices.keys() and tempDfSignal):
-                        TempDictDevices[tempDfDevice]["signals"].append(tempDfSignal) if tempDfSignal not in TempDictDevices[tempDfDevice]["signals"] else next
-                        TempDictDevices[tempDfDevice]["profiles"].append(tempDfProfile) if tempDfProfile not in TempDictDevices[tempDfDevice]["profiles"] else next
-
-                    #msg = sharedCode.progressYield(counter, len(df.index))
-                    #if(msg):
-                    #    yield msg 
-
+                        if(tempDfDevice in TempDictDevices.keys() and tempDfSignal):
+                            TempDictDevices[tempDfDevice]["signals"].append(tempDfSignal) if tempDfSignal not in TempDictDevices[tempDfDevice]["signals"] else next
+                            TempDictDevices[tempDfDevice]["profiles"].append(tempDfProfile) if tempDfProfile not in TempDictDevices[tempDfDevice]["profiles"] else next
 
                 df_selected = pd.DataFrame() 
-                checkedData = []
-                    
-                for Profiles in TempDictProfiles:  
+                checkedData = []                
+                for Profiles in TempDictProfiles:                      
+                    dupsList = []                    
+                    signal_descriptions = {}   
+                    for dup in TempDictProfiles[Profiles]["dups"]:
+                        signal = dup["signal"]
+                        description = dup["description"]         
+                        if not signal or not description:
+                            continue                 
+                        if signal in signal_descriptions:
+                            if description != signal_descriptions[signal]:
+                                dupsList.append(f"{signal} ({description} vs {signal_descriptions[signal]})")
+                        else:
+                            signal_descriptions[signal] = description
+                        
                     if(TempDictProfiles[Profiles]["devices"]):
                         for device in TempDictProfiles[Profiles]["devices"]:
                             tempDevVary = {
-                                "Profilo": "", 
-                                "Segnali del profilo": "", 
-                                "Dispositivi associati": "", 
+                                "Profilo": Profiles, 
+                                "Segnali del profilo": TempDictProfiles[Profiles]["signals"], 
+                                "Dispositivi associati": TempDictProfiles[Profiles]["devices"], 
                                 "Segnali mancanti": [],
-                                "Assegnazione multipla di profili a dispositivo": ""
+                                "Assegnazione multipla di profili a dispositivo": "",
+                                "Segnale dupplicato": "-".join(dupsList) if dupsList else ""
                                 }
                             
                             if("profiles" in TempDictDevices[device].keys() and len(TempDictDevices[device]["profiles"]) != 1):
-                                #print(f"\tAssegnazione multipla {device} <-> {TempDictDevices[device]}")
-                                tempDevVary["Profilo"] = Profiles, 
-                                tempDevVary["Dispositivi associati"] = TempDictProfiles[Profiles]["devices"], 
-                                tempDevVary["Segnali del profilo"] = TempDictProfiles[Profiles]["signals"],
                                 tempDevVary["Assegnazione multipla di profili a dispositivo"] = f"{device} <-> {TempDictDevices[device]["profiles"]}"
                             
                             if(TempDictProfiles[Profiles]["signals"] and TempDictDevices[device]["signals"]):
                                 if(not sharedCode.all_AinB(TempDictProfiles[Profiles]["signals"], TempDictDevices[device]["signals"])):
                                     extractSignals = localExtractor(TempDictProfiles[Profiles]["signals"], TempDictDevices[device]["signals"])
-                                    #print(f"\t{TempDictProfiles[Profiles]["signals"]} - {TempDictDevices[device]["signals"]}: {extractSignals}")
-                                    tempDevVary["Profilo"] = Profiles, 
-                                    tempDevVary["Dispositivi associati"] = TempDictProfiles[Profiles]["devices"], 
-                                    tempDevVary["Segnali del profilo"] = TempDictProfiles[Profiles]["signals"],
                                     tempDevVary["Segnali mancanti"].append(f"{device} -> {extractSignals}")                            
                             checkedData.append(tempDevVary) if tempDevVary["Profilo"] != "" and  tempDevVary not in checkedData else next                                    
-                                            
+                               
+                    elif(TempDictProfiles[Profiles] and dupsList):
+                        tempDevVary = {
+                                "Profilo": Profiles, 
+                                "Segnali del profilo": "", 
+                                "Dispositivi associati": "", 
+                                "Segnali mancanti": [],
+                                "Assegnazione multipla di profili a dispositivo": "",
+                                "Segnale dupplicato": "-".join(dupsList) if dupsList else ""
+                                }                        
+                        checkedData.append(tempDevVary) if tempDevVary["Profilo"] != "" and  tempDevVary not in checkedData else next   
+                        print(checkedData)
+                                     
                 if(checkedData):
                     for key in checkedData[0].keys():
                         df_selected[key] = None
@@ -491,11 +505,9 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
                         for key in chkData.keys():
                             if(chkData[key] != "" or chkData[key] != "nan"):
                                 df_selected.at[index, key] = chkData[key]
-                #for data in checkedData:
-                #    print (data)
+                
                 cfileName = f"_Controlli_{outFileName}_{fileName}.xlsx"
                 sCheck = sharedCode.rw_xlsx(path = DownloadsFileFolder, file = cfileName, df = {"CheckProfileSignals": df_selected}, mode = "save")
-                #print(f"Salvataggio: {sCheck}")
                 checkFileName =  (f"_Controlli_{outFileName}_{fileName}") if sCheck else None
                 if(sCheck):
                     links.append({"link": f"{DownloadsFileFolder}{cfileName}", "linkName": cfileName})  
@@ -540,11 +552,8 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
         currCols.append(col) if col not in currCols else next
     if(not sharedCode.all_AinB(dropColumns, currCols)):
         return 
-    df = df[df['Escludi Profili'].isna() | (df['Escludi Profili'] == '')]
-    
-            
-    df = df.drop_duplicates(subset = dropColumns)
-    
+    df = df[df['Escludi Profili'].isna() | (df['Escludi Profili'] == '')]  
+    df = df.drop_duplicates(subset = dropColumns)    
     
     def ElaboraDati_OLD_Format(df): 
         """
@@ -677,6 +686,7 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
             msg = sharedCode.progressYield(counter, len(df.index))
             if (msg):
                 yield msg
+   
         
     def checkProfileSignals():
         def localExtractor(arrA, arrB):    
@@ -1562,7 +1572,7 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
         
     else:
         yield "Errore nella generazione dei link!"
-#Escludi Profili, NewDevice, NewProfileName, NewSignalName, NewSignalDescription, NewLogica, NewAddress, tagName, NewUOM, NewDataValueType, NewRegisterType
+
 
 def normalizeString(inStr):    
     """Data una stringa in input, ritorna la contraparte normalizata."""

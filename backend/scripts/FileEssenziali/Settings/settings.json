@@ -260,7 +260,7 @@
         },
         {
             "_id": "colonneElaborazione",
-            "data" : ["newSubplant","NewAddress", "NewRegisterType", "NewDataValueType", "NewTag", "Escludi Profili", "NewDescrizioneImpianto", "NewDescrizioneDispositivo", "NewProfileName", "NewDevice", "NewSignalName", "NewSignalDescription", "NewAlarmClass", "NewAlarmDescription", "NewUOM", "NewLogica", "NewCabina", "NewDirezione", "NormalizedData" ,"LeftOvers", "LogicLeftOvers", "<Used Functions>", "Notice", "newRegister", "newBitIndex", "extractedIds"]
+            "data" : ["newSubplant", "NewAddress", "NewRegisterType", "NewDataValueType", "NewTag", "Escludi Profili", "NewDescrizioneImpianto", "NewDescrizioneDispositivo", "NewProfileName", "NewDevice", "NewSignalName", "NewSignalDescription", "NewAlarmClass", "NewAlarmDescription", "NewUOM", "NewLogica", "NewCabina", "NewDirezione", "NormalizedData" ,"LeftOvers", "LogicLeftOvers", "<Used Functions>", "Notice", "newRegister", "newBitIndex", "extractedIds"]
         },
         {
             "_id": "filePrefix",

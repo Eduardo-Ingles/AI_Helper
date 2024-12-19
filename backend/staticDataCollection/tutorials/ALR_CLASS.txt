@@ -1,7 +1,9 @@
 Analisi_Elaborazione -> Classi_Allarme -> alrClassDefiner.py
 
-Utilizzando il file procedura, cerca di assegnare le classi allarme (& descrizione) in base ai dati in input:
+Utilizzando il file procedura ANAS delle classi allarme, cerca di assegnare le classi allarme (& descrizione) in base ai dati in input:
 {device, signal, descr} -> result:> {result["DISPOSITIVO"]}: {result["CODICE ALLARME"]} - {result["DESCRIZIONE ALLARME"]}
+
+
 es.
 --------------------------------------------------
     {"device": "CUPONEDDI-CENTRALE-FIBROLASER-CE-01", "signal": "ALR-INCEND-SUD", "descr": "Allarme incendio sud"} -> Centralina rilevazione incendio: ALR_INCENDIO_CANNA_SUD - Allarme incendio in galleria canna sud
@@ -9,10 +11,13 @@ es.
     {"device": "CUPONEDDI-CENTRALE-FIBROLASER-CE-01", "signal": "ALR-INCEND-NORD", "descr": "Allarme incendio nord"} ->  Centralina rilevazione incendio: ALR_INCENDIO_CANNA_NORD - Allarme incendio in galleria canna nord
 --------------------------------------------------
 
+
 Cartella di riferimento: backend/staticDataCollection
 File utilizzato: ALR_CLASS_ANAS.xlsx
 Sheet utilizzato: RIFERIMENTO
 
-
+E' necessario:
+-> cancellare manualmente i vecchi file 'ALR_CLASS_ANAS' e '_alrClassFile_.xlsx' 
+-> caricare il nuovo file procedura rinominato in 'ALR_CLASS_ANAS' in caso di nuova procedura dalla cartella 'staticDataCollection'
 
 

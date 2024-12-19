@@ -168,7 +168,7 @@ def mainFunCall(filePath, fileName, sheet, chosenDB, **kwargs):
                         0
                         yield (f"Missing SubPlant id: {PlantSubPlant.id}") if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(f"Missing SubPlant id: {PlantSubPlant.id}")
                     
-                    msg = sharedCode.progressYield(prgrss, len(currPlant["subPlants"]))
+                    msg = sharedCode.progressYield(prgrss + 1, len(currPlant["subPlants"]))
                     if(msg):
                         yield msg
         yield ("Finito")  

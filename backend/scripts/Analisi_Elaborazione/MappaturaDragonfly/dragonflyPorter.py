@@ -803,6 +803,7 @@ def checkDupplicateRegisters(df):
         if(str(row["NewAddress"]).strip() in adrDict.keys()):
             df.loc[index, "registriDupplicati"] = "True"
         else:
+            df.loc[index, "registriDupplicati"] = ""
             adrDict[str(row["NewAddress"]).strip()] += 1
         
         #if(str(row["NewAddress"]).strip() not in adresses):
@@ -1185,7 +1186,7 @@ def elaborate_loaded_data(maxCpuCores:int, start_index:int, end_index:int, share
                             scriptLabel = data
                             newLogic = data["logic"]
 
-            if(scriptLabel and (scriptLabel["label"] != "" or scriptLabel["label"] != "none")):
+            if(scriptLabel and (scriptLabel["label"] != "" and scriptLabel["label"] != "none" and scriptLabel["label"] != "null")):
                 tempTag = normalizzatore.normalizeByType("TAG_Collection", f"{SplitTagVariable} {tagDescription}", dictionary, returnType = "descr")
                 if(scriptLabel["label"] and not (scriptLabel["label"].lower()).startswith(tempTag.lower())):
                     tempDescr = f"{tempTag.capitalize()} {sharedCode.lowerFirstChar(str(scriptLabel["label"]))}"
@@ -1195,7 +1196,7 @@ def elaborate_loaded_data(maxCpuCores:int, start_index:int, end_index:int, share
                 funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<script>")
             """ From LLM End """
             
-
+            
             if(tempNormData):                  
                 normDevice = normalizzatore.normalizeByType("Device_Collection miscItems_Collection", tempNormData, dictionary)                
                 tempNormData = tempNormData.split() if isinstance(tempNormData, str) else tempNormData                                    
@@ -1205,7 +1206,14 @@ def elaborate_loaded_data(maxCpuCores:int, start_index:int, end_index:int, share
                 if(rulesResult and not (tempSignal and tempDescr)):
                     tempSignal = rulesResult["signal"]
                     tempDescr = rulesResult["descr"] 
-                    funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<0>")
+                    funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<0a>")
+                    
+                elif(not rulesResult and not (tempSignal and tempDescr)):         
+                    rulesResult = applyRules.applyRules(currRules, tempNormData, dictionary, indexedAliasArray)                    
+                    if(rulesResult and not (tempSignal and tempDescr)):
+                        tempSignal = rulesResult["signal"]
+                        tempDescr = rulesResult["descr"] 
+                        funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<0b>")                    
                 else:
                     tempNormData += normTagNameDescr                    
                     normy += f" 2: {" ".join(list(set(tempNormData)))}" if " ".join(list(set(tempNormData))) not in normy else ""
@@ -1215,7 +1223,14 @@ def elaborate_loaded_data(maxCpuCores:int, start_index:int, end_index:int, share
                         if(rulesResult and not (tempSignal and tempDescr)):
                             tempSignal = rulesResult["signal"]
                             tempDescr = rulesResult["descr"]
-                            funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<1>")
+                            funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<1a>")
+                        else:
+                            rulesResult = applyRules.applyRules(currRules, tempNormData, dictionary, indexedAliasArray)
+                            if(rulesResult and not (tempSignal and tempDescr)):
+                                tempSignal = rulesResult["signal"]
+                                tempDescr = rulesResult["descr"]
+                                funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<1b>")
+                            
 
             """
             TAG START
@@ -1256,15 +1271,20 @@ def elaborate_loaded_data(maxCpuCores:int, start_index:int, end_index:int, share
             tempNormData = auxTempNormData
 
 
-
             if(not (tempSignal and tempDescr)):            
                 if(tempNormData):
                     rulesResult = applyRules.applyRules(currRules, tempNormData, dictionary, indexedAliasArray, device = normDevice)
                     if(rulesResult):
                         tempSignal = rulesResult["signal"]
                         tempDescr = rulesResult["descr"]
-                        funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<1>")
-
+                        funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<2a>")
+                    else:
+                        rulesResult = applyRules.applyRules(currRules, tempNormData, dictionary, indexedAliasArray)
+                        if(rulesResult):
+                            tempSignal = rulesResult["signal"]
+                            tempDescr = rulesResult["descr"]
+                            funzioniUsate = sharedCode.noticeUpdate(funzioniUsate,"<2b>")
+                        
 
             if(tempSharedData["archetypeScript"] != ""):
                 if(tagVariable.strip() not in str(tempSharedData["archetypeScript"])):

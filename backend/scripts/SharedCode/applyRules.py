@@ -185,6 +185,11 @@ if __name__ == "__main__":
         inputTest = [
                     "ST TOT FAST MEDIAN NORD TVCC RIL",
                     "ST TOT FAST MEDIAN SUD TVCC RIL",
+                    "INT ST CH UPS",
+                    "INT ST CH ALIMENT PMV EST",
+                    "UPS ST",
+                    "GE ST MARCIA G E IN FUNC",
+                    "ALR CNTRL CMD TEMP TRAFO 4 QGBT1 CAB MAIN"
                     ]
 
         #testFunc(inputTest)
@@ -205,7 +210,7 @@ if __name__ == "__main__":
             #    excluded = "ALR ST MIS"
             
             if(excluded):
-                result = applyRules(currRules, stringa.split(), dictionary, indexedAliasArray, exclude = excluded)
+                result = applyRules(currRules, stringa.split(), dictionary, indexedAliasArray, exclude = excluded, test = True)
             else:
                 if("SEMAF" in stringa):
                     result = applyRules(currRules, stringa.split(), dictionary, indexedAliasArray, test = True, device = ["SEMAF"])

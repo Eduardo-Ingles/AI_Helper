@@ -38,10 +38,8 @@ SheetsName = ["WIP", "Import"]
 
 dataTypeDict = sharedCode.loadSettings("globalSettings", "dataType") 
 registerTypeDict = sharedCode.loadSettings("globalSettings", "registerTypes") 
- 
 dictFolder = sharedCode.loadSettings("paths", "dictFolder") 
 dictFileName = sharedCode.loadSettings("files", "dizionarioMain")
-
 
 splitRule = sharedCode.loadSettings("globalSettings", "splitRule")
 
@@ -248,10 +246,11 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
         rawRegister = str(sharedData.get("rawRegister")) if sharedData.get("rawRegister") and (sharedData.get("rawRegister")) != "None" else None
         rawBitIndex = str(sharedData.get("rawBitIndex")) if sharedData.get("rawBitIndex") and (sharedData.get("rawBitIndex")) != "None" else None
         rwaDataType = str(sharedData.get("rawDataType")) if sharedData.get("rawDataType") and (sharedData.get("rawDataType")) != "None" else None
+        #rawRegisterType = str(sharedData.get("rawRegisterType")) if sharedData.get("rawRegisterType") and (sharedData.get("rawRegisterType")) != "None" else None
 
         
-        tempRegType = sharedCode.fill_DataType(rwaDataType, dataTypeDict) if rwaDataType else ""
-        newAddress = {"register": None, "bit": None, "dataType": tempRegType}
+        tempDataType = sharedCode.fill_DataType(rwaDataType, dataTypeDict) if rwaDataType else ""
+        newAddress = {"register": None, "bit": None, "dataType": tempDataType}
 
 
         if(rawAddress and not (rawRegister and rawBitIndex)):   # se esiste la colonna con 'registro' + 'bit' assieme es. '%MW800.1'
@@ -261,11 +260,11 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
                     rawAddress = rawAddress.replace(",",".")
                     newAddress["register"] = f"{rawAddress.split(".")[0]}"
                     newAddress["bit"] = f"{rawAddress.split(".")[1]}"
-                    newAddress["dataType"] = "BOOL" if not rwaDataType else tempRegType
+                    newAddress["dataType"] = "BOOL" if not rwaDataType else tempDataType
                 else:
                     newAddress["register"] = f"{rawAddress}"
                     newAddress["bit"] = f"0"
-                    newAddress["dataType"] = "INT" if not rwaDataType else tempRegType
+                    newAddress["dataType"] = "INT" if not rwaDataType else tempDataType
                 return newAddress
         
         elif(not rawAddress and rawRegister): # se 'registro' e 'bit' sono in colonne separate
@@ -274,11 +273,11 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
                 if(rawBitIndex):#and rawBitIndex != "" or rawBitIndex != "None"):
                     newAddress["register"] = ''.join(c for c in str(rawRegister) if c.isdigit())
                     newAddress["bit"] = f"{rawBitIndex}"
-                    newAddress["dataType"] = "BOOL" if not rwaDataType else tempRegType
+                    newAddress["dataType"] = "BOOL" if not rwaDataType else tempDataType
                 else:
                     newAddress["register"] = ''.join(c for c in str(rawRegister) if c.isdigit())
                     newAddress["bit"] = str(0)
-                    newAddress["dataType"] = "INT" if not rwaDataType else tempRegType
+                    newAddress["dataType"] = "INT" if not rwaDataType else tempDataType
 
                 return newAddress
         else:
@@ -381,12 +380,13 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
 
         deviceDicty = {"device": device, "devices": devices}
         return deviceDicty
-    
+
 
     def registerTypeExtraction(sharedData):
-        rwaRegisterType = sharedData.get("rawRegisterType") if sharedData.get("rawRegisterType") else None
-        return sharedCode.fill_DataType(str(rwaRegisterType), registerTypeDict) if rwaRegisterType else None
-        
+        rwaRegisterType = sharedData.get("rawRegisterType", None)
+        filledData = sharedCode.fill_DataType(str(rwaRegisterType), registerTypeDict)
+        return filledData
+    
 
     def tagExtraction(sharedData):
         """
@@ -429,11 +429,13 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
         rawDescr = sharedData.get("rawDescrizione") if sharedData.get("rawDescrizione") else None
         rawLogic = sharedData.get("rawLogica") if sharedData.get("rawLogica") else ""
         if(rawLogic and rawLogic != ""):
-            return rawLogic
+            normLogic = normalizzatore.normalizzaDati(rawLogic, dictionary, aliasArray = indexedAliasArray)
+            return normLogic if normLogic and normLogic != "" else rawLogic
         elif(not rawLogic and rawDescr):
             return " ".join(sharedCode.extractBracketText(rawDescr,"any")).strip()
         else:
             return ""
+
 
     try: 
         currentCore = copy.copy(shared_data["cpuCounter"])
@@ -473,7 +475,7 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
             logicList = logicExtraction(sharedData) # modificare return type e adeguare codice sottostante
             #print(tagListDict)
 
-            tempValueType = ""
+            
             tempQuadro = (quadroList["quadro"]).strip() if quadroList["quadro"]  else "-".join(quadroList["quadri"]) if quadroList["quadri"] else ""#" ".join(quadroList) if quadroList else ""#normalizzatore.normalizeByType("miscQuadri_Collection", str(rawQuadro), dictionary) if rawQuadro else None
             tempTag = str(tagListDict["tag"]).strip() if tagListDict["tag"]  else " ".join(tagListDict["tags"]) if tagListDict["tags"] else ""#normalizzatore.normalizzaDati(str(rawTag), dictionary, aliasArray = indexedAliasArray) if rawTag else None
 
@@ -494,9 +496,9 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
 
             tempCabina = (cabinaList["cabina"]).strip() if cabinaList["cabina"]  else cabinaList["cabine"].strip() if cabinaList["cabine"] else ""
 
-            tempRegister = newAddressData.get("register") if newAddressData and newAddressData.get("register") else None
-            tempBitIndex = newAddressData.get("bit") if newAddressData and newAddressData.get("bit") else None
-            tempValueType = newAddressData.get("dataType") if newAddressData and newAddressData.get("dataType") else None
+            tempRegister = newAddressData.get("register", "") if newAddressData else ""
+            tempBitIndex = newAddressData.get("bit", "") if newAddressData else ""
+            tempValueType = newAddressData.get("dataType", "") if newAddressData else ""
 
             tempDirezione = (" ".join(dirList)) if dirList and len(dirList) != 0 else ""
             tempUom = ""
@@ -537,16 +539,23 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
 
             if(not tempExtractedId or tempExtractedId == "" and rawReference):
                 tempExtractedId = normalizzatore.normalizzaDati(f"{rawReference}", dictionary, aliasArray = indexedAliasArray)
+            
+            if(not tempExtractedId or (tempExtractedId and tempExtractedId == "")):
+                tempExtractedId = ""               
 
-            newDevice = "-".join(normalizzatore.normalizzaDati(f"{tempQuadro} {tempDevice} {sharedCode.camelCaseSplit(tempExtractedId, selfReturn = True)}", dictionary, aliasArray = indexedAliasArray, dataType = "LIST")) #(f"{tempQuadro} {tempDevice} {tempExtractedId}")#.strip().replace(" ","-").upper()
-            newDevice += "-".join(normalizzatore.paroleNonCensite(f"{dataSet}", indexedAliasArray, dataType = "LIST"))
+            newDevice = (normalizzatore.normalizzaDati(f"{tempQuadro} {tempDevice} {sharedCode.camelCaseSplit(tempExtractedId, selfReturn = True)}", dictionary, aliasArray = indexedAliasArray, dataType = "LIST")) #(f"{tempQuadro} {tempDevice} {tempExtractedId}")#.strip().replace(" ","-").upper()
+            newDevice += (normalizzatore.paroleNonCensite(f"{dataSet}", indexedAliasArray, dataType = "LIST"))
+            newDevice = "-".join(newDevice)
             if(tempCabina):
                 newDevice += f"-{tempCabina}"
-
+                
+            # clean device:
+            newDevice = newDevice.replace("NONE","").replace("--","-")
             tempDict = {
                 "NewRegisterType": registerTypeExtraction(sharedData),
                 "NewDataValueType": tempValueType,
                 "NewTag": tempTag,
+                "Escludi Profili": None,
                 "NewProfileName": (f"{tempQuadro} {tempDevice} {tempCabina}").strip().replace(" ","-").upper(),
                 "NewDevice": newDevice,
                 "NewSignalName": test["signal"] if test else "",#tempSignal,

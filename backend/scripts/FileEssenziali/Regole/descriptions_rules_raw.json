@@ -35,6 +35,7 @@
 
     "[ALR PANNEL] PANNEL OFF TOUT : = ALR-PANNEL-OFF-TIMEOUT : Allarme pannello spento per timeout connessione && FC",
 
+    "ALR CNTRL TEMP TRAFO : = ALR-CNTRL-TEMP-TRAFO : Allarme temperatura centralina trafo",
 
 "!--- BATTERIE / UPS /GE ---!",
     "[ALR ST] [ALR ST IN] [ACTIV START RUN ON MOTO FUNC MARCIA] [UPS GE GROUP] : MIS = ALR-$VARA$-RUN : Allarme $VARA$ in funzione",

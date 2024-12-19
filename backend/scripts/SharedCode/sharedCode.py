@@ -242,29 +242,32 @@ def camelCaseSplit(s, **kwargs):
     kwargs: 
     - selfReturn --> se non trova alcun risultato, ritorna la stringa 's' data in input
     """
-    # Split the string into segments
-    segments = re.findall(r"[A-Z]+(?=[a-z]|\d|\W|$)|[A-Z]?[a-z]+|\d+|[A-Z]+", s)
-    # Process segments to handle special cases
-    result = []
-    i = 0
-    while i < len(segments):
-        # Handle uppercase followed by number
-        if i + 1 < len(segments) and segments[i].isupper() and segments[i + 1].isdigit():
-            result.append(segments[i] + segments[i + 1])
-            i += 2
-        # Handle single uppercase letter followed by lowercase
-        elif (
-            len(segments[i]) == 1 and segments[i].isupper() and i + 1 < len(segments) and segments[i + 1][0].islower()
-        ):
-            result.append(segments[i] + segments[i + 1])
-            i += 2
+    if(s):
+        # Split the string into segments
+        segments = re.findall(r"[A-Z]+(?=[a-z]|\d|\W|$)|[A-Z]?[a-z]+|\d+|[A-Z]+", s)
+        # Process segments to handle special cases
+        result = []
+        i = 0
+        while i < len(segments):
+            # Handle uppercase followed by number
+            if i + 1 < len(segments) and segments[i].isupper() and segments[i + 1].isdigit():
+                result.append(segments[i] + segments[i + 1])
+                i += 2
+            # Handle single uppercase letter followed by lowercase
+            elif (
+                len(segments[i]) == 1 and segments[i].isupper() and i + 1 < len(segments) and segments[i + 1][0].islower()
+            ):
+                result.append(segments[i] + segments[i + 1])
+                i += 2
+            else:
+                result.append(segments[i])
+                i += 1
+        if(kwargs.get("selfReturn")):
+            return " ".join(result) if result else s
         else:
-            result.append(segments[i])
-            i += 1
-    if(kwargs.get("selfReturn")):
-        return " ".join(result) if result else s
+            return " ".join(result) if result else None
     else:
-        return " ".join(result) if result else None
+        return None
 
 
 def extractBracketText(inputText:str, type:str):  
