@@ -2,7 +2,7 @@
    - Questo processo unisce tutti gli sheet dei file di input in un unico file di output.
  
 2. Specifiche per l’Input:  
-   - Indica nel campo “Nome Galleria” quali sheet devono essere scartati.  
+   - Indica nel campo “Nome Galleria” quali sheet devono essere scartati. 
    - Assicurati che non siano presenti sheet vuoti nei file di input.
  
 3. Procedura:  
@@ -10,3 +10,6 @@
    - Gli sheet indicati nel campo “Nome Galleria” vengono esclusi dall’unione.
  
 ⚠️ Nota: Controlla i file di input per eliminare eventuali sheet vuoti prima di eseguire l’unione.
+
+> sono consentiti i caratteri "/", "\\", ",", ";" come divisore tra più sheet
+    es. Varie,SEMAFORO,Specifica Scenari,Specifica Config. Scenari,Illuminazione,PLC_ATTIVO

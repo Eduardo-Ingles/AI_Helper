@@ -159,10 +159,10 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, auxName, chos
                         df.loc[rowCount, "Descrizione"] = signal.get("description", "")
                         df.loc[rowCount, "dataSource"] = signal.get("driverInstance", "")
                         df.loc[rowCount, "disabled"] = signal.get("disabled", "")
-                        attributi = signal.get("attributi")
+                        attributi = signal.get("attributi", None)
                         if(attributi):
                             for attributo in attributi:
-                                if("register" in attributo["name"]):
+                                if("register" == attributo["name"]):
                                     df.loc[rowCount, "register"] = attributo["value"] if "value" in attributo.keys() else ""
                                 if("dataType" in attributo["name"]):
                                     df.loc[rowCount, "dataType"] = attributo["value"] if "value" in attributo.keys() else ""

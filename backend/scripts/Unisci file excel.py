@@ -41,19 +41,19 @@ def process_files(sio, client_id, data, script, **kwargs):
     available_memory, cpu_usage, percent_ram  = sharedCode.check_resources()
     if(files and cpu_usage < 90):
         yield data, percent_ram
-        excludeSheets = data.get("galleria", "")
+        excludedSheets = data.get("galleria", "")
         excludeSheetsList = []      
-        yield(f"excludeSheets: {str(excludeSheets)}\n\nfile_names: {files}\n")
-        start = time.time()  
-        if(excludeSheets.strip() != "" or excludeSheets.strip() != "  "):
+        #yield(f"Sheet da escludere: {str(excludedSheets)}\n\nFile da elaborare: {files}\n")
+        start = time.time()          
+        if(excludedSheets.strip() != "" and excludedSheets.strip() != "  "):
             for divier in dividers:
-                if(divier in excludeSheets):
-                    excludeSheets.replace(divier, ";")
-            if(";") in excludeSheets:
-                excludeSheetsList += excludeSheets.strip().upper().split(";")  
-            elif(excludeSheets != ""):
-                excludeSheetsList.append(excludeSheets)
-        #yield f">>> excludeSheets: {excludeSheets} <<<"
+                if(divier in excludedSheets):
+                    excludedSheets = excludedSheets.replace(divier, ";")
+            if(";") in excludedSheets:
+                excludeSheetsList = excludedSheets.strip().split(";")  
+            elif(excludedSheets != ""):
+                excludeSheetsList.append(excludedSheets)
+        
         for output in mergeXlsx.mainCall(UploadsFileFolder, DownloadsFileFolder, files, prefix, yieldFlag = True, excludeSheets = excludeSheetsList):
             yield output  
         end = time.time()

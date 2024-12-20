@@ -1,6 +1,5 @@
 1. Input:  
    - Fornisci un file sorgente con le colonne denominate `newXXX`.  
-   - Se disponibile, fornisci anche un file con l’anagrafica (il nome del file deve contenere la parola “anagrafica”).
  
 2. Colonne Utilizzate:  
    - `rawRegister`: compilare solo se presente INDIRIZZO (NON SPLITTARE INDIRIZZO . BITINDEX)
@@ -20,13 +19,13 @@
    - `rawReference`  
    - `rawIpPlc`  
    
-   Colonne pronte per copia + incolla + testo in colonna:
+   Colonne pronte per copia > incolla > testo in colonna:
       rawRegister,rawBitIndex,rawAddress,rawRegisterType,rawDataType,rawDispositivo,rawSegnale,rawDescrizione,rawDescr&Signal,rawLogica,rawTags,rawQuadro,rawCabina,rawDirezione,rawReference,rawIpPlc
 
 3. Creazione della Pseudo Mappa:  
    - Per ogni colonna `raw`, utilizza una formula semplice:  
      ```excel
-     =SE(CELLA != ""; CELLARIF; "")
+     =SE(CELLARIF != ""; CELLARIF; "") ===> se la cella selezionata non è vuota, allora riferimento al valore in quella cella, alrimenti lascia stringa vuota
      ```  
      oppure copia direttamente il valore.
  
@@ -37,7 +36,7 @@
      "Ventilatore sud canna nord direzione sud"
      ```  
      ⚠️
-     In tal caso, risolvi il problema con:  
+     In tal caso, risolvi il problema con 𓀡:  
      - CTRL + A → Seleziona tutto  
      - CTRL + DEL → Cancella  
      - ALT + F4 → Chiudi

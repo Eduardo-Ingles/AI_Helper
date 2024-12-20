@@ -15,6 +15,8 @@ La schermata attuale è [HOME]
 > Eseguire lo script con i campi selezionai
 
 
+
 Note:
 - Nel caricare i file, è possibile eseguire la selezione multipla ma solo dalla stessa cartella. 
     Non è possibile caricare file da più percorsi, una volta selezionati i file, se si prova a selezionarne altri, i vecchi file verranno rimossi.
+- nella cartella ⚙ ->'templates' sono presenti file di esempio

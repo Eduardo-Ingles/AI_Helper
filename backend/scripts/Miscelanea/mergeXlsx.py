@@ -38,13 +38,15 @@ def mainCall(UploadsFileFolder, DownloadsFileFolder, fileNames, prefix, yieldFla
         yield f"\nAttendere...elaborazione di {len(fileNames)} file..."
         
         for indx, fileName in enumerate(fileNames):
-            dfs = pd.read_excel(UploadsFileFolder+fileName, sheet_name=None, index_col=None)
-            #if excludeSheets:                
-            #    dfs = {key: sheet for key, sheet in dfs.items() if key.strip().upper() not in excludeSheets}
-            if excludeSheets:                
-                dfs = {key: sheet for key, sheet in dfs.items() if not sharedCode.all_AinB(key.strip().upper(), excludeSheets)}
+            dfs = pd.read_excel(UploadsFileFolder+fileName, sheet_name=None, index_col=None)           
+            #if excludeSheets:             
+            #    dfs = {key: sheet for key, sheet in dfs.items() if key.strip() not in excludeSheets}
+            if excludeSheets:           
+                dfs = {key: sheet for key, sheet in dfs.items() if not sharedCode.all_AinB(key, excludeSheets)}
+                
             try:
                 for skey in dfs.keys():   # skey = sheet keys
+                    #if(dfs[skey] not in excludeSheets):
                     for index, row in dfs[skey].iterrows():
                         dfs[skey].loc[index, "input_File"] = fileName
                         dfs[skey].loc[index, "reference_Sheet"] = skey

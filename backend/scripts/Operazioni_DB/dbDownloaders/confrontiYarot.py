@@ -55,13 +55,12 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
             smartScadaDataName = [] 
             yarotData_id = []
             yarotData_Name = []
-            #devicesToSearch_id = []
-            #devicesToSearch_name = []
+            yarotData = []
+            
             for nomeGalleria in nomeGallerie:
                 nomeGalleria = nomeGalleria.strip()
                 yield f"Ricerca di '{nomeGalleria}' nel db '{chosenDB}' in corso..."
                 SmartScadaDbData = mongoSearch.readCollectionData(client["smartscada"], "device", name = nomeGalleria, regex = True)
-                #YarotDbData = mongoSearch.readCollectionData(client[yarot], "assets", name = nomeGalleria, regex = True)
                 for dfData in SmartScadaDbData:
                     if("externalId" in dfData.keys() and dfData["externalId"]):
                         smartScadaDataEID.append(dfData["externalId"]) if dfData["externalId"] not in smartScadaDataEID else next
@@ -73,35 +72,84 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
                     results = mongoSearch.findCollectionData(client[yarot], "assets", querry = {"name": sdevice})
                     for result in results:
                         if(result):
-                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"]):
-                                yarotData_id.append(result["name"]) if result["name"] not in yarotData_id else next 
+                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"] and result["type"] == "DeviceSchema"):
+                                yarotData_id.append(result["name"]) if result["name"] not in yarotData_id else next
                             else:
-                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]}")
+                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]} & type: {result["type"]}")
                                 yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
-                    msg = sharedCode.progressYield(indx + 1, len(smartScadaDataEID))      
+                    msg = sharedCode.progressYield(indx + 1, len(smartScadaDataEID))
                     if(msg):
-                        yield msg        
+                        yield msg
                         
                 for indx, sdevice in enumerate(smartScadaDataName):
                     results = mongoSearch.findCollectionData(client[yarot], "assets", querry = {"name": sdevice})
                     for result in results:
                         if(result):
-                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"]):
-                                yarotData_Name.append(result["name"]) if result["name"] not in yarotData_Name else next 
+                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"] and result["type"] == "DeviceSchema"):
+                                yarotData_Name.append(result["name"]) if result["name"] not in yarotData_Name else next
                             else:
-                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]}")
+                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]} & type: {result["type"]}")
                                 yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
-                    msg = sharedCode.progressYield(indx + 1, len(smartScadaDataName))      
+                    msg = sharedCode.progressYield(indx + 1, len(smartScadaDataName))
                     if(msg):
-                        yield msg   
-                #for dfData in YarotDbData:
-                #    if("lifeCycle" in dfData.keys() and dfData["lifeCycle"] and "READY" in dfData["lifeCycle"].upper()):
-                #        yarotData.append(dfData["name"]) if "name" in dfData.keys() and dfData["name"] not in yarotData else next
-                #    else:
-                #        msg = (f"Errore: {dfData["name"]} -> lifeCycle: {dfData["lifeCycle"]}")
-                #        yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
+                        yield msg
+                        
+                YarotDbData = mongoSearch.readCollectionData(client[yarot], "assets", name = nomeGalleria, regex = True)
+                for dfData in YarotDbData:
+                    if("lifeCycle" in dfData.keys() and dfData["lifeCycle"] and "READY" in dfData["lifeCycle"].upper() and dfData["type"] == "DeviceSchema"):
+                        yarotData.append(dfData["name"]) if "name" in dfData.keys() and dfData["name"] not in yarotData else next
+                    else:
+                        msg = (f"Errore: {dfData["name"]} -> lifeCycle: {dfData["lifeCycle"]}")
+                        yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
 
-            commonA, uniqAA, uniqBA = (sharedCode.compareLists(smartScadaDataName, yarotData_Name))
+                """
+                db.assets.aggregate([
+                    // Stage 1: Trova i container unici
+                    { $facet: {
+                        "containersStage": [
+                            { $match: {
+                                name: /VALICO/,
+                                type: "PlantSchema"
+                            }},
+                            { $group: {
+                                _id: null,
+                                containers: { $addToSet: "$_id" }
+                            }}
+                        ]
+                    }},
+                    { $unwind: "$containersStage" },
+                    
+                    // Stage 2: Lookup corretto
+                    { $lookup: {
+                        from: "assets",
+                        let: { containersList: "$containersStage.containers" },
+                        pipeline: [
+                            { $match: {
+                                $expr: {
+                                    $gt: [
+                                        { $size: { 
+                                            $setIntersection: [
+                                                { $ifNull: ["$data.containers", []] },
+                                                "$$containersList"
+                                            ]
+                                        }},
+                                        0
+                                    ]
+                                }
+                            }}
+                        ],
+                        as: "matchingDocuments"
+                    }},
+                    
+                    // Stage 3: Spacchetta i documenti trovati
+                    { $unwind: "$matchingDocuments" },
+                    
+                    // Stage 4: Restituisci solo i documenti trovati
+                    { $replaceRoot: { newRoot: "$matchingDocuments" }}
+                ]);
+                """
+            
+            commonA, uniqAA, uniqBA = (sharedCode.compareLists(smartScadaDataName, yarotData_Name + yarotData))
 
             dfCommonA = pd.DataFrame(dtype=str)
             dfDFA = pd.DataFrame(dtype=str)
@@ -116,7 +164,7 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
             for index, value in enumerate(uniqBA):
                 dfYRA.loc[index,"OnlyYarot-Name"] = value
 
-            commonB, uniqAB, uniqBB = (sharedCode.compareLists(smartScadaDataEID, yarotData_id))
+            commonB, uniqAB, uniqBB = (sharedCode.compareLists(smartScadaDataEID, yarotData_id + yarotData))
 
             dfCommonB = pd.DataFrame(dtype=str)
             dfDFB = pd.DataFrame(dtype=str)
@@ -152,6 +200,7 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
             dfDataHolder = {"tagData":[], "widgetData": []}
             yarotData_tag = []
             yarotData_widget = []
+            yarotData = []
             for nomeGalleria in nomeGallerie:
                 nomeGalleria = nomeGalleria.strip()
                 yield f"Ricerca di '{nomeGalleria}' nel db '{chosenDB}' in corso..."
@@ -172,10 +221,10 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
                     results = mongoSearch.findCollectionData(client[yarot], "assets", querry = {"name": sdevice})
                     for result in results:
                         if(result):
-                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"]):
+                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"] and result["type"] == "DeviceSchema"):
                                 yarotData_tag.append(result["name"]) if result["name"] not in yarotData_tag else next 
                             else:
-                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]}")
+                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]} & type: {result["type"]}")
                                 yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
                     msg = sharedCode.progressYield(indx + 1, len(dfDataHolder["tagData"]))      
                     if(msg):
@@ -185,22 +234,67 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
                     results = mongoSearch.findCollectionData(client[yarot], "assets", querry = {"name": sdevice})
                     for result in results:
                         if(result):
-                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"]):
+                            if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"] and result["type"] == "DeviceSchema"):
                                 yarotData_widget.append(result["name"]) if result["name"] not in yarotData_widget else next 
                             else:
-                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]}")
+                                msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]} & type: {result["type"]}")
                                 yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
                     msg = sharedCode.progressYield(indx + 1, len(dfDataHolder["widgetData"]))      
                     if(msg):
                         yield msg    
                 # YAROT 
-                #assetsData = mongoSearch.readCollectionData(client[yarot], "assets", name = nomeGalleria, regex = True)
-                #for aData in assetsData:        
-                #    if(aData and "lifeCycle" in aData.keys() and "READY" in aData["lifeCycle"]):
-                #        yarotData.append(aData["name"]) if aData["name"] not in yarotData else next 
+                assetsData = mongoSearch.readCollectionData(client[yarot], "assets", name = nomeGalleria, regex = True)
+                for aData in assetsData:        
+                    if(aData and "lifeCycle" in aData.keys() and "READY" in aData["lifeCycle"] and aData["type"] == "DeviceSchema"):
+                        yarotData.append(aData["name"]) if aData["name"] not in yarotData else next 
+                """
+                db.assets.aggregate([
+                    // Stage 1: Trova i container unici
+                    { $facet: {
+                        "containersStage": [
+                            { $match: {
+                                name: /VALICO/,
+                                type: "PlantSchema"
+                            }},
+                            { $group: {
+                                _id: null,
+                                containers: { $addToSet: "$_id" }
+                            }}
+                        ]
+                    }},
+                    { $unwind: "$containersStage" },
+                    
+                    // Stage 2: Lookup corretto
+                    { $lookup: {
+                        from: "assets",
+                        let: { containersList: "$containersStage.containers" },
+                        pipeline: [
+                            { $match: {
+                                $expr: {
+                                    $gt: [
+                                        { $size: { 
+                                            $setIntersection: [
+                                                { $ifNull: ["$data.containers", []] },
+                                                "$$containersList"
+                                            ]
+                                        }},
+                                        0
+                                    ]
+                                }
+                            }}
+                        ],
+                        as: "matchingDocuments"
+                    }},
+                    
+                    // Stage 3: Spacchetta i documenti trovati
+                    { $unwind: "$matchingDocuments" },
+                    
+                    // Stage 4: Restituisci solo i documenti trovati
+                    { $replaceRoot: { newRoot: "$matchingDocuments" }}
+                ]);
+                """
 
-
-            commonTag_Yarot, uniqTag, uniqYarot_Tag = (sharedCode.compareLists(dfDataHolder["tagData"], yarotData_tag))
+            commonTag_Yarot, uniqTag, uniqYarot_Tag = (sharedCode.compareLists(dfDataHolder["tagData"], yarotData_tag + yarotData))
             dfTagsYarot_Common = pd.DataFrame(dtype=str)
             dfTags = pd.DataFrame(dtype=str)
             dfYarot_Tags = pd.DataFrame(dtype=str)
@@ -214,7 +308,7 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
             for index, value in enumerate(uniqYarot_Tag):
                 dfYarot_Tags.loc[index,"onlyYarot (tag)"] = value
 
-            commonWidget_Yarot, uniqWidget, uniqYarot_Widget = (sharedCode.compareLists(dfDataHolder["widgetData"], yarotData_widget))
+            commonWidget_Yarot, uniqWidget, uniqYarot_Widget = (sharedCode.compareLists(dfDataHolder["widgetData"], yarotData_widget + yarotData))
 
             dfWidgetsYarot_Common = pd.DataFrame(dtype=str)
             dfWidgets = pd.DataFrame(dtype=str)
@@ -260,11 +354,8 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
         print(error)
         errorsList.append(error) if error not in errorsList else next
         traceback.print_exc()
-        
-    #yield(" ") if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print()
-    #pathMsg = f"""<a href="downloads/{savename}" target="_blank">{savename}</a><br>"""     
+            
     yield {"links": links}
-    #yield(pathMsg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(pathMsg)
     
 
 if __name__ == "__main__":
