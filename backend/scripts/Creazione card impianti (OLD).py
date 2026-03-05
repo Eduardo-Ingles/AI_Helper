@@ -27,11 +27,13 @@ UploadsFileFolder = project_root + sharedCode.loadSettings("paths", "uploadsFold
 def process_files(sio, client_id, data, script, **kwargs):
     fileName = data.get("files", None)
     chosenDB = data.get("database")
+    mode = data.get("mode", "create")   # <-- aggiunto 04/03/26
    
     available_memory, cpu_usage, percent_ram = sharedCode.check_resources()
     if(fileName):
         start = time.time()  
-        for output in cardinator.mainFunCall(UploadsFileFolder, fileName[0], chosenDB, yieldFlag = True):            
+      #  for output in cardinator.mainFunCall(UploadsFileFolder, fileName[0], chosenDB, yieldFlag = True):     
+        for output in cardinator.mainFunCall(UploadsFileFolder, fileName[0], chosenDB, mode=mode, yieldFlag=True):       
             yield output  
 
         end = time.time()

@@ -40,6 +40,17 @@ def process_files(sio, client_id, data, script, **kwargs):
         DownloadsFileFolder += "\\"
     available_memory, cpu_usage, percent_ram  = sharedCode.check_resources()
     if(files and cpu_usage < 90):
+        time.sleep(3)
+        sharedCode.rw_xlsx(file = files[0], path = UploadsFileFolder)
+        if(not sharedCode.fileExists(path = UploadsFileFolder, file = files[0]) ):
+            yield "\n...file non ancora caricato...aspetta..."
+            time.sleep(3)
+        if(not sharedCode.fileExists(path = UploadsFileFolder, file = files[0]) ):
+            yield "...aspetta...ancora (5s)... ç_ç"
+            time.sleep(5)
+        if(not sharedCode.fileExists(path = UploadsFileFolder, file = files[0]) ):
+            yield "...ultimo tentativo... (10s))"
+            time.sleep(10)
         yield data, percent_ram
         excludedSheets = data.get("galleria", "")
         excludeSheetsList = []      

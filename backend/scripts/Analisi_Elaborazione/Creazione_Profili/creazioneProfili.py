@@ -8,7 +8,7 @@ import re
 import json
 import logging
 
-LOG_FILENAME = '/tmp/logging_example.out'
+LOG_FILENAME = 'logging_example.out'
 logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG)
 
 logging.debug('This message should go to the log file')
@@ -17,7 +17,7 @@ project_root = os.getcwd()
 sys.path.append(project_root)
 
 from backend.scripts.SharedCode import sharedCode, normalizzatore
-from scripts.Analisi_Elaborazione.Classi_Allarme import alrClassDefiner
+from backend.scripts.Analisi_Elaborazione.Classi_Allarme import alrClassDefiner
 
 # ----------------------------------- START COSTANTI -----------------------------------#  
 
@@ -66,9 +66,9 @@ VirtualSignals = ['profileName', 'name', 'signalId', 'description', 'mappings',
                 'readingExpireTime', 'emitReadings', 'tags', 'alarmName',
                 'alarmDescription', 'alarmCode', 'alarmIcon', 'alarmPriority']
   
-Commands = ['profileName', 'name', 'details', 'getDescription', 'setDescription', 'roleLevel', 'expression', 'virtual']
+Commands = ['profileName', 'name', 'details', 'getDescription', 'setDescription', 'roleLevel', 'commandId', 'expression', 'virtual', 'noteOnExecutionEnabled', 'noteIsOptional', 'noteType', 'domainDefinition']
 
-Operations = ['profileName', 'operationId', 'name', 'operationType', 'signalName', 'setParameterMode', 'parameter']
+Operations = ['profileName', 'operationId', 'name', 'operationType', 'signalName', 'setParameterMode', 'groupId', 'delayAfterExec', 'execOrder', 'parameter']
 
 Templates = ['profileName', 'name', 'parameter', 'value']
 
@@ -93,7 +93,7 @@ def profileSheet(oldDf, **kwargs):
     tempDataList = []
     if(not isinstance(oldDf, type(None))):
         for index, row in oldDf.iterrows():
-            tempProfile = { 'id': None, 
+            tempProfile = { 'id': "", 
                             'name': str(row["profileName"]),
                             'description': str(row["profileName"]).lower(),
                             'manufacturer': "-",
@@ -101,8 +101,8 @@ def profileSheet(oldDf, **kwargs):
                             'labels': ["-"],
                             'operationStateExpression': "",
                             'showAlarmIcon': "VERO",
-                            'created': None,
-                            'modified': None
+                            'created': "",
+                            'modified': ""
                             }
 
             tempDataList.append(tempProfile) if tempProfile not in tempDataList else next  
@@ -127,7 +127,7 @@ def thresholdSheet(oldDf, **kwargs):
             for thData in thList:
                 tempThreshold = {   'profileName': str(row["profileName"]),
                                     'signalName': str(row["signalName"]),
-                                    'thresholdId': None,
+                                    'thresholdId': "",
                                     'emitAlarm': "VERO",
                                     'alarmLevel': thData["alarmLevel"],
                                     'lower': thData["lower"],
@@ -160,23 +160,23 @@ def virtualThresholdSheet(oldDf, **kwargs):
         return tdf
     tempDataList = [] 
     for index, row in oldDf.iterrows():
-        tempVirtualThreshold = {'profileName': str(row["profileName"]), 
-                                'signalName': str(row["signalName"]), 
-                                'thresholdId': None, 
-                                'emitAlarm': None, 
-                                'alarmLevel': None,
-                                'lower': None, 
-                                'upper': None, 
-                                'valuesFromSignal': None, 
-                                'lowerSignal': None, 
-                                'upperSignal': None,
-                                'label': None, 
-                                'description': None, 
-                                'emitEvent': None, 
-                                'emitAlert':None, 
-                                'labelColor': None,
-                                'alarmDestination': None, 
-                                'emitInThresholdReadingsType': None
+        tempVirtualThreshold = {'profileName': "", 
+                                'signalName': "", 
+                                'thresholdId': "", 
+                                'emitAlarm': "", 
+                                'alarmLevel': "",
+                                'lower': "", 
+                                'upper': "", 
+                                'valuesFromSignal': "", 
+                                'lowerSignal': "", 
+                                'upperSignal': "",
+                                'label': "", 
+                                'description': "", 
+                                'emitEvent': "", 
+                                'emitAlert':"", 
+                                'labelColor': "",
+                                'alarmDestination': "", 
+                                'emitInThresholdReadingsType': ""
                                 }
         
         tempDataList.append(tempVirtualThreshold) if tempVirtualThreshold not in tempDataList else next  
@@ -198,24 +198,24 @@ def signalsSheet(oldDf, **kwargs):
     for index, row in oldDf.iterrows():
         tempSignals = { 'profileName': str(row["profileName"]), 
                         'name': str(row["signalName"]), 
-                        'signalId': None, 
+                        'signalId': "", 
                         'description': str(row["signalDescription"]), 
                         'hidden': str(row["hidden"]), 
                         'type': str(row["valueType"]),
-                        'uom': str(row["uom"]), 
+                        'uom': str(row["uom"]).replace('None', ''), 
                         'scale': str(row["scale"]), 
                         'valueBound': str(row["valueBound"]), 
-                        'minimum': str(row["valueMin"]), 
-                        'maximum': str(row["valueMax"]), 
-                        'defaultValue': str(row["defaultValue"]),
-                        'valueObjects': str(row["valueObjects"]), 
-                        'decimalPlaces': str(row["decimalPlaces"]), 
+                        'minimum': str(row["valueMin"]).replace('None', ''), 
+                        'maximum': str(row["valueMax"]).replace('None', ''), 
+                        'defaultValue': str(row["defaultValue"]).replace('None', ''),
+                        'valueObjects': str(row["valueObjects"]).replace('None', ''), 
+                        'decimalPlaces': str(row["decimalPlaces"]).replace('None', ''), 
                         'readingExpireTime': str(row["readingExpireTime"]), 
                         'emitReadings': str(row["emitReadings"]),
                         'access': "RW", 
-                        'tags': str(row["tags"]), 
-                        'alarmName': str(row["alarmClass"]), 
-                        'alarmDescription': str(row["alarmDescription"]), 
+                        'tags': str(row["tags"]).replace('[', '["').replace(']', '"]').replace(',', '","'), 
+                        'alarmName': str(row["alarmClass"]).replace('nan', ''), 
+                        'alarmDescription': str(row["alarmDescription"]).replace('None', ''), 
                         'alarmCode': "",
                         'alarmIcon': "", 
                         'alarmPriority': ""
@@ -236,30 +236,30 @@ def virtualSignalsSheet(oldDf, **kwargs):
         return tdf
     tempDataList = [] 
     for index, row in oldDf.iterrows():    
-        tempVirtualSignals = {  'profileName': None, 
-                                'name': None, 
-                                'signalId': None, 
-                                'description': None, 
-                                'mappings': None,
-                                'expression': None, 
-                                'hidden': None, 
-                                'type': None, 
-                                'uom': None, 
-                                'scale': None, 
-                                'valueBound': None, 
-                                'minimum': None,
-                                'maximum': None, 
-                                'defaultValue': None, 
-                                'valueObject': None, 
-                                'decimalPlaces': None,
-                                'readingExpireTime': None, 
-                                'emitReadings': None, 
-                                'tags': None, 
-                                'alarmName': None,
-                                'alarmDescription': None, 
-                                'alarmCode': None, 
-                                'alarmIcon': None, 
-                                'alarmPriority': None
+        tempVirtualSignals = {  'profileName': "", 
+                                'name': "", 
+                                'signalId': "", 
+                                'description': "", 
+                                'mappings': "",
+                                'expression': "", 
+                                'hidden': "", 
+                                'type': "", 
+                                'uom': "", 
+                                'scale': "", 
+                                'valueBound': "", 
+                                'minimum': "",
+                                'maximum': "", 
+                                'defaultValue': "", 
+                                'valueObject': "", 
+                                'decimalPlaces': "",
+                                'readingExpireTime': "", 
+                                'emitReadings': "", 
+                                'tags': "", 
+                                'alarmName': "",
+                                'alarmDescription': "", 
+                                'alarmCode': "", 
+                                'alarmIcon': "", 
+                                'alarmPriority': ""
                             }
         tempDataList.append(tempVirtualSignals) if tempVirtualSignals not in tempDataList else next      
     if(len(tempDataList) != 0):
@@ -284,8 +284,13 @@ def commandsSheet(oldDf, **kwargs):
                             'getDescription': "", 
                             'setDescription': str(row["commandDescription"]), 
                             'roleLevel': str(row["commandRoleLevel"]), 
-                            'expression': None, 
-                            'virtual': str(row["virtual"])
+                            'commandId': "",
+                            'expression': "", 
+                            'virtual': str(row["virtual"]),
+                            'noteOnExecutionEnabled': 'FALSO',  # hardcoded
+                            'noteIsOptional': 'FALSO',          # hardcoded
+                            'noteType': 'freeText',                # hardcoded
+                            'domainDefinition': ""
                         }
             tempDataList.append(tempCommands) if tempCommands not in tempDataList else next      
     
@@ -310,12 +315,15 @@ def operationsSheet(oldDf, **kwargs):
             elif("[Parameters]" in str(row["tags"])):
                 parMode = "setSignal"
             tempOperations = {  'profileName': str(row["profileName"]), 
-                                'operationId': None, 
+                                'operationId': "", 
                                 'name': str(row["signalName"]), 
                                 'operationType': "set", 
                                 'signalName': str(row["signalName"]), 
                                 'setParameterMode': parMode, 
-                                'parameter': str(row["parameter"])
+                                'groupId': '0',
+                                'delayAfterExec': '0',
+                                'execOrder': '0',
+                                'parameter': str(row["parameter"]).replace('None', ''),
                             }
             tempDataList.append(tempOperations) if tempOperations not in tempDataList else next      
     
@@ -334,9 +342,9 @@ def templatesSheet(oldDf, **kwargs):
     tempDataList = [] 
     for index, row in oldDf.iterrows():
         tempTemplates = {   'profileName': str(row["profileName"]), 
-                            'name': None, 
-                            'parameter': None, 
-                            'value': None
+                            'name': "DefaultDeviceTemplate", 
+                            'parameter': "", 
+                            'value': ""
                         }
         tempDataList.append(tempTemplates) if tempTemplates not in tempDataList else next      
     
@@ -354,11 +362,11 @@ def detailTemplatesSheet(oldDf, **kwargs):
         return tdf
     tempDataList = [] 
     for index, row in oldDf.iterrows():
-        tempDetailTemplate = {  'profileName': str(row["profileName"]), 
-                                'name': None, 
-                                'parameter': None, 
-                                'value': f"signalStates.{(str(row["signalName"])).replace("_","_")}.value", 
-                                'nameTabPreview': None
+        tempDetailTemplate = {  'profileName': "", 
+                                'name': "", 
+                                'parameter': "", 
+                                'value': "",  #f"signalStates.{(str(row["signalName"])).replace("_","_")}.value", 
+                                'nameTabPreview': ""
                             }
         tempDataList.append(tempDetailTemplate) if tempDetailTemplate not in tempDataList else next      
     
@@ -522,7 +530,8 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
     
     """Caricamento del file 'grezzo'"""    
     yield "Caricamento del file in corso..."
-    df = sharedCode.rw_xlsx(path = UploadsFileFolder, file = fileName, sheet = -1)
+    # df= sharedCode.rw_xlsx(path=r'C:\Utente\Downloads', file='elaborazione_PREPO.xlsx', sheet= -1)
+    df = sharedCode.rw_xlsx(path = UploadsFileFolder, file = fileName, sheet = -1, standalone=True)
     if not(df):
         yield "errore nel caricamento del dataframe!"
         return
@@ -891,14 +900,33 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
         for index, row in df.iterrows():  
             if ((str(row["NewSignalName"]).startswith('CMD-')) or (str(row["NewSignalName"]).startswith('CMD-ST-'))):#or (str(row["NewSignalName"])).startswith('ST-CMD')):
                 df.at[index, "valueBound"] = 'RANGE'
-                if(df.at[index, "NewSignalName"].startswith('CMD-ST-')):                 
-                    for valueObject in valueObjects:
-                        if(str(row["NewLogica"]) == "0"):
-                            if (valueObject["_id"] == "valueObjects_1_NO_0_SI"):
-                                df.at[index, "valueObjects"] = valueObject["data"] 
-                        else: 
-                            if (valueObject["_id"] == "valueObjects_0_NO_1_SI"):
-                                df.at[index, "valueObjects"] = valueObject["data"] 
+                if(df.at[index, "NewSignalName"].startswith('CMD-ST-')):
+                    logica = str(row["NewLogica"]).strip()
+                    hasCustomLogic = logica and logica != "nan" and "=" in logica and "/" in logica
+                    if hasCustomLogic:
+                        tempStr = [s.strip() for s in logica.split("/")]
+                        tempValueObj = []
+                        for part in tempStr:
+                            if "=" in part:
+                                splitPart = part.split("=", 1)
+                                if splitPart[0].strip().lstrip("-").isdigit():
+                                    prototipo = {
+                                        "value": int(splitPart[0].strip()),
+                                        "description": splitPart[1].strip()
+                                    }
+                                    tempValueObj.append(prototipo)
+                        if tempValueObj:
+                            df.at[index, "valueObjects"] = str(tempValueObj).replace("'", '"')
+                            df.at[index, "NewDataValueType"] = "Integer"
+                            noticeUpdate(index, f"CMD-ST - valueObjects elaborati da logica")
+                    else:
+                        for valueObject in valueObjects:
+                            if(logica == "0"):
+                                if (valueObject["_id"] == "valueObjects_1_NO_0_SI"):
+                                    df.at[index, "valueObjects"] = valueObject["data"]
+                            else:
+                                if (valueObject["_id"] == "valueObjects_0_NO_1_SI"):
+                                    df.at[index, "valueObjects"] = valueObject["data"]
                     df.at[index, "valueBound"] = 'LIST'
                     df.at[index, "hidden"] = 'FALSE'
                 else:
@@ -909,7 +937,8 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
                             df.at[index, "parameter"] = str(int(logic))
                 else:
                     df.at[index, "parameter"] = str(row["NewLogica"]) if str(row["NewLogica"]) != "nan" else 1
-                if(df.at[index, "NewDataValueType"].upper() != "BOOLEAN" and ((str(row["NewLogica"])!= 0 or str(row["NewLogica"])!= 1))and str(row["NewLogica"]) != ""):
+               # if(df.at[index, "NewDataValueType"].upper() != "BOOLEAN" and ((str(row["NewLogica"])!= 0 or str(row["NewLogica"])!= 1))and str(row["NewLogica"]) != ""):
+                if(not df.at[index, "NewSignalName"].startswith('CMD-ST-') and df.at[index, "NewDataValueType"].upper() != "BOOLEAN" and str(row["NewLogica"]) != "" and str(row["NewLogica"]) != "nan"):                    
                     df.at[index, "valueBound"] = "UNBOUNDED"
                 df.at[index, "valueMin"] = '0'
                 df.at[index, "valueMax"] = '1'
@@ -917,6 +946,7 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
                 df.at[index, "commandDescription"] = str(row["NewSignalDescription"])
                 df.at[index, "commandRoleLevel"] = '0'
                 df.at[index, "commandBody"] = CommandBody
+
                 for OperationBody in OperationBodies:
                     if (OperationBody["_id"] == "operationBody"):
                         df.at[index, "operationBody"] = OperationBody["data"] 
@@ -1111,7 +1141,11 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
     def defineParams():     #re-do !   
         for index, row in df.iterrows():
             if (str(row["NewSignalName"]).startswith('PAR-')):
-                df.at[index, "valueBound"] = 'UNBOUNDED' if (df.at[index, "NewLogica"] == None or df.at[index, "NewLogica"] != "nan") else "LIST"   #LIST se logic
+                
+                logica = str(df.at[index, "NewLogica"]).strip()
+                hasLogic = logica and logica != "nan" and logica != "None"
+                
+                df.at[index, "valueBound"] = 'LIST' if hasLogic else 'UNBOUNDED'
                 df.at[index, "hidden"] = 'TRUE'
                 df.at[index, "tags"] = '[Parameters]'
                 df.at[index, "defaultValue"] = '0'
@@ -1120,8 +1154,27 @@ def mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, ou
                 df.at[index, "commandBody"] = CommandBody_PAR
                 for OperationBody in OperationBodies:
                     if (OperationBody["_id"] == "operationBody_PAR"):
-                        df.at[index, "operationBody"] = OperationBody["data"]                          
-                noticeUpdate(index, f"PAR {df.at[index, "NewLogica"]}")  
+                        df.at[index, "operationBody"] = OperationBody["data"]
+
+                # ← BLOCCO MANCANTE: elabora la logica come fa defineMisure()
+                if hasLogic and "/" in logica and "=" in logica:
+                    tempStr = logica.split("/")
+                    tempValueObj = []
+                    for i in range(len(tempStr)):
+                        if("=" in tempStr[i]):
+                            prototipo = {
+                                "value": int(tempStr[i].split("=")[0]),
+                                "description": tempStr[i].split("=")[1]
+                            }
+                            tempValueObj.append(prototipo)
+                    if tempValueObj:
+                        df.at[index, "valueObjects"] = str(tempValueObj).replace("'", '"')
+                        df.at[index, "NewDataValueType"] = "Integer"
+                        noticeUpdate(index, f"PAR - valueObjects elaborati da logica")
+                    else:
+                        noticeUpdate(index, f"PAR - logica presente ma non elaborata: {logica}")
+                elif hasLogic:
+                    noticeUpdate(index, f"PAR - logica presente ma non elaborata: {logica}")
 
     
     def noticeUpdate(index, inString):
@@ -1581,12 +1634,12 @@ def normalizeString(inStr):
     
 if __name__ == "__main__":
     CpuCoreNumber = 0
-    UploadsFileFolder = project_root + sharedCode.loadSettings("paths", "uploadsFolder")
+    UploadsFileFolder = r'C:\Utente\Downloads' #project_root + sharedCode.loadSettings("paths", "uploadsFolder") 
     DownloadsFileFolder = project_root + sharedCode.loadSettings("paths", "downloadsFolder")
     
     #fileName = "Device_Profile_10.10.2024_10.54.xlsx"
     
-    fileName = "_OutputMappa_Galleria_Monaco_A2_Esemplificativo_Mappa_PLC_2021-06-18_rev0_Merged (1) 1"
+    fileName = "elaborazione_PREPO.xlsx"
     prefix  = "_test_profiles_old_"
     for output in mainCall(CpuCoreNumber, UploadsFileFolder, DownloadsFileFolder, fileName, prefix, None, yieldFlag = True):
         print(f"{output}")

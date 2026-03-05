@@ -84,6 +84,8 @@ def mainCall(galleria, **kwargs):
     db = kwargs.get("db")
     if(db and "prod" in db):
         dbAddress = "mongodb://root:abc123!@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?replicaSet=rs1&authSource=admin"
+    elif ( db and "moms" in db.lower()): 
+        dbAddress="mongodb://10.86.20.54:27017"
     else:
         dbAddress = "mongodb://rmtqual:H2Fnv3QAP4%3FB@rmt-q-nosql1-1.anasnet.it,rmt-q-nosql1-2.anasnet.it,rmt-q-nosql1-3.anasnet.it/?replicaSet=rmtqualRS&readPreference=secondaryPreferred&ssl=false"
 
@@ -132,6 +134,9 @@ def mainCall2(gallerie, **kwargs):
     if db and "prod" in db.lower():
         dbAddress = "mongodb://root:abc123!@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?replicaSet=rs1&authSource=admin"
         suffix = "_PROD_"
+    elif(db and "moms" in db.lower()):
+        dbAddress = "mongodb://10.86.20.54:27017"
+        suffix = "_MOMS_"
     elif(db and "qual" in db.lower()):
         suffix = "_QUALITY_"
         
@@ -212,7 +217,7 @@ def mainCall2(gallerie, **kwargs):
 
 
 if __name__ == '__main__':
-    db = input("da quale DB scaricare? (prod / quality): \n")
+    db = input("da quale DB scaricare? (prod / quality / moms): \n")
     galleria = input("inserire nome galleria (timpa,monaco): \n")
     if galleria:
         mainCall2(galleria, db=db)

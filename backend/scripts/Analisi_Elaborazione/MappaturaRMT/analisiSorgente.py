@@ -70,6 +70,9 @@ def mainCall(files:list, uploadPath:str, downloadPath:str, CPUCores:int, **kwarg
     fileAnagrafica = None
     fileSorgente = None
     yield f"Elaborazione di {files}..."
+    if not files:
+        yield ("Nessun File presente")
+        return None
     if(len(files) == 1):
         fileSorgente = files[0]
     else:
@@ -145,7 +148,7 @@ def mainCall(files:list, uploadPath:str, downloadPath:str, CPUCores:int, **kwarg
                 msg = (f"Impossile elaborare!\nColonnne essenziali mancanti !!!")
                 yield msg if yieldFlag else print(msg) 
         except Exception as e:
-            emsg = (f"An error occurred: {str(e)}:")            
+            emsg = (f"An error occurred in multyProcessing: {str(e)}:")            
             print(emsg)
             errorsList.append(emsg) if emsg not in errorsList else next
             yield msg if yieldFlag else print(emsg) 
@@ -590,7 +593,7 @@ def elaboraChunk(CPUCore, start_index, end_index, shared_data):
         print(f"\tElaborato part 1:>\t start_index: {start_index} - end_index: {end_index}\t core: {currentCore}/{CPUCore - 1}\t ({shared_data["toDo"]})")
         return [df]
     except Exception as e:
-        emsg = (f"An error occurred: {str(e)}:")
+        emsg = (f"An error occurred in elaboraChunk: {str(e)}:")
         print(emsg)
         errorsList.append(emsg) if emsg not in errorsList else next
         traceback.print_exc() 

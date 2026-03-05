@@ -19,6 +19,24 @@ import pymongo
 
 import os, sys, time, datetime
 
+mongo_clients = {}
+# Aggiunto 6-11-25 EDU
+def get_mongo_client(db_address):
+    """Ritorna un client MongoDB con connection pooling"""
+    if db_address not in mongo_clients:
+        mongo_clients[db_address] = pymongo.MongoClient(
+            sharedCode.loadSettings("globalSettings", db_address),
+            maxPoolSize=10,
+            minPoolSize=1,
+            maxIdleTimeMS=600000,  # 10 minuti
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000,
+            socketTimeoutMS=None,
+            connect=False  # Lazy connection
+        )
+    return mongo_clients[db_address]
+
+
 project_root = os.getcwd()
 sys.path.append(project_root)
 
@@ -60,6 +78,7 @@ scriptsList = sharedCode.loadSettings("files", "scriptsList")
 
 gallerieSmartScada_Quality = []
 gallerieSmartScada_Prod = []
+gallerieSmartScada_MomsTest = []
 
 gallerieDragonfly_Quality = []
 gallerieDragonfly_Prod = []
@@ -90,8 +109,9 @@ logger = logging.getLogger(__name__)
 sio = socketio.AsyncServer(
     async_mode="asgi", 
     cors_allowed_origins="*",
-    ping_timeout=30,  
-    ping_interval=10,
+    ping_timeout=3600,  #prima era 50 (modificato 06-11-25 _Edu)
+    ping_interval=300, #prima era 10 (modificato 06-11-25 _Edu)
+    max_http_buffer_size=10000000, #aggiunto 06-11-25 _Edu 
     #logger=True,  # Enable detailed logging
     #engineio_logger=True
 )
@@ -187,6 +207,15 @@ async def getGallerieList():
 @app.get("/api/getScriptList")
 async def getScriptsList():
     return sharedCode.rw_file(path = STATICDATA_DIR, file = scriptsList)
+#aggiunto 6-11-25 EDU
+@app.get("/api/health")
+async def health_check():
+    """Endpoint per verificare che il server sia attivo"""
+    return {
+        "status": "ok",
+        "timestamp": datetime.datetime.now().isoformat(),
+        "active_tasks": len(activeTasks)
+    }
 
 
 # Endpoint single file upload
@@ -227,7 +256,9 @@ async def eseguiScript(requestData: Request):
                 else:
                     data["clientName"] = clientname
                 if(client_id):
-                    thread = threading.Thread(target=thread_target, args=(client_id, clientname, threadId, data, script))
+                    #thread = threading.Thread(target=thread_target, args=(client_id, clientname, threadId, data, script)) #OLD
+                    thread = threading.Thread(target=thread_target, args=(client_id, clientname, threadId, data, script), daemon=True) # aggiunto 01-11-25 EDU
+                
                     thread.start()
     return {"client_id": client_id}
 
@@ -400,6 +431,10 @@ async def getSpecificListaGallerie(requestData: Request):
         dbAddress = "MongoQualityClient"
     if(db == "Produzione"):
         dbAddress = "MongoProductionClient"
+    if(db == "MomsTest"):
+        dbAddress = "MongoMomsTestClient"
+    if(db == "CROSS"):                        # ← aggiungi questo
+        dbAddress = "MongoQualityClient"      # ← usa Quality per la lista gallerie
         
     mainCollection = data.get("collection")
     if(mainCollection == "DragonFly"):
@@ -414,17 +449,28 @@ async def getSpecificListaGallerie(requestData: Request):
     loadedData = sharedCode.rw_file(path = DBDUMPS_DIR, file = currFileName)
     if(subCollection and not loadedData):
         print("Generating...")
-        client = pymongo.MongoClient(sharedCode.loadSettings("globalSettings", dbAddress)) 
+        #client = pymongo.MongoClient(sharedCode.loadSettings("globalSettings", dbAddress)) 
+         #results = mongoSearch.readCollectionData(client[mainCollection], subCollection)
+        # for result in results:
+         #    print(result["name"])
+          #   tempList.append(result["name"]) if result["name"] not in tempList else next
+         #tempList.sort()
+         #print(sharedCode.rw_file(path = DBDUMPS_DIR, file = currFileName, data = {"data": tempList}, mode = "save"))
+     #if(loadedData):
+        #print("Loading...", loadedData)
+         #tempList = loadedData["data"]
+     #return {"message": tempList}
+     #Modificoto 6-11-25 _EDU
+        client = get_mongo_client(dbAddress)
         results = mongoSearch.readCollectionData(client[mainCollection], subCollection)
         for result in results:
             print(result["name"])
             tempList.append(result["name"]) if result["name"] not in tempList else next
-        tempList.sort()
-        print(sharedCode.rw_file(path = DBDUMPS_DIR, file = currFileName, data = {"data": tempList}, mode = "save"))
-    if(loadedData):
-        #print("Loading...", loadedData)
-        tempList = loadedData["data"]
-    return {"message": tempList}
+            tempList.sort()
+            print(sharedCode.rw_file(path = DBDUMPS_DIR, file = currFileName, data = {"data": tempList}, mode = "save"))
+        if(loadedData):
+            tempList = loadedData["data"]
+            return {"message": tempList}
 
 
 

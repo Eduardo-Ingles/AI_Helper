@@ -9,8 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class CustomFileDownloader implements OnInit {
     name = 'Angular 5';
-    fileUrl:any;
-    constructor(private sanitizer: DomSanitizer) {  }
+    fileUrl: any;
+    constructor(private sanitizer: DomSanitizer) { }
     ngOnInit() {
         const data = 'some text';
         const blob = new Blob([data], { type: 'application/octet-stream' });

@@ -47,6 +47,7 @@ indexedAliasArray = normalizzatore.aliasIndexArray(dictionary)
 currRules = copy.copy(rulesDefiner.loadRulesData(rulesPath, sigRulesRaw, sigRules)) # create = True --> Error!!! ç_ç
 
 sysPrompt = """
+
             You are an AI assistant designed to provide detailed, step-by-step responses. Your outputs should follow this structure:
             1. Begin with a <thinking> section.
             2. Inside the thinking section:
@@ -157,12 +158,12 @@ sysPrompt = """
                     - Double-check that all JSON objects have consistent structure and all required fields.
                     - Do not explain your process. Evaluate your answer before replying, checking for errors. Always return the data in the specified JSON format.
                     - If the 'logic' is too complex to extract and some variables may not have a direct 'if' condition block associated with them, let the field to 'none' or empty ''. 
-                    - Ensure that the "logic" field always has the delimiter "" even when is empty.
+                    - Ensure that the "logic" field always has the delimiter double quote "" even when is empty.
                     - The logic field in the json return can't have code snipets inside, example {"logic": ""+tcpInErr} -> {"logic":"tcpInErr"}.
                     - Do not return a logic value when is associated with blink in the 'if' condition block.
 
                     - Remember to always use the JSON format and ensure the structure is correct without any comments inside the JSON body. 
-                    - Ensure the JSON format has the correct delimiters
+                    - Ensure the JSON format has the correct delimiters double quote.
                     
                     
                     ! example of INCORRECT JSON FORMAT: {
@@ -173,7 +174,7 @@ sysPrompt = """
                     }
                     
                     -> Ensure that there aren't code segments inside the JSON like "fellow": component.getName()+ "terniDirezione" ---> only "fellow": "terniDirezione" is acceptable.
-                    -> do not make comments whent the "logic" filed is empty in the JSON like: "logic": ""// No logic value associated with an 'if' condition block for command variables in this case, hence empty string as per instructions 
+                    -> do not make comments whent the "logic" filed is empty in the JSON like: "logic": ""// No logic value associated with an 'if' condition block for command variables in this case, hence empty string as per instructions.
                     
                     -> Remove: '// No explicit logic value provided in the condition block, hence empty string as per instructions'
                     -> Remove: '// There is no corresponding fellow attribute for $ortesAutoDirezioneStatus in the script provided.'
@@ -182,22 +183,9 @@ sysPrompt = """
                     -> Remove: 'component.getName()+ '.
                     !
                 """
-
-sysPrompt2 = """You are tasked with returning a JSON compliant format. Ensure that there are no mistakes in the given JSON. If there are any errors or comments placeholders that may break the JSON format, correct it.
-                example is wrong:    {
-                              "variable": "$intGeneraleMotopompaStatus",
-                              "fellow": component.getName() + "intGenMoto",
-                              "label": "Interruttore generale motopompa",
-                              "logic": "" // No explicit logic value provided in the condition block, hence empty string as per instructions 
-                            }
-  
-    Remove the comments if any: '// No explicit logic value provided in the condition block, hence empty string as per instructions'
-    Remove the comments if any: '// There is no corresponding fellow attribute for $ortesAutoDirezioneStatus in the script provided.'
-    Remove the comments if any: '// Corresponding label text cannot be determined due to missing fellow attribute.'
-    Remove the comments if any: '""+tags.get()?.getValue()+""'.
-    Remove if any: 'component.getName() + '
-    
-    corrected example:  {
+sysPrompt2 = """You are tasked with returning a JSON compliant format. Ensure that there are no mistakes in the given JSON. If there are any errors or comments placeholders that may break the JSON format, 
+                correct it
+                example:  {
                               "variable": "$intGeneraleMotopompaStatus",
                               "fellow": "intGenMoto",
                               "label": "Interruttore generale motopompa",
@@ -399,7 +387,7 @@ def mainCall(nomeGalleria:str, uploadPath:str, downloadPath:str, fileAnagrafica,
                                         #filename="Phi-3.5-mini-instruct-Q6_K.gguf"    
                                         #filename="Phi-3.5-mini-instruct-Q8_0.gguf"                                    
                                         repo_id="bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
-                                        filename="Meta-Llama-3.1-8B-Instruct-Q6_K.gguf",
+                                        filename="Meta-Llama-3.1-8B-Instruct-Q8_0.gguf",
                                         )
                                     #result = modelRunner(llm, sysPrompt, userRequest, temperature = 0.015, stream = True)                                       
                                     startLLM = time.time()
@@ -505,7 +493,7 @@ def mainCall(nomeGalleria:str, uploadPath:str, downloadPath:str, fileAnagrafica,
         traceback.print_exc()
 
 
-def check_server_status(url):
+def check_server_status(url): 
     """
     Verifica se il server AI / LLM è raggiungibile (Attualmente sempre offline salvo implementazione futura)
     """
@@ -570,11 +558,11 @@ def modelRunner_OLD(llm, systemPrompt, userRequest, **kwargs):
     llm._ctx.kv_cache_clear()
     msg = "Starting"
     yield msg
-    print(msg)
+    #print(msg)
     if stream: 
         global stopFlag 
         schunks = ""
-        print(f"starting...")
+        #print(f"starting...")
         chunks = llm.create_chat_completion(
             temperature=temperatura, 
             top_k=top_k, 
@@ -595,7 +583,7 @@ def modelRunner_OLD(llm, systemPrompt, userRequest, **kwargs):
         output = schunks# schunks["choices"][0]["message"]["content"].replace("\'","'").replace("component.getName()+","")
         msg = "DoubleCheck"
         yield msg
-        print(msg)
+        #print(msg)
         output = output.replace("component.getName()+","").replace("component.getName() +","")  # creare funzione per filtraggio migliore
         llm = Llama.from_pretrained(verbose = False, n_ctx = int(1.5*len(output)) + 0, n_gpu_layers = 0,
             #repo_id="bartowski/Phi-3.5-mini-instruct-GGUF",
@@ -607,7 +595,7 @@ def modelRunner_OLD(llm, systemPrompt, userRequest, **kwargs):
         if("[" in output and "]" in output):
             messages = [{"role": "user", "content": f"Remove the unnecessary data that may break the JSON format: {(output[output.find("["):output.find("]")+1])}"},  {"role": "system", "content": sysPrompt2}]
             schunks = ""
-            print(f"starting...")
+            #print(f"starting...")
             chunks = llm.create_chat_completion(
                 temperature=temperatura, 
                 top_k=top_k, 
@@ -708,6 +696,7 @@ def modelRunner(llm, systemPrompt, userRequest, **kwargs):
         output = schunks# schunks["choices"][0]["message"]["content"].replace("\'","'").replace("component.getName()+","")
         
         output = output.replace("component.getName()+","").replace("component.getName() +","").replace("'",'"').replace("null", '"null"').replace('""','"')
+        output = quoteCheck(output)
         # disabilitato il double check -> llm cambiava i dati presenti nell'input
         #llm = Llama.from_pretrained(verbose = False, n_ctx = int(1.5*len(output)) + 0, n_gpu_layers = 0,
         #    #repo_id="bartowski/Phi-3.5-mini-instruct-GGUF",
@@ -743,7 +732,30 @@ def modelRunner(llm, systemPrompt, userRequest, **kwargs):
         if("[" in output and "]" in output):
                 try:                    
                     output = json.loads((output[output.find("["):output.find("]")+1]))
+                    ##Scommentare per un ulteriore controllo in caso di fallimento dell'llm TODO replace with GEMINI
+                    #output= modelRunner_OLD(llm, sysPrompt2, userRequest, **kwargs)
+                    # chunks = llm.create_chat_completion(
+                    #     temperature=temperatura, 
+                    #     top_k=top_k, 
+                    #     top_p=top_p, 
+                    #     repeat_penalty=repeat_penalty, 
+                    #     stream=True,
+                    #     messages=messages
+                    # )
+                    # for chunk in chunks:
+                    #     if "content" in chunk["choices"][0]["delta"].keys():
+                    #         schunk = chunk["choices"][0]["delta"]["content"]
+                    #         schunks += schunk
+                    #         if (stopFlag == True):
+                    #             stopFlag = False
+                    #             break
+                    #         #yield f"{schunk}" if yieldingFlag else print (schunk)
+                    #         yield schunk
+                    #         #print (schunk, end = "") #if yieldingFlag == False else next
+                    #         #print (schunk, end = "")
+                    # output = schunks# schunks["choices"][0]["message"]["content"].replace("\'","'").replace("component.getName()+","")
                     
+                    # output = output.replace("component.getName()+","").replace("component.getName() +","").replace("'",'"').replace("null", '"null"').replace('""','"')
                 except Exception as e:
                     msg = (f"\njson.loads ERORR:\n----------------------------\n{str(output)}\n----------------------------\n")                    
                     error = f"An error occurred: {str(e)}: {msg}"
@@ -1182,7 +1194,7 @@ def elaborate_loaded_data(maxCpuCores:int, start_index:int, end_index:int, share
                 if(archeType == item["name"]):
                     scriptData = item["dati"]
                     for data in item["dati"]:
-                        if(isinstance(data, dict) and "variable" in data.keys() and tagVariable in data["variable"]):
+                        if(isinstance(data, dict) and "variable" in data.keys() and tagVariable in data["variable"] and "logic" in data.keys()):
                             scriptLabel = data
                             newLogic = data["logic"]
 
@@ -1348,7 +1360,50 @@ def elaborate_loaded_data(maxCpuCores:int, start_index:int, end_index:int, share
         errorsList.append(error) if error not in errorsList else next
         traceback.print_exc()
 
+def format_json_with_newlines(json_str):
+    # Rimuove tutti gli spazi bianchi e newline esistenti
+    json_str = ''.join(json_str.split())
+    
+    formatted = ""
+    indent_level = 0
+   
+    for i, char in enumerate(json_str):
+        if char == '{':
+            formatted += char + "\n"
+            indent_level += 1
+            formatted += "  " * indent_level
+        elif char == '}':
+            formatted += "\n" + "  " * (indent_level-1) + char
+            indent_level -= 1
+        elif char == ',':
+            formatted += char + "\n" + "  " * indent_level
+        else:
+            formatted += char
+           
+    return formatted
 
+def quoteCheck(json_str):
+    # Prima formattiamo il JSON con newline
+    json_str = format_json_with_newlines(json_str)
+    
+    lines = json_str.split('\n')
+    fixed_lines = []
+   
+    for line in lines:
+        if ':' in line:  # Solo per linee che contengono key-value pairs
+            key_part, value_part = line.split(':', 1)
+           
+            # Fix value part if it has unclosed quotes
+            value_part = value_part.strip()
+            if value_part.count('"') % 2 != 0:  # Se c'è un numero dispari di virgolette
+                    # Se inizia con virgoletta ma non finisce con virgoletta
+                value_part = value_part + '"'
+           
+            line = f'{key_part}:{value_part}'
+       
+        fixed_lines.append(line)
+   
+    return '\n'.join(fixed_lines)
 if __name__ == "__main__":
     """
     Per esecuzione "manuale":
@@ -1356,7 +1411,7 @@ if __name__ == "__main__":
     - aggiungere alla lista 'gallerie' le gallerie che si desidera scaricare & elaborare
     """     
     
-    gallerie = ["Scanzano", "Vetranico"]
+    #gallerie = ["Scanzano", "Vetranico"]
      
     skipScriptExtraction = False
     yieldingFlag = False
@@ -1365,7 +1420,7 @@ if __name__ == "__main__":
     fileAnagrafica = None     
     
     soloScarico = False #Scegli
-    chosenDB = "PROD" # Selezionare il database da cui scaricare: P oppure Q
+    chosenDB = "PROD" # Selezionare il database da cui scaricare: PROD oppure QUAL
     
     
     import datetime
@@ -1395,7 +1450,7 @@ if __name__ == "__main__":
     
 
 
-    #gallerie = ["Jannello", "Mormanno", "Laria", "Campotenese", "Donna-di-marco","Colle-Trodo", "Bavaretto", "Brodella"]
+    gallerie = ["CORENNO","DORIO"]
     #gallerie = ["Pellegrino", "Collecapretto", "Tescino", "Libero", "Liberati", "Valnerina", "Passignano"]
    
     for galleria in gallerie:

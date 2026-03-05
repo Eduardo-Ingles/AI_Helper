@@ -380,7 +380,8 @@ def newDocument_Plant(plantData, currDB):
                     "roadDescription" : "",
                     "pkstart" : 0.0,
                     "pkstop" : 0.0
-                }
+                },
+               "wip": plantData["wip"],
               }
         
         

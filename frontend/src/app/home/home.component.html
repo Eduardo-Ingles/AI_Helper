@@ -1,138 +1,175 @@
-
 <div>
-	<mat-stepper linear #stepper [selectedIndex]= currentStep>
-		<mat-step [stepControl]="scriptsFormGroup" >
-		<form [formGroup]="scriptsFormGroup">
-			<ng-template matStepLabel>Selezionare uno script</ng-template>
-			<mat-form-field class = "scriptSelector">
-				<mat-label>Selezionare script</mat-label>
-				<input type="text"
-					   	matInput
-					   	formControlName= "scriptsCtrl"
-					   	required
-					   	[matAutocomplete]="autoGroup">
-				  	<mat-autocomplete #autoGroup="matAutocomplete">
-					@for (group of scriptGroupOptions | async; track group.name) {
-					  	<mat-optgroup [label]="group.name">
-						@for (name of group.includedScripts; track name) {
-						  	<mat-option [value]="name" (click) = checkScriptSettings(name) (click) = "choicesMade.script = name"
-							  matTooltip = ""  [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+	<mat-stepper linear #stepper [selectedIndex]=currentStep>
+		<mat-step [stepControl]="scriptsFormGroup">
+			<form [formGroup]="scriptsFormGroup">
+				<ng-template matStepLabel>Selezionare uno script</ng-template>
+				<mat-form-field class="scriptSelector">
+					<mat-label>Selezionare script</mat-label>
+					<input type="text" matInput formControlName="scriptsCtrl" required [matAutocomplete]="autoGroup">
+					<mat-autocomplete #autoGroup="matAutocomplete">
+						@for (group of scriptGroupOptions | async; track group.name) {
+						<mat-optgroup [label]="group.name">
+							@for (name of group.includedScripts; track name) {
+							<mat-option [value]="name" (click)=checkScriptSettings(name)
+								(click)="choicesMade.script = name" matTooltip=""
+								[matTooltipShowDelay]=tooltipsHolder.showDelay
+								[matTooltipHideDelay]=tooltipsHolder.hideDelay>
 								{{name}}
 							</mat-option>
 
+							}
+						</mat-optgroup>
 						}
-					  	</mat-optgroup>
-					}
-				</mat-autocomplete>
-			  </mat-form-field>
-			  <button mat-fab (click)="stepper.reset();" (click) = clearAll() [matTooltip] = tooltipsHolder.btn_reset [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
-				<mat-icon>settings_backup_restore</mat-icon>
-			</button>
-			<div>
-
-				<button mat-fab matStepperNext [disabled]="scriptsFormGroup.invalid"
-					[matTooltip] = tooltipsHolder.btn_next [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
-				  <mat-icon>navigate_next</mat-icon>
-			  </button>
-			</div>
-		</form>
+					</mat-autocomplete>
+				</mat-form-field>
+				<div style="display: flex; gap: 20px; align-items: center; margin-top: 20px;">
+					<button mat-fab (click)="stepper.reset();" (click)=clearAll() [matTooltip]=tooltipsHolder.btn_reset
+						[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						<mat-icon>settings_backup_restore</mat-icon>
+					</button>
+					<button mat-fab matStepperNext [disabled]="scriptsFormGroup.invalid"
+						[matTooltip]=tooltipsHolder.btn_next [matTooltipShowDelay]=tooltipsHolder.showDelay
+						[matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						<mat-icon>navigate_next</mat-icon>
+					</button>
+				</div>
+			</form>
 		</mat-step>
 
-		<mat-step [stepControl]="secondFormGroup" [optional]="false" *ngIf = "selectionRequirements.database">
-		<form [formGroup]="secondFormGroup">
-			<ng-template matStepLabel>Selezionare DataBase</ng-template>
+		<mat-step [stepControl]="secondFormGroup" [optional]="false" *ngIf="selectionRequirements.database">
+			<form [formGroup]="secondFormGroup">
+				<ng-template matStepLabel>Selezionare DataBase</ng-template>
 
-			<mat-button-toggle-group formControlName="database" [hideSingleSelectionIndicator] = "hideSelector" required>
-				<mat-button-toggle value = "Quality" matTooltip = "Stai selezionando il database Quality" [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
-					Quality
-				</mat-button-toggle>
-				<mat-button-toggle value = "Produzione" matTooltip = "Stai selezionando il database di Produzione" [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
-					Produzione
-				</mat-button-toggle>
-			</mat-button-toggle-group>
+				<mat-button-toggle-group formControlName="database" [hideSingleSelectionIndicator]="hideSelector"
+					required>
+					<mat-button-toggle value="Quality" matTooltip="Stai selezionando il database Quality"
+						[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						Quality
+					</mat-button-toggle>
+					<mat-button-toggle value="Produzione" matTooltip="Stai selezionando il database di Produzione"
+						[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						Produzione
+					</mat-button-toggle>
+					<mat-button-toggle value="CROSS"  *ngIf="choicesMade.script === 'Confronti YAROT'" matTooltip="Confronto incrociato  QUALITY vs  PROD"
+						[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						Prod vs Quality
+					</mat-button-toggle>
+					<mat-button-toggle value="MomsTest" matTooltip="Stai selezionando il database di Moms Test"
+						[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						MomsTest
+					</mat-button-toggle>
+				</mat-button-toggle-group>
 
-			<div>
-				<button mat-fab matStepperPrevious [matTooltip] = tooltipsHolder.btn_back [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
-					<mat-icon>navigate_before</mat-icon>
-				</button>
-				<button mat-fab matStepperNext [disabled]="secondFormGroup.invalid"
-					[matTooltip] = tooltipsHolder.btn_next [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
-				  <mat-icon>navigate_next</mat-icon>
-			  </button>
-			</div>
-		</form>
+				<div style="display: flex; gap: 20px; align-items: center; margin-top: 40px;">
+					<button mat-fab matStepperPrevious [matTooltip]=tooltipsHolder.btn_back
+						[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						<mat-icon>navigate_before</mat-icon>
+					</button>
+					<button mat-fab matStepperNext [disabled]="secondFormGroup.invalid"
+						[matTooltip]=tooltipsHolder.btn_next [matTooltipShowDelay]=tooltipsHolder.showDelay
+						[matTooltipHideDelay]=tooltipsHolder.hideDelay>
+						<mat-icon>navigate_next</mat-icon>
+					</button>
+				</div>
+			</form>
 		</mat-step>
 
-		<mat-step [stepControl]="tirthFormGroup" *ngIf = "selectionRequirements.collection || selectionRequirements.subCollection">
-			<form [formGroup]="tirthFormGroup" >
+		<mat-step [stepControl]="tirthFormGroup"
+			*ngIf="selectionRequirements.collection || selectionRequirements.subCollection">
+			<form [formGroup]="tirthFormGroup">
 				<ng-template matStepLabel>Selezionare collection</ng-template>
-				<div  *ngIf = "selectionRequirements.collection">
-			  		<mat-button-toggle-group formControlName="collection" [hideSingleSelectionIndicator] = "hideSelector" *ngIf = "selectionRequirements.collection" (change) = "disableTirthFormGroupFlag = true">
-						<mat-button-toggle value="DragonFly" matTooltip = "Stai per eseguire operazioni sulla collection 'SCADA' / 'Dragonfly'" [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+				<div *ngIf="selectionRequirements.collection">
+					<mat-button-toggle-group formControlName="collection" [hideSingleSelectionIndicator]="hideSelector"
+						*ngIf="selectionRequirements.collection" (change)="disableTirthFormGroupFlag = true">
+						<mat-button-toggle value="DragonFly"
+							matTooltip="Stai per eseguire operazioni sulla collection 'SCADA' / 'Dragonfly'"
+							[matTooltipShowDelay]=tooltipsHolder.showDelay
+							[matTooltipHideDelay]=tooltipsHolder.hideDelay>
 							DragonFly
 						</mat-button-toggle>
-						<mat-button-toggle value="SmartScada" matTooltip = "Stai per eseguire operazioni sulla collection 'SmartScada'" [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+						<mat-button-toggle value="SmartScada"
+							matTooltip="Stai per eseguire operazioni sulla collection 'SmartScada'"
+							[matTooltipShowDelay]=tooltipsHolder.showDelay
+							[matTooltipHideDelay]=tooltipsHolder.hideDelay>
 							SmartScada
 						</mat-button-toggle>
-			  		</mat-button-toggle-group>
-			  	</div>
-			  	<div *ngIf = "selectionRequirements.subCollection">
-					<mat-button-toggle-group formControlName="subCollection" [hideSingleSelectionIndicator] = "hideSelector" *ngIf = "selectionRequirements.subCollection" (change) = "disableTirthFormGroupFlag = true">
-						<mat-button-toggle value="Profili" matTooltip = "Stai per eseguire operazioni sulla collection 'Profili'" [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+					</mat-button-toggle-group>
+				</div>
+				<div *ngIf="selectionRequirements.subCollection">
+					<mat-button-toggle-group formControlName="subCollection"
+						[hideSingleSelectionIndicator]="hideSelector" *ngIf="selectionRequirements.subCollection"
+						(change)="disableTirthFormGroupFlag = true">
+						<mat-button-toggle value="Profili"
+							matTooltip="Stai per eseguire operazioni sulla collection 'Profili'"
+							[matTooltipShowDelay]=tooltipsHolder.showDelay
+							[matTooltipHideDelay]=tooltipsHolder.hideDelay>
 							Profili
 						</mat-button-toggle>
-						<mat-button-toggle value="Dispositivi" matTooltip = "Stai per eseguire operazioni sulla collection 'Dispositivi'" [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+						<mat-button-toggle value="Dispositivi"
+							matTooltip="Stai per eseguire operazioni sulla collection 'Dispositivi'"
+							[matTooltipShowDelay]=tooltipsHolder.showDelay
+							[matTooltipHideDelay]=tooltipsHolder.hideDelay>
 							Dispositivi
 						</mat-button-toggle>
 					</mat-button-toggle-group>
 				</div>
 				<div>
-					<button mat-fab matStepperPrevious [matTooltip] = tooltipsHolder.btn_back [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+					<button mat-fab matStepperPrevious [matTooltip]=tooltipsHolder.btn_back
+						[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
 						<mat-icon>navigate_before</mat-icon>
 					</button>
-					<button mat-fab matStepperNext [disabled] = "!disableTirthFormGroupFlag" (click) = dbBoundnames()
-						[matTooltip] = tooltipsHolder.btn_next [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+					<button mat-fab matStepperNext [disabled]="!disableTirthFormGroupFlag" (click)=dbBoundnames()
+						[matTooltip]=tooltipsHolder.btn_next [matTooltipShowDelay]=tooltipsHolder.showDelay
+						[matTooltipHideDelay]=tooltipsHolder.hideDelay>
 						<mat-icon>navigate_next</mat-icon>
-				  </button>
+					</button>
 				</div>
 			</form>
-			</mat-step>
+		</mat-step>
 
 		<mat-step [stepControl]="forthFormGroup">
 			<ng-template matStepLabel>Nome galleria / File upload</ng-template>
 			<form [formGroup]="forthFormGroup"
-				matTooltip = "Inserisci il nome della galleria su su cui eseguire lo script selezionato" [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
-				<mat-form-field class="example-full-width" class = "galleriaSelector"  *ngIf = "selectionRequirements.text">
-				  <mat-label>Nome galleria</mat-label>
-				  <input type="text"
-						placeholder="scrivi"
-						matInput
-						required
-						formControlName = myControl
+				matTooltip="Inserisci il nome della galleria su su cui eseguire lo script selezionato"
+				[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
+				<mat-form-field class="example-full-width" class="galleriaSelector" *ngIf="selectionRequirements.text">
+					<mat-label>Nome galleria</mat-label>
+					<input type="text" placeholder="scrivi" matInput required formControlName=myControl
 						[matAutocomplete]="auto">
-				  <mat-autocomplete #auto="matAutocomplete">
-					@for (galleria of filteredOptions | async; track galleria) {
-					  <mat-option [value]="galleria">{{galleria}}</mat-option>
-					}
-				  </mat-autocomplete>
+					<mat-autocomplete #auto="matAutocomplete">
+						@for (galleria of filteredOptions | async; track galleria) {
+						<mat-option [value]="galleria">{{galleria}}</mat-option>
+						}
+					</mat-autocomplete>
 				</mat-form-field>
 
-				<app-file-uploader [allowMultipleFiles]="true" (filesSaved)="handleFiles($event)" *ngIf = "selectionRequirements.file">
+				<app-file-uploader [allowMultipleFiles]="true" (filesSaved)="handleFiles($event)"
+					*ngIf="selectionRequirements.file">
 				</app-file-uploader>
+				<!--Aggiunto 04-03-26-->
+				<mat-slide-toggle
+					[(ngModel)]="cardModeAggiungi"
+					[ngModelOptions]="{standalone: true}"
+					color="primary">
+					<span style="color: white;">{{ cardModeAggiungi ? 'Crea nuova card' : 'Aggiungi impianto' }}</span>
+				</mat-slide-toggle>
 
 			</form>
 
 			<div>
-				<button mat-fab matStepperPrevious [matTooltip] = tooltipsHolder.btn_back [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+				<button mat-fab matStepperPrevious [matTooltip]=tooltipsHolder.btn_back
+					[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
 					<mat-icon>navigate_before</mat-icon>
 				</button>
 
-				<button mat-fab (click)="stepper.reset();" (click) = clearAll() [matTooltip] = tooltipsHolder.btn_reset [matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay>
+				<button mat-fab (click)="stepper.reset();" (click)=clearAll() [matTooltip]=tooltipsHolder.btn_reset
+					[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay>
 					<mat-icon>settings_backup_restore</mat-icon>
 				</button>
-				
-				<button mat-fab (click) = esegui() (keyup.enter) = esegui() [matTooltip] = tooltipsHolder.btn_esegui
-					[matTooltipShowDelay] = tooltipsHolder.showDelay [matTooltipHideDelay] = tooltipsHolder.hideDelay [disabled]= "isRunning">
+
+				<button mat-fab (click)=esegui() (keyup.enter)=esegui() [matTooltip]=tooltipsHolder.btn_esegui
+					[matTooltipShowDelay]=tooltipsHolder.showDelay [matTooltipHideDelay]=tooltipsHolder.hideDelay
+					[disabled]="isRunning">
 					<mat-icon>not_started</mat-icon>
 				</button>
 			</div>
@@ -147,14 +184,14 @@
 
 
 
-	<div class = "mainOutputDiv" [hidden] = "hideMainOutput">
+	<div class="mainOutputDiv" [hidden]="hideMainOutput">
 		{{this.outputDiv}}
-		<div *ngFor = "let link of this.testLink">
-			<a href = "#" (click) = "this.downloadFile(link.link, link.linkName)"> {{link.linkName}} </a>
+		<div *ngFor="let link of this.testLink">
+			<a href="#" (click)="this.downloadFile(link.link, link.linkName)"> {{link.linkName}} </a>
 		</div>
 	</div>
 
-    <!-- <div *ngFor="let message of scriptMessages">
+	<!-- <div *ngFor="let message of scriptMessages">
 		{{ message }}
 	</div> -->
 
@@ -162,8 +199,7 @@
 
 </div>
 
-<custom-progress-bar [value] = "progressBarValue" [hidden] = "hiddenProgressBar"></custom-progress-bar>
+<custom-progress-bar [value]="progressBarValue" [hidden]="hiddenProgressBar"></custom-progress-bar>
 <!-- outputDiv.innerHTML -->
 
-<custom-dialog-box-display [tutorialText] = tutorialText [exampleFile] = templateFile></custom-dialog-box-display>
-
+<custom-dialog-box-display [tutorialText]=tutorialText [exampleFile]=templateFile></custom-dialog-box-display>

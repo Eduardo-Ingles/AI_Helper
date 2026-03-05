@@ -530,7 +530,8 @@ def rw_xlsx(**kwargs):
     #dataToSave = kwargs.get("data") if "data" in kwargs.keys() and kwargs.get("data") != "" else None
     #df = kwargs.get("df") if "df" in kwargs.keys() and kwargs.get("data") != "" else None    
     df = kwargs.get("df") if "df" in kwargs.keys() else None    
-    sheets = kwargs.get("sheet", None) 
+    sheets = kwargs.get("sheet", None)
+    standalone = kwargs.get("standalone", None) 
 
     if(fileName):
         if(".xlsx" not in fileName):
@@ -544,12 +545,15 @@ def rw_xlsx(**kwargs):
             if(not (fileName.startswith("\\") or fileName.startswith("/")) and not (filePath.endswith("\\") or filePath.endswith("/"))):
                 filePath += "\\" 
 
-            if(project_root.lower().replace("/","\\") not in filePath.lower().replace("/","\\")):
-                if(((project_root.endswith("\\") or project_root.endswith("/")) and not (filePath.startswith("\\") or filePath.startswith("/"))) or
-                   (not (project_root.endswith("\\") or project_root.endswith("/")) and (filePath.startswith("\\") or filePath.startswith("/")))):
-                    filePath = project_root + filePath
-                elif(not (project_root.endswith("\\") or project_root.endswith("/")) and not (filePath.startswith("\\") or filePath.startswith("/"))):
-                    filePath = project_root + "\\" + filePath
+            if(standalone):
+                 filePath = filePath
+            else:
+                if(project_root.lower().replace("/","\\") not in filePath.lower().replace("/","\\")):
+                    if(((project_root.endswith("\\") or project_root.endswith("/")) and not (filePath.startswith("\\") or filePath.startswith("/"))) or
+                    (not (project_root.endswith("\\") or project_root.endswith("/")) and (filePath.startswith("\\") or filePath.startswith("/")))):
+                        filePath = project_root + filePath
+                    elif(not (project_root.endswith("\\") or project_root.endswith("/")) and not (filePath.startswith("\\") or filePath.startswith("/"))):
+                        filePath = project_root + "\\" + filePath
         
         if(sheets and isinstance(sheets,str)):
             if("all" == sheets.lower() or sheets== "-1"):

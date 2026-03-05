@@ -54,7 +54,7 @@ def newUniqueID(client):
     return random_ID
 
 # crea un nuovo documento 
-def newDocument(client, nome, descrizione, titolo, sottotitolo, latitude, longitude, soc, subPlants):
+def newDocument(client, nome, descrizione, titolo, sottotitolo, latitude, longitude, soc,wip, subPlants):
     oggetto = {
                 "_id": newUniqueID(client),
                 "name": nome,
@@ -81,7 +81,8 @@ def newDocument(client, nome, descrizione, titolo, sottotitolo, latitude, longit
                     "roadDescription" : "",
                     "pkstart" : 0.0,
                     "pkstop" : 0.0
-                }
+                },
+                "wip" : wip
               }
     return oggetto
 
@@ -123,10 +124,16 @@ def creaEdInserisci(client, arrayDati):
                            arrayDati.latitudine,
                            arrayDati.longitudine,
                            arrayDati.SOC, 
+                           arrayDati.wip,
                            arrayDati.subPlants)
     plantID = insert_document(client, "smartscada", "plant", nuovoDoc)
     print(json_util.dumps(nuovoDoc, indent = 4))
     return plantID
+
+def trovaImpiantoEsistente(client, nomeGalleria): #aaggiunto 04/03/26
+    db = client["smartscada"]
+    collection = db["plant"]
+    return collection.find_one({"name": nomeGalleria.upper()})
 
 
 def update_document_by_id_old(client, dbName, collection_name, document_id, updated_subPlants):

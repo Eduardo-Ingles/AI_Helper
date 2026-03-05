@@ -196,5 +196,23 @@
         "templateFile": "",
         "tooltip": "Elaborazione pseudo-mappa partento dal file sorgente",
         "viewName": "Elaborazione file sorgente RMT"
+    },
+    {
+        "gruppo": "Card/Impianti",
+        "name": "Download_DevicePositions.py",
+        "options": {
+            "disabled": false,
+            "img": ""
+        },
+        "requirements": {
+            "collection": false,
+            "database": true,
+            "file": false,
+            "subCollection": false,
+            "text": true
+        },
+        "templateFile": "",
+        "tooltip": "Scarica le posizioni dei device di una galleria in un file Excel",
+        "viewName": "Download Posizioni Device"
     }
 ]

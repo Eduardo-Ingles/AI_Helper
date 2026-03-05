@@ -25,7 +25,7 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, auxName, chos
     
     for item in splitList:
         if(item in nomeGallerie):
-            nomeGallerie.replace(item, ",")    
+            nomeGallerie = nomeGallerie.replace(item, ",")    
     if(isinstance(nomeGallerie,str)):
         nomeGallerie = nomeGallerie.strip().split(",")
     else:
@@ -33,9 +33,22 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, auxName, chos
         
     prefix = f"{elabChoice}_Q_"
     dbAddress = "MongoQualityClient"
-    if(chosenDB.upper().startswith("PROD") or chosenDB.upper().startswith("P")):
-        prefix = f"{elabChoice}_P_"
-        dbAddress = "MongoProductionClient"
+
+    # Mappatura corretta dei database
+    if chosenDB == "Quality":
+        dbAddress = "MongoQualityClient"
+        prefix = "_Q_"
+    elif chosenDB == "Produzione" or chosenDB == "prod":
+        dbAddress = "MongoProductionClient"  
+        prefix = "_P_"
+    elif chosenDB == "MomsTest" or chosenDB == "moms":
+        dbAddress = "MongoMomsTestClient"  # ← AGGIUNGI QUESTO
+        prefix = "_M_"              # ← E QUESTO
+    else:
+        # Fallback a Quality
+        dbAddress = "MongoQualityClient"
+        prefix = "_Q_"
+
     
     savename = f"{prefisso}_{elabChoice}_{chosenDB}_{"-".join(nomeGallerie)}_{sharedCode.timeStamp(fullDate = True)}.xlsx"
         

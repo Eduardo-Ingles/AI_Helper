@@ -1,13 +1,101 @@
-nav{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    text-align:center;
-    padding: 8px 16px;
+:host {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
 }
 
+.nav-container {
+    width: 100%;
+    /* Glassmorphism Effect */
+    background-color: #334155;
+    /* backdrop-filter: blur(10px); - Removed to ensure exact color match */
+    /* -webkit-backdrop-filter: blur(10px); */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-#settings{
+header {
+    display: flex;
+    justify-content: center;
+    /* Center the content */
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    /* For absolute positioning if needed, but we'll use flex for now */
+}
+
+/* Logo / Title Style */
+.logo {
     position: absolute;
-    right: 0%;
+    left: 0px;
+    font-weight: 900;
+    /* Extra Bold */
+    font-style: italic;
+    /* Slanted like the Quality logo */
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--on-bg-color);
+    text-transform: uppercase;
+    font-family: 'Arial Black', 'Helvetica', sans-serif;
+    /* Thick font */
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+    margin: 0 auto;
+    /* Center the nav block */
+}
+
+/* Nav Links Styles */
+nav a {
+    text-decoration: none;
+    color: var(--on-bg-color);
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+nav a:hover,
+nav a.active-link {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+#settings {
+    margin-left: 20px;
+    /* Same gap as other items */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--on-bg-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#settings:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Material Icon adjustments */
+mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
 }

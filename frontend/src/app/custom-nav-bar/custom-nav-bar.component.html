@@ -1,18 +1,22 @@
-<div style="width:100%; background-color: #E8E8E8" >
-    <header >
-        <nav>
-          <a routerLink="">Home</a>    
-          <a routerLink="uploads-folder">Cartella Uploads</a>    
-          <a routerLink="downloads-folder">Cartella Downloads</a>   
-          <a routerLink="storico-processi">Storico esecuzione</a>    
-          <!-- <a routerLink="ai-assistant">Assistente AI</a>     -->
-          <a routerLink="/settings" id = "settings"><mat-icon>settings</mat-icon></a>
-        
-            <!--input type="text" placeholder=". . ." class = "searchField">
-            <button class = "srchBttn" type="button">Cerca</button-->
-        </nav>
-    </header>
+<div class="nav-container">
+  <header>
+    <div class="logo">CONFIGURAZIONE</div>
+    <nav>
+      <a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>home</mat-icon> Home
+      </a>
+      <a routerLink="uploads-folder" routerLinkActive="active-link">
+        <mat-icon>cloud_upload</mat-icon> Uploads
+      </a>
+      <a routerLink="downloads-folder" routerLinkActive="active-link">
+        <mat-icon>cloud_download</mat-icon> Downloads
+      </a>
+      <a routerLink="storico-processi" routerLinkActive="active-link">
+        <mat-icon>history</mat-icon> History
+      </a>
+    </nav>
+    <a routerLink="/settings" id="settings" routerLinkActive="active-link">
+      <mat-icon>settings</mat-icon>
+    </a>
+  </header>
 </div>
-
-
-

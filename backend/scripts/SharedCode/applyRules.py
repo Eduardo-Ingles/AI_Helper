@@ -189,7 +189,8 @@ if __name__ == "__main__":
                     "INT ST CH ALIMENT PMV EST",
                     "UPS ST",
                     "GE ST MARCIA G E IN FUNC",
-                    "ALR CNTRL CMD TEMP TRAFO 4 QGBT1 CAB MAIN"
+                    "ALR CNTRL CMD TEMP TRAFO 4 QGBT1 CAB MAIN",
+                    "ALR GROUP PRESS B CAB MAIN"
                     ]
 
         #testFunc(inputTest)

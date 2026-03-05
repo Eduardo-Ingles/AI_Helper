@@ -1,6 +1,26 @@
-.howToUse{
+.howToUse {
     position: absolute;
-    bottom: 1%;
-    left: 1%;
-    /*transform: translate(0%, 0%);*/
+    bottom: 20px;
+    left: 20px;
+}
+
+button {
+    background-color: var(--surface-color);
+    color: var(--on-bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+    transform: scale(1.1);
 }

@@ -93,6 +93,7 @@ def checkDeviceInSP(deviceList, deviceId):
 
 
 def mainFunCall(filePath, fileName, sheet, chosenDB, **kwargs):
+    global globalMsg
     yield fileName if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(fileName)
     try: 
         yield("Cercando...") if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print("Cercando")
@@ -100,11 +101,39 @@ def mainFunCall(filePath, fileName, sheet, chosenDB, **kwargs):
             chosenDB = "prod"
         if(filePath != "" and not filePath.endswith("\\")):
             filePath += "\\"    
+                
+        full_path = filePath + fileName
+        msg = f"DEBUG - Tentativo lettura: {full_path}"
+        yield msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
+        
+        if not os.path.exists(full_path):
+            error_msg = f"ERRORE: File non trovato: {full_path}"
+            yield error_msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(error_msg)
+            return
+        
         df = sharedCode.rw_xlsx(path = filePath, file = fileName, sheets = sheet)
+        
+        if df is None:
+            error_msg = f"ERRORE: Impossibile leggere il file Excel. Foglio '{sheet}' non trovato o file corrotto."
+            yield error_msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(error_msg)
+            return
+        
+        if not isinstance(df, pd.DataFrame):
+            error_msg = f"ERRORE: Il risultato non è un DataFrame valido. Tipo: {type(df)}"
+            yield error_msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(error_msg)
+            return
+        
+        if df.empty:
+            error_msg = "ERRORE: Il DataFrame è vuoto"
+            yield error_msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(error_msg)
+            return
+        
+        msg = f"✓ File letto correttamente: {len(df)} righe, colonne: {list(df.columns)}"
+        yield msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
 
         if("newSubplant" in df.columns):
             devicesArrayDf = getDeviceListV2(df)
-            dbAddress = "MongoProductionClient" if chosenDB and "prod" in chosenDB.lower() else "MongoQualityClient"                  
+            dbAddress = ("MongoProductionClient" if chosenDB and "prod" in chosenDB.lower() else "MongoMomsTestClient" if chosenDB and "moms" in chosenDB.lower() else "MongoQualityClient")                
             client = pymongo.MongoClient(sharedCode.loadSettings("dbSettings", dbAddress)) 
             currDB = client["smartscada"] 
 
@@ -134,12 +163,47 @@ def mainFunCall(filePath, fileName, sheet, chosenDB, **kwargs):
                                 for tempSubPlantDf in tempSubPlantsDf:
                                     if(nomeGalleria not in tempSubPlantDf):
                                         tempSubPlantDf = nomeGalleria + "-" + tempSubPlantDf 
-                                    if(tempSubPlantDf in subPlant["name"]):                                        
+                                    if(tempSubPlantDf == subPlant["name"]):        #prima era in invece di ==                                
                                         tempDevice = mongoSearch.readCollectionData(currDB, "device", name = deviceDf["device"])
                                         if(tempDevice):                                            
                                             currIndexes["current"] += 1
                                             if(checkDeviceInSP(tempDevicePositions, str(tempDevice["_id"]))):
-                                                0#print(f"\tesiste già: {tempDevice["name"]} --->\t{subPlant["name"]}") 
+                                                # AGGIORNA il dispositivo esistente
+                                                tempGroup = mongoSearch.readCollectionData(currDB, "group", id = ObjectId(subPlant["group"].id))
+                                                if(tempGroup):
+                                                    tempDevice["associatedGroups"].append(str(tempGroup["name"])) if str(tempGroup["name"]) not in tempDevice["associatedGroups"] else next
+                                                    tempDevice["associatedGroupIds"].append(str(tempGroup["_id"])) if str(tempGroup["_id"]) not in tempDevice["associatedGroupIds"] else next
+                                                    
+                                                    # Trova e aggiorna la posizione esistente
+                                                    for idx, existingPos in enumerate(tempDevicePositions):
+                                                        if str(existingPos["deviceId"]) == str(tempDevice["_id"]):
+                                                            # NUOVO: Controlla se ci sono coordinate nel file Excel
+                                                            has_coordinates = (deviceDf["posX"] and deviceDf["posX"] != "None" and 
+                                                                             deviceDf["posY"] and deviceDf["posY"] != "None")
+                                                            
+                                                            # Aggiorna coordinate SOLO se presenti nel file Excel
+                                                            if has_coordinates:
+                                                                if deviceDf["posX"] and int(deviceDf["posX"]) > 10:
+                                                                    existingPos["left"] = deviceDf["posX"]
+                                                                if deviceDf["posY"] and int(deviceDf["posY"]) > 10:
+                                                                    existingPos["top"] = deviceDf["posY"]
+                                                                if deviceDf["width"]:
+                                                                    existingPos["width"] = deviceDf["width"]
+                                                                if deviceDf["height"]:
+                                                                    existingPos["height"] = deviceDf["height"]
+                                                            
+                                                            # Aggiorna SEMPRE show/hidden (indipendentemente dalle coordinate)
+                                                            existingPos["show"] = deviceDf["show"]
+                                                            
+                                                            tempDevicePositions[idx] = existingPos
+                                                            
+                                                            # Yield del messaggio di aggiornamento
+                                                            coord_msg = f"(x: {existingPos['left']}, y: {existingPos['top']})" if has_coordinates else "(coordinate non modificate)"
+                                                            msg = f"AGGIORNATO:\t{currIndexes['current']}:{currIndexes['maxElem']} > {tempDevice['name']} - {coord_msg} - [show: {existingPos['show']}] in -> {subPlant['name']}"
+                                                            yield msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
+                                                            break
+                                                    
+                                                    updateCurrDocumentDevice(currDB, "device", ObjectId(tempDevice["_id"]), tempDevice)
                                             else:                                               
                                                 tempGroup = mongoSearch.readCollectionData(currDB, "group", id = ObjectId(subPlant["group"].id))
                                                 if(tempGroup):
@@ -147,7 +211,7 @@ def mainFunCall(filePath, fileName, sheet, chosenDB, **kwargs):
                                                     tempDevice["associatedGroupIds"].append(str(tempGroup["_id"])) if str(tempGroup["_id"]) not in tempDevice["associatedGroupIds"] else next
                                                     
                                                     tempPos = devicePositionTemplate_new(currDevPos, str(tempDevice["_id"]), subPlant["name"], deviceDf, currIndexes, yieldFlag = kwargs.get("yieldFlag")) 
-                                                    global globalMsg
+                                                
                                                     if globalMsg != "":
                                                         yield globalMsg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(globalMsg)
                                                         globalMsg = ""
@@ -161,11 +225,10 @@ def mainFunCall(filePath, fileName, sheet, chosenDB, **kwargs):
                                                     if(tempOffset["x"] > 1900):
                                                         tempOffset["x"] = 45
                                                         tempOffset["y"] += 25 if tempOffset["y"] < 900 else 0
-                        #""" uncomment to save"""
+                        
                                                     updateCurrDocumentDevice(currDB, "device", ObjectId(tempDevice["_id"]), tempDevice)
                         updateCurrDocumentSubPlant(currDB, "subPlant", ObjectId(PlantSubPlant.id), tempDevicePositions) 
                     else:
-                        0
                         yield (f"Missing SubPlant id: {PlantSubPlant.id}") if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(f"Missing SubPlant id: {PlantSubPlant.id}")
                     
                     msg = sharedCode.progressYield(prgrss + 1, len(currPlant["subPlants"]))
@@ -175,8 +238,7 @@ def mainFunCall(filePath, fileName, sheet, chosenDB, **kwargs):
     except Exception as e:
         print(f"An error occurred: {str(e)}:")
         yield f"An error occurred: {str(e)}:"
-        traceback.print_exc()  
-
+        traceback.print_exc()
 
 def updateCurrDocumentDevice(db, collection_name, document_id, associatedGroups):
     collection = db[collection_name]

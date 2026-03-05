@@ -117,6 +117,7 @@ type LinkObject = { link: string; linkName: string };
 			MatRadioModule,
 			MatStepperModule,
 			MatAutocompleteModule,
+			
 			CustomAutocomplete,
 			MatInputModule,
 			TextFieldModule,
@@ -246,6 +247,7 @@ export class HomeComponent implements OnInit{
 	choicesMade: any = {}
   	submissionData: any = {};
 	isRunning: boolean = false;
+	cardModeAggiungi: boolean = true;  //aggiunto 04/03/26
 	async esegui(){
 		var uploadedFiles;
 		this.sharedDataServiceDict.sharedValue$.subscribe(value => {			
@@ -268,7 +270,8 @@ export class HomeComponent implements OnInit{
 				collection: temp_collection,
 				subCollection: temp_subCollection,
 				galleria: temp_galleria,
-				files: uploadedFiles
+				files: uploadedFiles,
+				mode: this.cardModeAggiungi ? 'create' : 'update'
 			}
 		//console.log("choicesMade: ", this.submissionData);
 		if((this.selectionRequirements.text && this.submissionData.galleria) || (this.selectionRequirements.file && this.submissionData.files)){	
@@ -276,6 +279,7 @@ export class HomeComponent implements OnInit{
 			this.submissionData.userId = this.globalSocket.id;//"UUID";
 			this.isRunning = true;
 			this.hideMainOutput = false;	
+			console.log("MODE:", this.submissionData.mode, "| cardModeAggiungi:", this.cardModeAggiungi); // <-- aggiungi
 			this.runScript();	
 		}else{
 			if(this.selectionRequirements.text && !this.submissionData.galleria){
@@ -586,6 +590,7 @@ export class HomeComponent implements OnInit{
 		this.submissionData = {};		
 		this.isRunning = false;	 
 		this.hideMainOutput = true;	
+		this.cardModeAggiungi = true; //04/03/26
 		this.outputDiv = "";
 		this.templateFile = "";
 		this.socketStart();

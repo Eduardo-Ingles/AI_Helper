@@ -72,6 +72,7 @@ def CaricaDaFileImpianto(file):                                                 
                     arrDatiPlant[ind].latitudine    = workSheet["E" + str(i + offset)].value  
                     arrDatiPlant[ind].longitudine   = workSheet["F" + str(i + offset)].value  
                     arrDatiPlant[ind].SOC           = workSheet["G" + str(i + offset)].value  
+                    arrDatiPlant[ind].wip           = workSheet["M" + str(i + offset)].value  
                     #arrDatiPlant[ind].subPlants     = workSheet["H" + str(i + offset)].value 
             elif(i > 0 and arrDatiPlant[0].nomeGalleria != None):
                 if(workSheet["E" + str(i + offset)].value != None and not "Nome Sottoimpianto" in workSheet["B" + str(i + offset)].value):
@@ -117,6 +118,7 @@ def SalvaDaFileImpianto(file):                                                  
                     arrDatiPlant[ind].latitudine    = str(workSheet["E" + str(i + offset)].value)  
                     arrDatiPlant[ind].longitudine   = str(workSheet["F" + str(i + offset)].value)  
                     arrDatiPlant[ind].SOC           = str(workSheet["G" + str(i + offset)].value)  
+                    arrDatiPlant[ind].wip           = str(workSheet["M" + str(i + offset)].value)  
                     arrDatiPlant[ind].subPlants     = workSheet["H" + str(i + offset)].value 
             elif(i > 0 and arrDatiPlant[0].nomeGalleria != None):
                 if(workSheet["E" + str(i + offset)].value != None and not "Nome Sottoimpianto" in workSheet["B" + str(i + offset)].value):
@@ -146,7 +148,8 @@ def printaFunc(arrDatiPlant, **kwargs):
                     ,arrDatiPlant[i].plantSubTitle, " " 
                     ,arrDatiPlant[i].latitudine, " "    
                     ,arrDatiPlant[i].longitudine, " "   
-                    ,arrDatiPlant[i].SOC, " "           
+                    ,arrDatiPlant[i].SOC, " "      
+                    ,arrDatiPlant[i].wip, " "       
                     #,arrDatiPlant[i].subPlants, 
                     "\n" )    
             yield msg if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)

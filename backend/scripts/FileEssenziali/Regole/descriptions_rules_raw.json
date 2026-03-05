@@ -11,7 +11,7 @@
 "!--- FAULT / ERROR ---!",
     "[ALR ST ERROR] FAULT : = ALR-FAULT : Allarme guasto",
     "[ALR ST ERROR] FAULT CNTRL : = ALR-FAULT-CNTRL : Allarme guasto centralina && CNTRL",    
-    "[ALR ST ERROR] FAULT [NORD SUD]: = ALR-FAULT-$VARA$ : Allarme guasto $VARA$",
+    "[ALR ST ERROR] FAULT [NORD SUD] : = ALR-FAULT-$VARA$ : Allarme guasto $VARA$",
     "[ALR ST ERROR] FAULT MIS : = ALR-FAULT-MIS : Allarme guasto lettua misura",
     "[ALR ST ERROR] FAULT MIS [NORD SUD] : = ALR-FAULT-MIS-$VARA$ : Allarme guasto lettua misura $VARA$",
     "[ALR ERROR] SWITCH : = ALR-SWITCH : Allarme SWITCH in errore",
@@ -517,7 +517,7 @@
 
 
 "!--- FrecciaCroce ---!",
-    "PAR CMD WRITE [WRITE FC] : PAR WRITE = PAR-CMD-WRITE : Comando scrittura freccia croce && FC",
+    "PAR CMD WRITE [FC WRITE] : PAR = PAR-CMD-WRITE : Comando scrittura freccia croce && FC",
 
 
 "!--- ILLUMINAZIONE ---!",

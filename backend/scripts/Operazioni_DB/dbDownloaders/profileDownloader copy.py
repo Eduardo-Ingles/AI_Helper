@@ -9,6 +9,7 @@ import re
 
 MongoQualityClient = "mongodb://rmtqual:H2Fnv3QAP4%3FB@rmt-q-nosql1-1.anasnet.it,rmt-q-nosql1-2.anasnet.it,rmt-q-nosql1-3.anasnet.it/?replicaSet=rmtqualRS&readPreference=secondaryPreferred&ssl=false"
 MongoProductionClient = "mongodb://root:abc123!@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?replicaSet=rs1&authSource=admin"
+MongoMomsTestClient = "mongodb://10.86.20.54:27017"
 # auto-py-to-exe
 # pyinstaller scaricoDB.py --onefile
 # pyinstaller scaricoDB.spec

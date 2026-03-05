@@ -1,42 +1,55 @@
-
 .custom-mat-card {
-    margin-bottom: 10px;
-    width: 33%;
+	margin-bottom: 10px;
+	width: 33%;
 	position: fixed;
 	top: 92%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	background-color: var(--surface-color) !important;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.ustom-mat-card-content{
+.ustom-mat-card-content {
 	position: absolute;
 }
 
-.progress-container{	/* div */
-	/*position: relative;*/
+.progress-container {
 	margin: 0px 0;
-	/**/
 }
 
 .custom-progress-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 50px;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	height: 50px;
 }
-  
 
 .custom-progress {
 	height: 20px;
-    margin: 0 10px;
+	margin: 0 10px;
 }
 
+/* Theme-styled progress bar colors */
+::ng-deep .custom-progress .mdc-linear-progress__buffer-bar {
+	background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+::ng-deep .custom-progress .mdc-linear-progress__bar-inner {
+	border-color: var(--primary-color) !important;
+}
+
+::ng-deep .custom-progress .mdc-linear-progress__buffer-dots {
+	display: none;
+}
 
 .progress-label {
 	position: absolute;
 	top: 56%;
 	left: 50%;
-	/*transform: translate(-30%, -50%);*/
-	color: #000;
+	color: var(--on-bg-color);
 	font-weight: bold;
+	font-family: inherit;
+	text-shadow: none;
 }

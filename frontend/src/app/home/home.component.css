@@ -1,88 +1,209 @@
-
-
-/*mainOutputArea*/
-
-#mainOutputArea.ng-invalid {
-    background-color:pink;
-}
-#mainOutputArea.ng-valid {
-    background-color:lightgreen;
+/* Container for the whole component */
+:host {
+    display: block;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: var(--on-bg-color);
 }
 
-#mainOutputArea{    
-    position: relative;
-    transform:  translate(-50%, 0%);
-    left: 50%;
-    height: 60vh; 
-    width:  60%;
-    overflow-x: hidden;
-    resize: none;
+/* Stepper Styling */
+mat-stepper {
+    background-color: transparent !important;
+    /* Make stepper transparent */
+    margin-bottom: 20px;
 }
 
+::ng-deep .mat-step-header .mat-step-label.mat-step-label-active {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+}
+
+::ng-deep .mat-step-header .mat-step-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Form Fields */
+.scriptSelector,
+.galleriaSelector {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Form Fields Global Overrides for Home Component */
+::ng-deep .mat-form-field-flex {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 4px 4px 0 0;
+    padding: 0.75em 0.75em 0 0.75em;
+}
+
+::ng-deep .mat-form-field-label {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+::ng-deep .mat-form-field-underline {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+::ng-deep .mat-input-element {
+    color: var(--on-bg-color) !important;
+    caret-color: var(--primary-color);
+}
+
+::ng-deep .mat-form-field-ripple {
+    background-color: var(--primary-color) !important;
+}
+
+/* Autocomplete Panel */
+::ng-deep .mat-autocomplete-panel {
+    background-color: var(--surface-color) !important;
+    color: var(--on-bg-color) !important;
+}
+
+::ng-deep .mat-option {
+    color: var(--on-bg-color) !important;
+}
+
+::ng-deep .mat-option:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+::ng-deep .mat-option.mat-selected {
+    background-color: rgba(187, 134, 252, 0.1) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Specific Selectors */
+.scriptSelector,
+.galleriaSelector {
+    width: 60%;
+    /* Improved width */
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Buttons */
+button[mat-fab] {
+    background: linear-gradient(135deg, var(--primary-color), #2563eb);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 10px;
+    border-radius: 50% !important;
+    overflow: hidden;
+}
+
+button[mat-fab]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+button[mat-fab]:disabled {
+    background: gray;
+    color: rgba(255, 255, 255, 0.3);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Button Toggle Group */
+mat-button-toggle-group {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: var(--surface-color);
+}
+
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    padding: 0 20px !important;
+}
+
+mat-button-toggle {
+    background-color: var(--surface-color);
+    color: var(--on-bg-color);
+    border-radius: 30px !important;
+}
+
+::ng-deep .mat-button-toggle-checked {
+    background-color: var(--primary-color) !important;
+    color: var(--on-primary-color) !important;
+    border-radius: 30px !important;
+}
+
+/* Main Output Area - Terminal Style */
+/* Main Output Area - Terminal Style (Themed) */
 .mainOutputDiv {
-    flex-grow: 1;
-    flex: 1;       
-    position: relative;  
-    transform:  translate(-50%, -5%);
-    left: 50%;
-    white-space: pre-line;
-    background-color: #f0f0f0;
-    border: 10px solid #ccc;
-    /*height: 100%; */
-    height: 50vh; 
-    width: 80%;
-    overflow-y: scroll; /* Changed from scroll to auto */
-    padding: 10px;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    resize: none;
-    font-size: 16px;
-    /*width: 500px;           /* Set the desired width */
-    /*height: 890px;          /* Set the desired height */
-    /*padding: 10px;          /* Optional padding */
-    /*border: 1px solid #ccc; /* Border for visual clarity */
-    /*overflow-y: auto;       /* Enable vertical scrolling */
-    overflow-x: hidden;     /* Hide horizontal scrollbar */
-    /*white-space: pre-wrap;  /* Preserve whitespace and line breaks */
-    /*white-space: pre-line;*/
-    white-space: pre-wrap; 
+    background-color: var(--surface-color);
+    /* Dark Slate Blue */
+    color: var(--on-bg-color);
+    /* White/Light Grey */
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 50vh;
+    overflow-y: auto;
+    white-space: pre-wrap;
     word-wrap: break-word;
-    /*background-color: #f9f9f9;*/
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
-.mainContainer{
-    height: 80vh;
+/* Old ID styling for compatibility if needed, though class is preferred */
+#mainOutputArea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    resize: none;
+    outline: none;
 }
 
-.loadType{
-    flex: 1;
-    margin-top: 30px;
+/* Scrollbar for the terminal */
+.mainOutputDiv::-webkit-scrollbar {
+    width: 8px;
 }
 
-.selectors{
-    flex: 2;
-    display: flex;
-    flex-direction: row;
-}
-.run{
-    flex: 1;
-    
-}
-.result{
-    flex: 6;
-    
+.mainOutputDiv::-webkit-scrollbar-track {
+    background: #1e1e1e;
 }
 
-.profileDevice{
-    display: flex;
-    flex-direction: column;
-
+.mainOutputDiv::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
 }
 
-
-.scriptSelector{
-    min-width: 450px;
+.mainOutputDiv::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
-.galleriaSelector{
-    min-width: 450px;
+/* Links in output */
+.mainOutputDiv a {
+    color: #4fc3f7;
+    text-decoration: underline;
+}
+
+.mainOutputDiv a:hover {
+    color: #81d4fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    .scriptSelector,
+    .galleriaSelector {
+        min-width: 100%;
+        /* Full width on mobile */
+        width: 100%;
+    }
+
+    button[mat-fab] {
+        width: 40px;
+        height: 40px;
+    }
 }

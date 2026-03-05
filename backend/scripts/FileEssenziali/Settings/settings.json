@@ -106,6 +106,10 @@
         {
             "_id": "MongoProductionClient",
             "data": "mongodb://root:abc123!@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?replicaSet=rs1&authSource=admin"
+        },
+        {
+            "_id": "MongoMomsTestClient",
+            "data": "mongodb://10.86.20.54:27017"
         }
     ],
 
@@ -213,13 +217,17 @@
             "_old_": "mongodb://root:abc123%21@rmt-p-nosql1-1.anasnet.it:27017,rmt-p-nosql1-2.anasnet.it:27017,rmt-p-nosql1-3.anasnet.it:27017/?authSource=admin&replicaSet=rs1&readPreference=primary&ssl=false"
         },
         {
+            "_id": "MongoMomsTestClient",
+            "data": "mongodb://10.86.20.54:27017"
+        },
+        {
             "_id": "dataType",
             "data" : 
                 [
                     {
                     "bool_KW" : ["BOOLEAN", "BINARY", "BIT", "DIGITAL", "BOOL", "BYTE", "WORD_BINARY", "COIL"],
                     "int_KW"  : ["INTEGER", "TWO_BYTE_INT_SIGNED", "INT", "HEX", "TIME","TWO-BYTE-INT-SIGNED"],
-                    "uint_KW" : ["INTEGER", "TWO_BYTE_INT_UNSIGNED", "UINT", "U_INT", "TWO-BYTE-INT-UNSIGNED"],
+                    "uint_KW" : ["INTEGER", "TWO_BYTE_INT_UNSIGNED", "TWO_BYTE_BCD", "UINT", "U_INT", "TWO-BYTE-INT-UNSIGNED"],
                     "dint_KW" : ["INTEGER", "FOUR_BYTE_INT_SIGNED", "LONG", "DINT", "D_INT", "FOUR_BYTE_INT_UNSIGNED"],
                     "dintSwap_KW" : ["INTEGER", "FOUR_BYTE_INT_SIGNED_SWAPPED", "DINT_SWAPP", "D_INT_SWAPP", "FOUR_BYTE_INT_UNSIGNED_SWAPPED"],
                     "real_KW" : ["FLOAT", "FOUR_BYTE_FLOAT", "REAL"],

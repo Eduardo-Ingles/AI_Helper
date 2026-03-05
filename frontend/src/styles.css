@@ -1,49 +1,155 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Dark Theme Variables (Updated to Dark Blue Theme) */
+:root {
+    --bg-color: #0f172a;
+    /* Deep Navy/Slate 900 */
+    --surface-color: #1e293b;
+    /* Slate 800 */
+    --primary-color: #3b82f6;
+    /* Bright Blue */
+    --secondary-color: #60a5fa;
+    /* Lighter Blue */
+    --error-color: #ef4444;
+    --on-bg-color: #f8fafc;
+    /* Slate 50 */
+    --on-surface-color: #f1f5f9;
+    --on-primary-color: #ffffff;
+    --on-secondary-color: #ffffff;
+    --surface-opacity: rgba(30, 41, 59, 0.8);
+    --glass-blur: 10px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--on-bg-color);
+    margin: 0;
+    height: 100%;
+    /* Add a subtle gradient matching the blue theme */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background-attachment: fixed;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-  }
-
-  
-  .header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  
-nav a {
-  padding: 1rem;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
-  background-color: #e8e8e8;
-  color: #3d3d3d;
-  border-radius: 4px;
+    padding: 20px;
 }
 
-nav a:hover {
-  color: white;
-  background-color: #42545C;
-}
-nav a:active {
-  background-color: black;
-}
-  
-
-.searchField{
-  text-align: center;
-  /*position: relative;
-  float: none;
-  top: 50%;
-  left: 70%;
-  transform: translate(-50%, -50%);*/
+/* Helper Classes */
+.glass-effect {
+    background: var(--surface-opacity);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--box-shadow);
 }
 
+/* Angular Material Overrides for Dark Theme (Basic) */
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: var(--primary-color) !important;
+    color: var(--on-primary-color) !important;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Ensure text is readable on dark background */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--on-bg-color);
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Angular Material Dark Theme Overrides (Global) --- */
+
+/* Autocomplete/Menu Panel */
+.mat-autocomplete-panel,
+.mat-select-panel,
+.mat-menu-panel {
+    background-color: var(--surface-color) !important;
+    color: var(--on-bg-color) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Options */
+.mat-option,
+.mat-menu-item {
+    color: var(--on-bg-color) !important;
+}
+
+.mat-option:hover,
+.mat-menu-item:hover,
+.mat-option:focus,
+.mat-menu-item:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.mat-option.mat-active,
+.mat-option.mat-selected {
+    background-color: rgba(187, 134, 252, 0.15) !important;
+    /* Primary color with opacity */
+    color: var(--primary-color) !important;
+}
+
+/* Option Groups */
+.mat-optgroup-label {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Tooltips */
+.mat-tooltip {
+    background-color: var(--surface-color) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+}
+
+/* Dialog Overrides */
+.mat-dialog-container,
+.full-screen-modal .mat-dialog-container {
+    background-color: var(--surface-color) !important;
+    color: var(--on-bg-color) !important;
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, .2), 0 24px 38px 3px rgba(0, 0, 0, .14), 0 9px 46px 8px rgba(0, 0, 0, .12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure links in dialogs are readable */
+.mat-dialog-container a {
+    color: var(--secondary-color);
+}
+
+.mat-dialog-container a:hover {
+    color: var(--primary-color);
+}

@@ -61,7 +61,8 @@ def CaricaDaFileImpianto(**kwargs):
                         "plantSubTitle" : workSheet["D" + str(i + offset)].value,  
                         "latitudine"    : workSheet["E" + str(i + offset)].value,  
                         "longitudine"   : workSheet["F" + str(i + offset)].value, 
-                        "SOC"           : workSheet["G" + str(i + offset)].value   
+                        "SOC"           : workSheet["G" + str(i + offset)].value,
+                        "wip"           : workSheet["M" + str(i + offset)].value,
                         }  
                     
             elif(i > 0 and plantDict["nomeGalleria"] != None):

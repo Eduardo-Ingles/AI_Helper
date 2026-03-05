@@ -37,6 +37,8 @@ def process_files(sio, client_id, data, script, **kwargs):
     if(nomeGalleria and cpu_usage < 70):
         auxName = "dragonfly"
         chosenDB = data.get("database", None)
+        yield {"stream": f"DEBUG - chosenDB ricevuto: '{chosenDB}'\n"}
+        if chosenDB == "MomsTest": chosenDB = "MomsTest" 
         elabChoice = data.get("subCollection", "Dispositivi") # default = DEVICE
         nomeGalleria = nomeGalleria.replace("$PROD$","").strip() if("$PROD$" in nomeGalleria.upper()) else nomeGalleria.strip()
         start = time.time()  

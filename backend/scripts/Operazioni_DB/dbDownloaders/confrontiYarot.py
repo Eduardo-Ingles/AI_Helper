@@ -6,7 +6,6 @@ import traceback
 project_root = os.getcwd()
 sys.path.append(project_root)
 
-
 from backend.scripts.SharedCode import sharedCode, mongoSearch
 
 
@@ -222,26 +221,26 @@ def mainCall(nomeGallerie, UploadsFileFolder, DownloadsFileFolder, CpuCoreNumber
                     for result in results:
                         if(result):
                             if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"] and result["type"] == "DeviceSchema"):
-                                yarotData_tag.append(result["name"]) if result["name"] not in yarotData_tag else next 
+                                yarotData_tag.append(result["name"]) if result["name"] not in yarotData_tag else next
                             else:
                                 msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]} & type: {result["type"]}")
                                 yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
-                    msg = sharedCode.progressYield(indx + 1, len(dfDataHolder["tagData"]))      
+                    msg = sharedCode.progressYield(indx + 1, len(dfDataHolder["tagData"]))
                     if(msg):
-                        yield msg     
-                        
+                        yield msg
+
                 for indx, sdevice in enumerate(dfDataHolder["widgetData"]):
                     results = mongoSearch.findCollectionData(client[yarot], "assets", querry = {"name": sdevice})
                     for result in results:
                         if(result):
                             if("lifeCycle" in result.keys() and "READY" in result["lifeCycle"] and result["type"] == "DeviceSchema"):
-                                yarotData_widget.append(result["name"]) if result["name"] not in yarotData_widget else next 
+                                yarotData_widget.append(result["name"]) if result["name"] not in yarotData_widget else next
                             else:
                                 msg = (f"Errore: {result["name"]} -> lifeCycle: {result["lifeCycle"]} & type: {result["type"]}")
                                 yield(msg) if "yieldFlag" in kwargs and kwargs.get("yieldFlag") else print(msg)
-                    msg = sharedCode.progressYield(indx + 1, len(dfDataHolder["widgetData"]))      
+                    msg = sharedCode.progressYield(indx + 1, len(dfDataHolder["widgetData"]))
                     if(msg):
-                        yield msg    
+                        yield msg
                 # YAROT 
                 assetsData = mongoSearch.readCollectionData(client[yarot], "assets", name = nomeGalleria, regex = True)
                 for aData in assetsData:        
